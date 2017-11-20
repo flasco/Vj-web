@@ -1,0 +1,12 @@
+.ques-table td{
+  font-size: 14px;
+}
+.ques-table td:nth-child(1){
+  width: 7%;
+}
+.ques-table td:nth-child(2){
+  width: 73%;
+}
+.ques-table td:nth-child(3){
+  width: 20%;
+}

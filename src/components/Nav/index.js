@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.css';
 import { Link, withRouter } from 'react-router-dom';
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, Avatar } from 'antd';
 const { Header, Content, Footer } = Layout;
 
 class Nav extends React.Component {
@@ -13,23 +13,26 @@ class Nav extends React.Component {
   }
 
   render() {
-    let key = window.location.pathname.split('/')[1] || 'index';
+    let key = window.location.pathname.split('/')[2] || '';
     return (
       <Layout className="layout">
         <Header>
-          <div className="logo"><span>美食爱好者</span></div>
+          <div className="Nav-logo"><span>Virtual Judge</span></div>
           <Menu
             theme="dark"
             mode="horizontal"
             defaultSelectedKeys={this.state.selectedKeys}
             selectedKeys={[key]}
-            style={{ lineHeight: '64px', float: 'right' }}
+            style={{ lineHeight: '64px', float: 'left' }}
           >
-            <Menu.Item key="index"><Link to="/">公告</Link></Menu.Item>
-            <Menu.Item key="discuss"><Link to="/discuss">讨论</Link></Menu.Item>
-            <Menu.Item key="antdTest"><Link to="/antdTest">测试</Link></Menu.Item>
-            <Menu.Item key="about"><Link to="/about">关于</Link></Menu.Item>
+            <Menu.Item key="info"><Link to="/main/info">资讯</Link></Menu.Item>
+            <Menu.Item key="ques"><Link to="/main/ques">题库</Link></Menu.Item>
+            <Menu.Item key="exam"><Link to="/main/exam">比赛</Link></Menu.Item>
+            <Menu.Item key="rank"><Link to="/main/rank">排名</Link></Menu.Item>
           </Menu>
+          <div className="Nav-head">
+            <Avatar icon="user" className="Nav-Ava" size="large"/>
+          </div>
         </Header>
         <Content style={{ padding: '0 50px' }}>
           <div style={{ background: '#fff', marginTop: 32, padding: 24, minHeight: 280 }}>
