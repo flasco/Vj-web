@@ -2,18 +2,22 @@ import React from 'react';
 import { Row, Col, Table, Input } from 'antd';
 import { Link } from 'react-router-dom';
 
-import { fetchList } from '../../services';
+import { fetchQuesList } from '../../services';
 
 import './index.css';
 
 const columns = [{
+  title: 'OJ',
+  key: 'remoteOJ',
+  dataIndex: 'remoteOJ',
+},{
   title: 'Pro.Id',
-  key: 'proId',
-  dataIndex: 'proId',
+  key: 'remoteProblemId',
+  dataIndex: 'remoteProblemId',
 }, {
   title: 'Title',
   key: 'title',
-  render: (text, record) => <span><Link to={`./ques/${record.proId}`}>{record.title}</Link></span>
+  render: (text, record) => <span><Link to={`./ques/${record.remoteProblemId}`}>{record.title}</Link></span>
 }, {
   title: 'Ratio',
   key: 'ratio',
@@ -37,7 +41,7 @@ class QuesList extends React.Component {
 
   async fetchL(page) {
     this.setState({ loading: true });
-    const datax = await fetchList(page);
+    const datax = await fetchQuesList(page);
     const pagination = { ...this.state.pagination };
     pagination.total = datax.totalCount;
     this.setState({

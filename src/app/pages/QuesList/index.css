@@ -5,8 +5,11 @@
   width: 7%;
 }
 .ques-table td:nth-child(2){
-  width: 73%;
+  width: 7%;
 }
 .ques-table td:nth-child(3){
+  width: 66%;
+}
+.ques-table td:nth-child(4){
   width: 20%;
 }

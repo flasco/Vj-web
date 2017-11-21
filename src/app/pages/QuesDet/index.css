@@ -27,3 +27,11 @@
   width: 85%;
   margin: 0 auto;
 }
+
+.quesDet-ul{
+  font-size: 14px;
+  text-align: center;
+}
+.quesDet-ul a{
+  margin: 0 15px;
+}
