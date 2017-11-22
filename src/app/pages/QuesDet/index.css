@@ -1,27 +1,3 @@
-.quesDet-Panel-content {
-  display: block;
-  padding: 9.5px;
-  margin: 0 0 10px;
-  font-size: 14px;
-  line-height: 1.42857143;
-  color: #333;
-  word-break: break-word;
-  background-color: #f5f5f5;
-  border: 1px solid #ccc;
-  word-break: break-word;
-  white-space: normal;
-}
-
-.quesDet-Panel-title{
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 5px;
-  color: #333;
-}
-
-.quesDet-Panel-block{
-  margin-top: 30px;
-}
 
 .quesDet-container{
   width: 85%;
@@ -32,6 +8,13 @@
   font-size: 14px;
   text-align: center;
 }
-.quesDet-ul a{
+.quesDet-ul a,.quesDet-ul span{
   margin: 0 15px;
+}
+
+.quesDet-ul span{
+  color: #1DA57A;
+  background: transparent;
+  cursor:pointer;
+  font-size:14px;
 }

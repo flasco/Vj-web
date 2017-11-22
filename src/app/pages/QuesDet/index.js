@@ -1,28 +1,13 @@
 import React from 'react';
-import { Row, Col, Table, Input, Icon, Spin } from 'antd';
+import { Icon, Spin, Modal, Form, Input } from 'antd';
 import { Link } from 'react-router-dom';
-import xss from 'xss';
 
 import { fetchQuesDet } from '../../services/index'
 
+import SubmitForm from './components/SubmitForm';
+import Panel from './components/Panel';
+
 import './index.css';
-
-
-
-class Panel extends React.Component {
-  render() {
-    if (this.props.desc !== undefined) {
-      return (
-        <div className="quesDet-Panel-block">
-          <div className="quesDet-Panel-title">{this.props.name}</div>
-          <div className="quesDet-Panel-content" dangerouslySetInnerHTML={{__html:this.props.desc}}/>
-        </div>
-      );
-    } else {
-      return false;
-    }
-  }
-}
 
 class QuesDet extends React.Component {
   constructor(props) {
@@ -32,15 +17,45 @@ class QuesDet extends React.Component {
     this.state = {
       data: {},
       loading: true,
+      ModalText: 'Content of the modal',
+      visible: false,
+      confirmLoading: false,
     }
+    // console.log(mathJax);
   }
   componentDidMount() {
     this.fetchData();
   }
+
   async fetchData() {
     let d = await fetchQuesDet(this.proId);
     this.setState({ data: d, loading: false })
   }
+
+  showModal = () => {
+    this.setState({
+      visible: true,
+    });
+  }
+  handleOk = () => {
+    this.setState({
+      ModalText: 'The modal will be closed after two seconds',
+      confirmLoading: true,
+    });
+    setTimeout(() => {
+      this.setState({
+        visible: false,
+        confirmLoading: false,
+      });
+    }, 2000);
+  }
+  handleCancel = () => {
+    console.log('Clicked cancel button');
+    this.setState({
+      visible: false,
+    });
+  }
+
   render() {
     if (this.state.loading) {
       return (
@@ -67,13 +82,22 @@ class QuesDet extends React.Component {
           <Panel name="Hint" desc={this.state.data.hint} />
           <Panel name="Recommend" desc={this.state.data.recommend} />
           <div className="quesDet-ul">
+            <span onClick={this.showModal}>提交</span>
+            <Link key="note" to={`./note/${this.proId}`}>解题报告</Link>
+            <Link key="return" to={`/main/ques`}>返回</Link>
+            {/* <Link key="submit" to={`./submit/${this.proId}`}>提交</Link> */}
             {/* <Link key="statistic" to={`./ques/statistic/${this.proId}`}>Statistic</Link> */}
             {/* <Link key="discuss" to={`./ques/discuss/${this.proId}`}>Discuss</Link> */}
-            <Link key="submit" to={`./ques/submit/${this.proId}`}>提交</Link>
-            <Link key="note" to={`./ques/note/${this.proId}`}>解题报告</Link>
-            <Link key="return" to={`/main/ques`}>返回</Link>
           </div>
-        </div>
+          <Modal title="Submit"
+            visible={this.state.visible}
+            onOk={this.handleOk}
+            confirmLoading={this.state.confirmLoading}
+            onCancel={this.handleCancel}
+          >
+            <SubmitForm />
+          </Modal>
+        </div >
       );
     }
   }
