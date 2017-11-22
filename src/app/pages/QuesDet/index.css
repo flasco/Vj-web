@@ -8,13 +8,7 @@
   font-size: 14px;
   text-align: center;
 }
-.quesDet-ul a,.quesDet-ul span{
+.quesDet-ul a{
   margin: 0 15px;
 }
 
-.quesDet-ul span{
-  color: #1DA57A;
-  background: transparent;
-  cursor:pointer;
-  font-size:14px;
-}

@@ -82,21 +82,13 @@ class QuesDet extends React.Component {
           <Panel name="Hint" desc={this.state.data.hint} />
           <Panel name="Recommend" desc={this.state.data.recommend} />
           <div className="quesDet-ul">
-            <span onClick={this.showModal}>提交</span>
+            <Link key="submit" to={`./submit/${this.proId}`}>提交</Link>
             <Link key="note" to={`./note/${this.proId}`}>解题报告</Link>
             <Link key="return" to={`/main/ques`}>返回</Link>
-            {/* <Link key="submit" to={`./submit/${this.proId}`}>提交</Link> */}
+
             {/* <Link key="statistic" to={`./ques/statistic/${this.proId}`}>Statistic</Link> */}
             {/* <Link key="discuss" to={`./ques/discuss/${this.proId}`}>Discuss</Link> */}
           </div>
-          <Modal title="Submit"
-            visible={this.state.visible}
-            onOk={this.handleOk}
-            confirmLoading={this.state.confirmLoading}
-            onCancel={this.handleCancel}
-          >
-            <SubmitForm />
-          </Modal>
         </div >
       );
     }
