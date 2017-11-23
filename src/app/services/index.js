@@ -186,7 +186,7 @@ export async function getSelectChild(plantformId) {
 
 export async function postCode(values){
   console.log(values)
-  await axios.post(`${SeverIp}/problem/submit`,{
-    ...values,
-  });
+  // await axios.post(`${SeverIp}/problem/submit`,{
+  //   ...values,
+  // });
 }

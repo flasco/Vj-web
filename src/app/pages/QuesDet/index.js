@@ -13,10 +13,12 @@ class QuesDet extends React.Component {
     super(props);
 
     if(props.match.params.id === undefined){
+      console.log('比赛页面Jmp');
       this.cid = props.match.params.cid;
-      this.pid = props.match.params.pid;
+      this.qid = props.match.params.qid;
     }else{
-      this.proId = props.match.params.id
+      console.log('题库页面Jmp');
+      this.qid = props.match.params.id;
     }
 
     this.state = {
@@ -32,7 +34,7 @@ class QuesDet extends React.Component {
   }
 
   async fetchData() {
-    let d = await fetchQuesDet(this.proId);
+    let d = await fetchQuesDet(this.qid);
     this.setState({ data: d, loading: false })
   }
 
@@ -62,8 +64,8 @@ class QuesDet extends React.Component {
           <Panel name="Source" desc={this.state.data.source} />
           <Panel name="Recommend" desc={this.state.data.recommend} />
           <div className="quesDet-ul">
-            <Link key="submit" to={`./${this.proId}/submit`}>提交</Link>
-            <Link key="note" to={`./${this.proId}/note`}>解题报告</Link>
+            <Link key="submit" to={`./${this.qid}/submit`}>提交</Link>
+            <Link key="note" to={`./${this.qid}/note`}>解题报告</Link>
             <Link key="return" to={`./`}>返回</Link>
 
             {/* <Link key="statistic" to={`./ques/statistic/${this.proId}`}>Statistic</Link> */}
