@@ -7,8 +7,6 @@
     "antd": "^2.13.10",
     "axios": "^0.17.1",
     "load-script": "^1.0.0",
-    "markdown-it": "^8.4.0",
-    "markdown-it-mathjax": "^2.0.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-router-dom": "^4.2.2",

@@ -5,7 +5,7 @@ import loadScript from 'load-script'
 
 import { fetchQuesDet } from '../../services/index'
 
-import Panel from './components/Panel';
+import PanelBlock from './components/Panel';
 
 import './index.css';
 
@@ -18,6 +18,7 @@ const MATHJAX_OPTIONS = {
   showMathMenu: false,
   showMathMenuMSIE: false
 };
+
 
 class QuesDet extends React.Component {
   constructor(props) {
@@ -68,15 +69,7 @@ class QuesDet extends React.Component {
             <Icon type="appstore" style={{ marginRight: 4 }} /><span style={{ marginRight: 40, fontSize: 14 }}>{this.state.data.memoryLimit}</span>
           </div>
 
-          <Panel name="Problem Description" desc={this.state.data.description} />
-          <Panel name="Input" desc={this.state.data.input} />
-          <Panel name="Output" desc={this.state.data.output} />
-          <Panel name="Sample Input" desc={this.state.data.sampleInput} />
-          <Panel name="Sample Output" desc={this.state.data.sampleOutput} />
-          <Panel name="Hint" desc={this.state.data.hint} />
-          <Panel name="Author" desc={this.state.data.author} />
-          <Panel name="Source" desc={this.state.data.source} />
-          <Panel name="Recommend" desc={this.state.data.recommend} />
+          <PanelBlock data = {this.state.data}/>
           <div className="quesDet-ul">
             <Link key="submit" to={`./${this.qid}/submit`}>提交</Link>
             <Link key="note" to={`./${this.qid}/note`}>解题报告</Link>

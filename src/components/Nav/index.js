@@ -7,11 +7,23 @@ const { Header, Content, Footer } = Layout;
 class Nav extends React.Component {
   constructor(props) {
     super(props);
+    this.floatFlag = false;
     this.state = {
       selectedKey: [props.location.pathname.slice(1)],
+      hover: false,
     }
   }
+  onMouseEnter = () => {
+    this.setState({
+      hover: true,
+    });
+  }
 
+  onMouseLeave = () => {
+    this.setState({
+      hover: false,
+    })
+  }
   render() {
     let key = window.location.pathname.split('/')[2] || '';
     return (
@@ -30,8 +42,14 @@ class Nav extends React.Component {
             <Menu.Item key="contest"><Link to="/main/contest">比赛</Link></Menu.Item>
             <Menu.Item key="rank"><Link to="/main/rank">排名</Link></Menu.Item>
           </Menu>
-          <div className="Nav-head">
-            <Avatar icon="user" className="Nav-Ava" size="large"/>
+          <div className="Nav-head" onMouseOver={this.onMouseEnter} onMouseOut={this.onMouseLeave}>
+            <Avatar icon="user" className="Nav-Ava" size="large" onMouseOver={this.onMouseEnter} />
+          </div>
+          <div className="user-card" onMouseOut={this.onMouseLeave}>
+            <div className="Nav-board" onMouseOver={this.onMouseEnter}
+              style={{ visibility: this.state.hover ? false : 'hidden' }} >
+              <span>欢迎您，Flasco</span>
+            </div>
           </div>
         </Header>
         <Content style={{ padding: '0 50px' }}>
