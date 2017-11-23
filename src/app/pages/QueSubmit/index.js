@@ -3,15 +3,28 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import FormX from './components/FormX'
 
+import { getSelectChild } from '../../services/index'
+
 import './index.css';
 
 class QueSubmit extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
-
+      selectChild: '',
     };
+    
+    this.proId = props.match.params.id;
 
+    this.getSelectChild();
+  }
+
+  async getSelectChild() {
+    const data = await getSelectChild();
+    this.setState({
+      selectChild: data,
+    });
   }
 
   render() {
@@ -21,7 +34,8 @@ class QueSubmit extends React.Component {
           <h1>Submit Your Solution</h1>
           <p>Current Authenticated Author : flasco</p>
         </div>
-        <FormX />
+        <FormX selectChild={this.state.selectChild}
+          proId={this.proId} />
       </div>
     );
   }

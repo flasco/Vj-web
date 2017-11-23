@@ -18,8 +18,6 @@ class Panel extends React.Component {
           </div>
         </div>
       );
-
-
     } else {
       return false;
     }

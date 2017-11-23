@@ -77,9 +77,9 @@ class QuesDet extends React.Component {
           <Panel name="Output" desc={this.state.data.output} />
           <Panel name="Sample Input" desc={this.state.data.sampleInput} />
           <Panel name="Sample Output" desc={this.state.data.sampleOutput} />
+          <Panel name="Hint" desc={this.state.data.hint} />
           <Panel name="Author" desc={this.state.data.author} />
           <Panel name="Source" desc={this.state.data.source} />
-          <Panel name="Hint" desc={this.state.data.hint} />
           <Panel name="Recommend" desc={this.state.data.recommend} />
           <div className="quesDet-ul">
             <Link key="submit" to={`./submit/${this.proId}`}>提交</Link>
