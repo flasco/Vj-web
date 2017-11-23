@@ -1,10 +1,9 @@
 import React from 'react';
-import { Icon, Spin, Modal, Form, Input } from 'antd';
+import { Icon, Spin } from 'antd';
 import { Link } from 'react-router-dom';
 
 import { fetchQuesDet } from '../../services/index'
 
-import SubmitForm from './components/SubmitForm';
 import Panel from './components/Panel';
 
 import './index.css';

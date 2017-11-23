@@ -1,6 +1,6 @@
 import React from 'react';
-import { Row, Col, Table, Input } from 'antd';
-import { Link } from 'react-router-dom';
+// import { Row, Col, Table, Input } from 'antd';
+// import { Link } from 'react-router-dom';
 
 import './index.css';
 

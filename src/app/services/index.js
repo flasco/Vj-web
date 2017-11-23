@@ -69,22 +69,22 @@ export async function fetchQuesList(page) {
 }
 
 export async function fetchQuesDet(id) {
-  // await sleep(1000);
-  const { data } = await axios.get(`${SeverIp}/problem/json?pid=${id}`);
+  await sleep(1000);
+  // const { data } = await axios.get(`${SeverIp}/problem/json?pid=${id}`);
   // console.log(data);
-  // let x = {
-  //   title: 'A + B Problem',
-  //   timeLimit: '2000/1000 MS (Java/Others)',
-  //   memoryLimit: '65536/32768 K (Java/Others)',
-  //   description: ' We define the distance of two strings A and B with same length n is <br />$dis_{A,B} = \\sum\\limits_{i=0}^{n-1}|A_{i}-B_{n-1-i}|$\n     <br />The difference between the two characters is defined as the difference in ASCII.\n       <br />You should find the maximum length of two non-overlapping substrings in given string S, and the distance between them are less then or equal to m.\n       <br />',
-  //   input: 'Each line will contain two integers A and B. Process to end of file.',
-  //   output: 'For each case, output A + B in one line.',
-  //   sampleInput: '1 1',
-  //   sampleOutput: '2',
-  //   author: 'HDOJ',
-  //   source: 'ZJCPC2004',
-  //   recommend: ''
-  // };
+  let data = {
+    title: 'A + B Problem',
+    timeLimit: '2000/1000 MS (Java/Others)',
+    memoryLimit: '65536/32768 K (Java/Others)',
+    description: ' We define the distance of two strings A and B with same length n is <br />$dis_{A,B} = \\sum\\limits_{i=0}^{n-1}|A_{i}-B_{n-1-i}|$\n     <br />The difference between the two characters is defined as the difference in ASCII.\n       <br />You should find the maximum length of two non-overlapping substrings in given string S, and the distance between them are less then or equal to m.\n       <br />',
+    input: 'Each line will contain two integers A and B. Process to end of file.',
+    output: 'For each case, output A + B in one line.',
+    sampleInput: '1 1',
+    sampleOutput: '2',
+    author: 'HDOJ',
+    source: 'ZJCPC2004',
+    recommend: ''
+  };
   return data;
 
 }

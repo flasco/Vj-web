@@ -4,7 +4,7 @@ import React from 'react';
 
 import './index.css';
 
-class Exam extends React.Component{
+class ContestList extends React.Component{
   render(){
     return(
       <h1>这里是比赛界面</h1>
@@ -12,4 +12,4 @@ class Exam extends React.Component{
   }
 }
 
-export default Exam;
+export default ContestList;

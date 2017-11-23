@@ -1,6 +1,5 @@
 import React from 'react';
-import { Icon, Spin, Modal, Form, Input } from 'antd';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { InlineTex } from 'react-tex';
 
 import './index.css';
