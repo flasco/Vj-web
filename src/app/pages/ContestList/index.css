@@ -1,0 +1,19 @@
+.contestList-table td{
+  font-size: 14px;
+}
+
+.contestList-table td:nth-child(1){
+  width: 5%;
+}
+.contestList-table td:nth-child(2){
+  width: 42%;
+}
+.contestList-table td:nth-child(3){
+  width: 12%;
+}
+.contestList-table td:nth-child(4){
+  width: 5%;
+}
+.contestList-table td:nth-child(5){
+  width: 7%;
+}

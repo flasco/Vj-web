@@ -27,7 +27,7 @@ class Nav extends React.Component {
           >
             <Menu.Item key="info"><Link to="/main/info">资讯</Link></Menu.Item>
             <Menu.Item key="ques"><Link to="/main/ques">题库</Link></Menu.Item>
-            <Menu.Item key="exam"><Link to="/main/contest">比赛</Link></Menu.Item>
+            <Menu.Item key="contest"><Link to="/main/contest">比赛</Link></Menu.Item>
             <Menu.Item key="rank"><Link to="/main/rank">排名</Link></Menu.Item>
           </Menu>
           <div className="Nav-head">

@@ -60,11 +60,9 @@ class QuesList extends React.Component {
     this.fetchL(pagination.current);
   }
 
-
-
   render() {
     return (
-      <div className="main-container">
+      <div>
         <Row gutter={16}>
           <Col span={12} style={{ fontSize: 16 }}>Question List</Col>
           <Col span={12}>
@@ -83,7 +81,6 @@ class QuesList extends React.Component {
           pagination={this.state.pagination}
           loading={this.state.loading}
           onChange={this.handleTableChange} />
-
       </div>
     );
   }

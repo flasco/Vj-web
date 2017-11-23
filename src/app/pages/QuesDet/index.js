@@ -12,7 +12,13 @@ class QuesDet extends React.Component {
   constructor(props) {
     super(props);
 
-    this.proId = props.match.params.id;
+    if(props.match.params.id === undefined){
+      this.cid = props.match.params.cid;
+      this.pid = props.match.params.pid;
+    }else{
+      this.proId = props.match.params.id
+    }
+
     this.state = {
       data: {},
       loading: true,
@@ -20,7 +26,6 @@ class QuesDet extends React.Component {
       visible: false,
       confirmLoading: false,
     }
-    // console.log(mathJax);
   }
   componentDidMount() {
     this.fetchData();
@@ -29,30 +34,6 @@ class QuesDet extends React.Component {
   async fetchData() {
     let d = await fetchQuesDet(this.proId);
     this.setState({ data: d, loading: false })
-  }
-
-  showModal = () => {
-    this.setState({
-      visible: true,
-    });
-  }
-  handleOk = () => {
-    this.setState({
-      ModalText: 'The modal will be closed after two seconds',
-      confirmLoading: true,
-    });
-    setTimeout(() => {
-      this.setState({
-        visible: false,
-        confirmLoading: false,
-      });
-    }, 2000);
-  }
-  handleCancel = () => {
-    console.log('Clicked cancel button');
-    this.setState({
-      visible: false,
-    });
   }
 
   render() {
@@ -81,9 +62,9 @@ class QuesDet extends React.Component {
           <Panel name="Source" desc={this.state.data.source} />
           <Panel name="Recommend" desc={this.state.data.recommend} />
           <div className="quesDet-ul">
-            <Link key="submit" to={`./submit/${this.proId}`}>提交</Link>
-            <Link key="note" to={`./note/${this.proId}`}>解题报告</Link>
-            <Link key="return" to={`/main/ques`}>返回</Link>
+            <Link key="submit" to={`./${this.proId}/submit`}>提交</Link>
+            <Link key="note" to={`./${this.proId}/note`}>解题报告</Link>
+            <Link key="return" to={`./`}>返回</Link>
 
             {/* <Link key="statistic" to={`./ques/statistic/${this.proId}`}>Statistic</Link> */}
             {/* <Link key="discuss" to={`./ques/discuss/${this.proId}`}>Discuss</Link> */}
