@@ -1,6 +1,5 @@
 import React from 'react';
 import { Row, Col, Form, Input, Select, Button } from 'antd';
-// import { Link } from 'react-router-dom';
 
 import { postCode } from '../../../../services/index';
 
@@ -9,23 +8,18 @@ import './index.css';
 const FormItem = Form.Item;
 
 class FormX extends React.Component {
-  constructor(props){
-    super(props);
-
-  }
   handleSearch = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
-      // console.log(values);
-      if(this.props.cid !== undefined){
+      if (this.props.cid !== undefined) {
         postCode({
           ...values,
-          cid:this.props.cid,
+          cid: this.props.cid,
         });
-      }else{
+      } else {
         postCode(values);
       }
-      
+
     });
   }
 
@@ -44,29 +38,23 @@ class FormX extends React.Component {
     }
     const { getFieldDecorator } = this.props.form;
     return (
-      <Form
-        onSubmit={this.handleSearch}
-      >
+      <Form onSubmit={this.handleSearch}>
         <Row gutter={10} style={{ width: '75%', margin: '0 auto' }}>
           <Col span={12} >
             <FormItem {...formItemLayout} label={`Pro.Id`}>
               {getFieldDecorator(`remoteProblemId`, {
                 rules: [{ required: true, message: 'please input Pro.Id' }],
                 initialValue: this.props.qid,
-              })(
-                <Input placeholder="Pro.Id" />
-                )}
+              })(<Input placeholder="Pro.Id" />)}
             </FormItem>
           </Col>
           <Col span={12} >
             <FormItem {...formItemLayout} label={`Lan.Id`}>
-              {getFieldDecorator(`language`, {
-                initialValue: '0'
-              })(
+              {getFieldDecorator(`language`, { initialValue: '0' })(
                 <Select size='default'>
                   {children}
                 </Select>
-                )}
+              )}
             </FormItem>
           </Col>
         </Row>
@@ -76,7 +64,8 @@ class FormX extends React.Component {
               {getFieldDecorator(`source`, {
                 rules: [{ required: true, message: 'Make sure that your code length is longer than 50 and not exceed 65536 Bytes', min: 50, max: 6553500 }],
               })(
-                <Input.TextArea placeholder="please insert your code "
+                <Input.TextArea
+                  placeholder="please insert your code "
                   style={{ height: 370, resize: 'none' }} />
                 )}
             </FormItem>
@@ -85,9 +74,7 @@ class FormX extends React.Component {
         <Row>
           <Col span={24} style={{ textAlign: 'right' }}>
             <Button type="primary" htmlType="submit">submit</Button>
-            <Button style={{ marginLeft: 8 }} onClick={() => {
-              this.props.form.resetFields();
-            }}>
+            <Button style={{ marginLeft: 8 }} onClick={() => { this.props.form.resetFields(); }}>
               Clear
             </Button>
           </Col>

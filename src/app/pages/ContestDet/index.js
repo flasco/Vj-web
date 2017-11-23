@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Table, Input, Spin, Icon } from 'antd';
+import {  Table, Spin, Icon } from 'antd';
 import { Link } from 'react-router-dom';
 
 import { fetchContestDetList } from '../../services/index';

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Icon, Spin } from 'antd';
 import { Link } from 'react-router-dom';
+import loadScript from 'load-script'
 
 import { fetchQuesDet } from '../../services/index'
 
@@ -8,9 +9,22 @@ import Panel from './components/Panel';
 
 import './index.css';
 
+const MATHJAX_SCRIPT = "https://cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML";
+const MATHJAX_OPTIONS = {
+  tex2jax: {
+    inlineMath: [ ['$','$'], ['\\(','\\)'] ],
+    displayMath: [ ['$$','$$'], ['\[','\]'] ]
+  },
+  showMathMenu: false,
+  showMathMenuMSIE: false
+};
+
 class QuesDet extends React.Component {
   constructor(props) {
     super(props);
+    loadScript(MATHJAX_SCRIPT, () => {
+      window.MathJax.Hub.Config(MATHJAX_OPTIONS);
+    });
 
     if(props.match.params.id === undefined){
       console.log('比赛页面Jmp');

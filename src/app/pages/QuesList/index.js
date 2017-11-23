@@ -10,7 +10,7 @@ const columns = [{
   title: 'OJ',
   key: 'remoteOJ',
   dataIndex: 'remoteOJ',
-},{
+}, {
   title: 'Pro.Id',
   key: 'remoteProblemId',
   dataIndex: 'remoteProblemId',
@@ -37,6 +37,13 @@ class QuesList extends React.Component {
 
   componentDidMount() {
     this.fetchL(1);
+  }
+
+  componentWillUnmount() {
+    //重写组件的setState方法，直接返回空
+    this.setState = (state, callback) => {
+      return;
+    };
   }
 
   async fetchL(page) {
