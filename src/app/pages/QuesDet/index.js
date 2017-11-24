@@ -3,7 +3,7 @@ import { Icon, Spin } from 'antd';
 import { Link } from 'react-router-dom';
 import loadScript from 'load-script'
 
-import { fetchQuesDet } from '../../services/index'
+import { fetchQuesDet } from '../../services/problem'
 
 import PanelBlock from './components/Panel';
 
@@ -12,8 +12,8 @@ import './index.css';
 const MATHJAX_SCRIPT = "https://cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML";
 const MATHJAX_OPTIONS = {
   tex2jax: {
-    inlineMath: [ ['$','$'], ['\\(','\\)'] ],
-    displayMath: [ ['$$','$$'], ['\[','\]'] ]
+    inlineMath: [['$', '$']],
+    displayMath: [['$$', '$$']]
   },
   showMathMenu: false,
   showMathMenuMSIE: false
@@ -27,11 +27,11 @@ class QuesDet extends React.Component {
       window.MathJax.Hub.Config(MATHJAX_OPTIONS);
     });
 
-    if(props.match.params.id === undefined){
+    if (props.match.params.id === undefined) {
       console.log('比赛页面Jmp');
       this.cid = props.match.params.cid;
       this.qid = props.match.params.qid;
-    }else{
+    } else {
       console.log('题库页面Jmp');
       this.qid = props.match.params.id;
     }
@@ -69,7 +69,7 @@ class QuesDet extends React.Component {
             <Icon type="appstore" style={{ marginRight: 4 }} /><span style={{ marginRight: 40, fontSize: 14 }}>{this.state.data.memoryLimit}</span>
           </div>
 
-          <PanelBlock data = {this.state.data}/>
+          <PanelBlock data={this.state.data} />
           <div className="quesDet-ul">
             <Link key="submit" to={`./${this.qid}/submit`}>提交</Link>
             <Link key="note" to={`./${this.qid}/note`}>解题报告</Link>

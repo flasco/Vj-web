@@ -1,5 +1,4 @@
 import React from 'react';
-import { InlineTex } from 'react-tex';
 import ReactDOM from 'react-dom';
 
 import './index.css';

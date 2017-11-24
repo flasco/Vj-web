@@ -2,7 +2,7 @@ import React from 'react';
 import {  Table, Spin, Icon } from 'antd';
 import { Link } from 'react-router-dom';
 
-import { fetchContestDetList } from '../../services/index';
+import { fetchContestDetList } from '../../services/contest';
 
 import './index.css';
 

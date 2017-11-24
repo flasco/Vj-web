@@ -2,7 +2,7 @@ import React from 'react';
 import { Row, Col,Table } from 'antd';
 import { Link } from 'react-router-dom';
 
-import { fetchContestList } from '../../services';
+import { fetchContestList } from '../../services/contest';
 
 import './index.css';
 

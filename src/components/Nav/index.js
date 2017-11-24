@@ -1,7 +1,11 @@
 import React from 'react';
-import './index.css';
 import { Link, withRouter } from 'react-router-dom';
 import { Layout, Menu, Avatar } from 'antd';
+
+import LoginWindow from '../LoginWindow';
+
+import './index.css';
+
 const { Header, Content, Footer } = Layout;
 
 class Nav extends React.Component {
@@ -10,19 +14,35 @@ class Nav extends React.Component {
     this.floatFlag = false;
     this.state = {
       selectedKey: [props.location.pathname.slice(1)],
-      hover: false,
+      userBoardHover: true,
+      isloginBoard: false,
+      isLogin: false,
+      windowType:1,
     }
   }
   onMouseEnter = () => {
-    this.setState({
-      hover: true,
+    this.state.isLogin && this.setState({
+      userBoardHover: false,
+    });
+  }
+
+  openLoginWindow = (type) => { // type = 1 打开登录界面， type = 2 打开注册界面。
+    this.state.isLogin || this.setState({
+      isloginBoard: true,
+      windowType:type
+    });
+  }
+
+  closeLoginWindow = () => {
+    this.state.isLogin || this.setState({
+      isloginBoard: false,
     });
   }
 
   onMouseLeave = () => {
-    this.setState({
-      hover: false,
-    })
+    this.state.isLogin && this.setState({
+      userBoardHover: true,
+    });
   }
   render() {
     let key = window.location.pathname.split('/')[2] || '';
@@ -42,12 +62,20 @@ class Nav extends React.Component {
             <Menu.Item key="contest"><Link to="/main/contest">比赛</Link></Menu.Item>
             <Menu.Item key="rank"><Link to="/main/rank">排名</Link></Menu.Item>
           </Menu>
-          <div className="Nav-head" onMouseOver={this.onMouseEnter} onMouseOut={this.onMouseLeave}>
-            <Avatar icon="user" className="Nav-Ava" size="large" onMouseOver={this.onMouseEnter} />
+          <div className={this.state.isLogin ? "Nav-head" : "Nav-head Nav-head-no-sign"} onMouseOver={this.onMouseEnter} onMouseOut={this.onMouseLeave}>
+            {this.state.isLogin ? <Avatar icon="user" className="Nav-Ava" size="large" onMouseOver={this.onMouseEnter} /> :
+              <div>
+                <a onClick={this.openLoginWindow.bind(this, 1)}>登录</a>
+                <a onClick={this.openLoginWindow.bind(this, 2)}>注册</a>
+              </div>}
           </div>
+          {this.state.isloginBoard && <LoginWindow
+            isloginBoard={this.state.isloginBoard}
+            closeLoginWindow={this.closeLoginWindow}
+            windowType={this.state.windowType} />}
           <div className="user-card" onMouseOut={this.onMouseLeave}>
             <div className="Nav-board" onMouseOver={this.onMouseEnter}
-              style={{ visibility: this.state.hover ? false : 'hidden' }} >
+              style={{ visibility: this.state.userBoardHover ? 'hidden' : false }} >
               <span>欢迎您，Flasco</span>
             </div>
           </div>

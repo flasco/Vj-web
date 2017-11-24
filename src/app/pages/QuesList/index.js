@@ -2,7 +2,7 @@ import React from 'react';
 import { Row, Col, Table, Input } from 'antd';
 import { Link } from 'react-router-dom';
 
-import { fetchQuesList } from '../../services';
+import { fetchQuesList } from '../../services/problem';
 
 import './index.css';
 

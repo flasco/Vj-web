@@ -27,6 +27,11 @@ body {
   padding-top: 12px;
 }
 
+.Nav-head-no-sign{
+  width:150px;
+  padding-top: 0;
+}
+
 .Nav-board{
   width: 306px;
   height:244px;
@@ -39,10 +44,26 @@ body {
   z-index: 1;
 }
 
+
 .user-card{
   position: absolute;
   right: 18px;
   top: 64px;
   width: 306px;
   z-index: 1000;
+}
+
+.ant-layout-header a{
+  font-size: 14px;
+}
+
+.Nav-head a{
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.67);
+  line-height: 64px;
+  margin: 0 12px;
+}
+
+.Nav-head a:hover{
+  color:#fff;
 }
