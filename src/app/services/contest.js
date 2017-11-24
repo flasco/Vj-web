@@ -5,7 +5,8 @@
 import sleep from '../utils/sleep';
 import config from '../../config';
 
-const { devMode,serverIp } = config;
+// const { devMode, serverIp } = config;
+const { devMode } = config;
 
 export async function fetchContestList(page) {
   devMode && await sleep(700);

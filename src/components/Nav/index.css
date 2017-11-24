@@ -34,14 +34,13 @@ body {
 
 .Nav-board{
   width: 306px;
-  height:244px;
+  height:208px;
   background-color: #fff;
   padding: 24px;
   box-sizing: border-box;
   border-bottom-right-radius: 8px;
   border-bottom-left-radius: 8px;
   box-shadow: 0 8px 16px 0 rgba(7,17,27,.2);
-  z-index: 1;
 }
 
 

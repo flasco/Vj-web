@@ -1,6 +1,5 @@
 import React from 'react';
-// import { Link } from 'react-router-dom';
-import { Modal, Tabs, Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Modal, Tabs } from 'antd';
 
 import LoginFormWapper from './components/Login';
 import RegisterFormWapper from './components/Register';
@@ -9,6 +8,23 @@ import './index.css';
 
 
 class LoginWindow extends React.Component {
+  constructor(props){
+    super(props);
+    this.state={
+
+    };
+    this.registerSubmit = this.registerSubmit.bind(this);
+    this.loginSubmit = this.loginSubmit.bind(this);
+  }
+  loginSubmit(values){
+    console.log(values);
+    this.props.closeLoginWindow();
+    this.props.userLogin();
+  }
+  registerSubmit(values){
+    console.log(values);
+    this.props.closeLoginWindow();
+  }
   render() {
     return (
       <Modal
@@ -16,12 +32,12 @@ class LoginWindow extends React.Component {
         visible={this.props.isloginBoard}
         onCancel={this.props.closeLoginWindow}
         footer={null}>
-        <Tabs defaultActiveKey={`${this.props.windowType}`} animated={false}>
+        <Tabs defaultActiveKey={`${this.props.windowType}`} animated={false} >
           <Tabs.TabPane tab="登录" key="1">
-            <LoginFormWapper />
+            <LoginFormWapper submit={this.loginSubmit}/>
           </Tabs.TabPane>
           <Tabs.TabPane tab="注册" key="2">
-            <RegisterFormWapper />
+            <RegisterFormWapper submit={this.registerSubmit}/>
           </Tabs.TabPane>
         </Tabs>
       </Modal>

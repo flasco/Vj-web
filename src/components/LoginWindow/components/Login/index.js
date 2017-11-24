@@ -9,7 +9,7 @@ class LoginForm extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        this.props.submit(values);
       }
     });
   }
@@ -19,14 +19,16 @@ class LoginForm extends React.Component {
       <Form onSubmit={this.handleSubmit} className="login-form">
         <Form.Item>
           {getFieldDecorator('userName', {
-            rules: [{ required: true, message: 'Please input your username!' }],
+            validateTrigger: "onBlur",
+            rules: [{ required: true, message: 'make sure that your username is Prescribed.', max: 10, min: 3 }],
           })(
             <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="Username" />
             )}
         </Form.Item>
         <Form.Item>
           {getFieldDecorator('password', {
-            rules: [{ required: true, message: 'Please input your Password!' }],
+            validateTrigger: "onBlur",
+            rules: [{ required: true, message: 'make sure that your password is Prescribed.', max: 12, min: 6 }],
           })(
             <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="Password" />
             )}

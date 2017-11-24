@@ -43,6 +43,7 @@ class FormX extends React.Component {
           <Col span={12} >
             <FormItem {...formItemLayout} label={`Pro.Id`}>
               {getFieldDecorator(`remoteProblemId`, {
+                validateTrigger: "onBlur",
                 rules: [{ required: true, message: 'please input Pro.Id' }],
                 initialValue: this.props.qid,
               })(<Input placeholder="Pro.Id" />)}
@@ -62,6 +63,7 @@ class FormX extends React.Component {
           <Col>
             <FormItem {...codeLayout}>
               {getFieldDecorator(`source`, {
+                validateTrigger: "onBlur",
                 rules: [{ required: true, message: 'Make sure that your code length is longer than 50 and not exceed 65536 Bytes', min: 50, max: 6553500 }],
               })(
                 <Input.TextArea

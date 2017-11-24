@@ -9,50 +9,45 @@ class RegisterForm extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        this.props.submit(values);
       }
     });
   }
   render() {
-    const tailFormItemLayout = {
-      wrapperCol: {
-        xs: {
-          span: 24,
-          offset: 0,
-        },
-        sm: {
-          span: 14,
-          offset: 6,
-        },
-      },
-    };
     const { getFieldDecorator } = this.props.form;
     return (
       <Form onSubmit={this.handleSubmit} className="login-form">
         <Form.Item>
           {getFieldDecorator('userName', {
-            rules: [{ required: true, message: 'Please input your username!' }],
+            validateTrigger: "onBlur",
+            rules: [{ required: true, message: 'make sure that 3 ≤ userName.len ≤ 10.', max: 10, min: 3 }],
           })(
             <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="Username" />
             )}
         </Form.Item>
         <Form.Item>
           {getFieldDecorator('password', {
-            rules: [{ required: true, message: 'Please input your Password!' }],
+            validateTrigger: "onBlur",
+            rules: [{ required: true, message: 'make sure that 6 ≤ passWord.len ≤ 12.', max: 12, min: 6 }],
           })(
             <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="Password" />
             )}
         </Form.Item>
         <Form.Item>
           {getFieldDecorator('email', {
-            rules: [{ required: true, message: 'Please input your Email!' }],
+            validateTrigger: "onBlur",
+            rules: [{ required: true, pattern: /.*@.*\..*/, message: 'make sure that your Email.Addr is Prescribed.' }],
           })(
             <Input prefix={<Icon type="mail" style={{ fontSize: 13 }} />} placeholder="Email" />
             )}
         </Form.Item>
-        <Form.Item  style={{ marginBottom: 8 }}>
+        <Form.Item >
           {getFieldDecorator('agreement', {
             valuePropName: 'checked',
+            rules:[{
+              required: true,
+              message: 'make sure that you read the agreement :)'
+            }]
           })(
             <Checkbox>I have read the <a href="">agreement</a></Checkbox>
             )}

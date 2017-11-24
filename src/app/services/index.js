@@ -4,7 +4,7 @@
  */
 
 import axios from 'axios';
-import sleep from '../utils/sleep';
+// import sleep from '../utils/sleep';
 import config from '../../config';
 
 const { devMode,serverIp } = config;

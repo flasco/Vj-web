@@ -7,6 +7,7 @@ import axios from 'axios';
 import sleep from '../utils/sleep';
 import config from '../../config';
 
-const { devMode,serverIp } = config;
+const { devMode, serverIp } = config;
 
-axios.defaults.withCredentials=true
+axios.defaults.withCredentials = true//设置允许携带cookies
+
