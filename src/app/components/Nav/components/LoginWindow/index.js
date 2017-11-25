@@ -16,21 +16,29 @@ class LoginWindow extends React.Component {
     this.registerSubmit = this.registerSubmit.bind(this);
     this.loginSubmit = this.loginSubmit.bind(this);
   }
+
+  closeLoginWindow = () => {
+    this.props.isLogin || this.props.setUserLoginBoard({
+      isloginBoard: false,
+    });
+  }
+
   loginSubmit(values){
     console.log(values);
-    this.props.closeLoginWindow();
+    this.closeLoginWindow();
     this.props.userLogin();
   }
   registerSubmit(values){
     console.log(values);
     this.props.closeLoginWindow();
   }
+
   render() {
     return (
       <Modal
         width={300}
         visible={this.props.isloginBoard}
-        onCancel={this.props.closeLoginWindow}
+        onCancel={this.closeLoginWindow}
         footer={null}>
         <Tabs defaultActiveKey={`${this.props.windowType}`} animated={false} >
           <Tabs.TabPane tab="登录" key="1">

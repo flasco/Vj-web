@@ -1,19 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
 
-import Nav from './components/Nav';
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import reducers from './app/reducers'
 
-import Routes from './app/Routes';
+import App from './app';
 import registerServiceWorker from './registerServiceWorker';
 
+let store = createStore(reducers);
 
 ReactDOM.render(
-  (<Router>
-    <Nav>
-      {Routes}
-    </Nav>
-  </Router>),
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById('root')
 );
 

@@ -2,7 +2,6 @@
 import React from 'react';
 import { Route, Switch, } from 'react-router-dom';
 
-
 import Info from '../app/pages/Info';
 import RankList from '../app/pages/RankList';
 
@@ -27,7 +26,7 @@ const MainView = ({ match }) => (
   </Switch>
 )
 
-const ContestView = ({ match }) =>(
+const ContestView = ({ match }) => (
   <Switch>
     <Route exact path={`${match.url}/`} component={ContestList} />
     <Route exact path={`${match.url}/:cid`} component={ContestDet} />
@@ -37,7 +36,7 @@ const ContestView = ({ match }) =>(
   </Switch>
 )
 
-const QuesView = ({ match }) =>(
+const QuesView = ({ match }) => (
   <Switch>
     <Route exact path={`${match.url}/`} component={QuesList} />
     <Route exact path={`${match.url}/:id`} component={QuesDet} />
@@ -45,8 +44,6 @@ const QuesView = ({ match }) =>(
     <Route path={`${match.url}/:id/note`} component={QuesNote} />
   </Switch>
 )
-
-
 
 const Welcome = () => (<h1>Welcome to Virtual Judge</h1>)
 
@@ -56,7 +53,6 @@ const Routes = (
     <Route path="/main" component={MainView} />
     <Route component={() => <h1>Request Err</h1>} />
   </Switch>
-
 );
 
 export default Routes;
