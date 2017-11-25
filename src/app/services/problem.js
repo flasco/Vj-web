@@ -8,7 +8,7 @@ import config from '../../config';
 
 const { devMode,serverIp } = config;
 
-export async function fetchQuesList(page) {
+export async function fetchQuesList(selectOj,page) {
   devMode && await sleep(1000);
   let data = [{
     remoteOJ: 'HDU',

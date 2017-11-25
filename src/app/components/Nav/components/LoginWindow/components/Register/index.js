@@ -2,8 +2,6 @@
 import React from 'react';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 
-import './index.css';
-
 class RegisterForm extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();

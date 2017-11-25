@@ -3,8 +3,6 @@ import { Modal, Tabs } from 'antd';
 
 import LoginFormWapper from './components/Login';
 import RegisterFormWapper from './components/Register';
-import './index.css';
-
 
 
 class LoginWindow extends React.Component {

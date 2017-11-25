@@ -4,6 +4,7 @@ import { Route, Switch, } from 'react-router-dom';
 
 import Info from '../app/pages/Info';
 import RankList from '../app/pages/RankList';
+import RealSuatus from '../app/pages/RealStatus';
 
 import QuesList from '../app/pages/QuesList';
 import QueSubmit from '../app/pages/QueSubmit';
@@ -22,6 +23,7 @@ const MainView = ({ match }) => (
     <Route path={`${match.url}/ques`} component={QuesView} />
     <Route path={`${match.url}/contest`} component={ContestView} />
     <Route path={`${match.url}/rank`} component={RankList} />
+    <Route path={`${match.url}/status`} component={RealSuatus} />
     <Route component={() => <h1>Request Err</h1>} />
   </Switch>
 )

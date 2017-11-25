@@ -1,3 +1,23 @@
+.userboard-container{
+  position: absolute;
+  right: 18px;
+  top: 64px;
+  width: 306px;
+  z-index: 1000;
+}
+
+.userboard-container-inner{
+  width: 306px;
+  height:208px;
+  background-color: #fff;
+  padding: 24px;
+  box-sizing: border-box;
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+  box-shadow: 0 8px 16px 0 rgba(7,17,27,.2);
+}
+
+
 .userboard-header{
   float: left;
   width: 72px;

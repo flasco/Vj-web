@@ -45,10 +45,11 @@ class Nav extends React.Component {
             defaultSelectedKeys={this.state.selectedKeys}
             selectedKeys={[key]}
             style={{ lineHeight: '64px', float: 'left' }}>
-            <MenuItem key="info"><Link to="/main/info">资讯</Link></MenuItem>
             <MenuItem key="ques"><Link to="/main/ques">题库</Link></MenuItem>
             <MenuItem key="contest"><Link to="/main/contest">比赛</Link></MenuItem>
             <MenuItem key="rank"><Link to="/main/rank">排名</Link></MenuItem>
+            <MenuItem key="status"><Link to="/main/status">状态</Link></MenuItem>
+            <MenuItem key="info"><Link to="/main/info">资讯</Link></MenuItem>
           </Menu>
           <div className={this.props.isLogin ? "Nav-head" : "Nav-head Nav-head-no-sign"} onMouseOver={this.onMouseEnter} onMouseOut={this.onMouseLeave}>
             <UserComp
