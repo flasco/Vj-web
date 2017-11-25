@@ -10,6 +10,106 @@ import config from '../../config';
 const { devMode,serverIp } = config;
 
 
+export async function fetchRealStatus(runId, proId, author, languageId, suatusId, page) {
+  let data = [{
+    //runId ;  submitTime;  judgeStatus;  remoteOj;  remoteProblemId； exeTime;  ExeMemory;Author
+    runId:'23006988',
+    submitTime:'2017-11-25 18:25:03',
+    judgeStatus:'Output Limit Exceeded',
+    remoteOj:'mock',
+    remoteProblemId:'mock',
+    exeTime:'mock',
+    exeMemory:'mock',
+    codeLen:'mock',
+    language:'mock',
+    author:'mock',
+  },{
+    //runId ;  submitTime;  judgeStatus;  remoteOj;  remoteProblemId； exeTime;  ExeMemory;Author
+    runId:'23006988',
+    submitTime:'2017-11-25 18:25:03',
+    judgeStatus:'Memory Limit Exceeded',
+    remoteOj:'HDU',
+    remoteProblemId:'2154',
+    exeTime:'1000MS',
+    exeMemory:'75388K',
+    codeLen:'2314B',
+    language:'Pascal',
+    author:'rocket_rac',
+  },{
+    //runId ;  submitTime;  judgeStatus;  remoteOj;  remoteProblemId； exeTime;  ExeMemory;Author
+    runId:'23006988',
+    submitTime:'2017-11-25 18:25:03',
+    judgeStatus:'Time Limit Exceeded',
+    remoteOj:'HDU',
+    remoteProblemId:'2154',
+    exeTime:'1000MS',
+    exeMemory:'75388K',
+    codeLen:'2314B',
+    language:'Pascal',
+    author:'rocket_rac',
+  },{
+    //runId ;  submitTime;  judgeStatus;  remoteOj;  remoteProblemId； exeTime;  ExeMemory;Author
+    runId:'23006988',
+    submitTime:'2017-11-25 18:25:03',
+    judgeStatus:'Runtime Error',
+    remoteOj:'HDU',
+    remoteProblemId:'2154',
+    exeTime:'1000MS',
+    exeMemory:'75388K',
+    codeLen:'2314B',
+    language:'Pascal',
+    author:'rocket_rac',
+  },{
+    //runId ;  submitTime;  judgeStatus;  remoteOj;  remoteProblemId； exeTime;  ExeMemory;Author
+    runId:'23006988',
+    submitTime:'2017-11-25 18:25:03',
+    judgeStatus:'Compilation Error',
+    remoteOj:'HDU',
+    remoteProblemId:'2154',
+    exeTime:'1000MS',
+    exeMemory:'75388K',
+    codeLen:'2314B',
+    language:'Pascal',
+    author:'rocket_rac',
+  },{
+    //runId ;  submitTime;  judgeStatus;  remoteOj;  remoteProblemId； exeTime;  ExeMemory;Author
+    runId:'23006988',
+    submitTime:'2017-11-25 18:25:03',
+    judgeStatus:'Presentation Error',
+    remoteOj:'HDU',
+    remoteProblemId:'2154',
+    exeTime:'1000MS',
+    exeMemory:'75388K',
+    codeLen:'2314B',
+    language:'Pascal',
+    author:'rocket_rac',
+  },{
+    //runId ;  submitTime;  judgeStatus;  remoteOj;  remoteProblemId； exeTime;  ExeMemory;Author
+    runId:'23006988',
+    submitTime:'2017-11-25 18:25:03',
+    judgeStatus:'Wrong Answer',
+    remoteOj:'HDU',
+    remoteProblemId:'2154',
+    exeTime:'1000MS',
+    exeMemory:'75388K',
+    codeLen:'2314B',
+    language:'Pascal',
+    author:'rocket_rac',
+  },{
+    //runId ;  submitTime;  judgeStatus;  remoteOj;  remoteProblemId； exeTime;  ExeMemory;Author
+    runId:'23006988',
+    submitTime:'2017-11-25 18:25:03',
+    judgeStatus:'Accepted',
+    remoteOj:'HDU',
+    remoteProblemId:'2154',
+    exeTime:'1000MS',
+    exeMemory:'75388K',
+    codeLen:'2314B',
+    language:'Pascal',
+    author:'rocket_rac',
+  }];
+  return data;
+}
 
 export async function getSelectChild(plantformId) {
   const data = [{

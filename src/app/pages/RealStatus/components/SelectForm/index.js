@@ -25,7 +25,7 @@ class SelectForm extends React.Component {
         className="realStatus-form"
         onSubmit={this.handleSearch}>
         <Row gutter={20} type="flex" justify="center">
-          <Col xl={2} lg={2} span={3}  >
+          <Col xl={2} lg={3} span={3}  >
             <Tooltip placement="top" title="RunId">
               <div>
                 <FormItem {...formItemLayout} >
@@ -36,7 +36,7 @@ class SelectForm extends React.Component {
               </div>
             </Tooltip>
           </Col>
-          <Col xl={2} lg={2} span={3}  >
+          <Col xl={2} lg={3} span={3}  >
             <Tooltip placement="top" title="Problem Id">
               <div>
                 <FormItem {...formItemLayout} >
@@ -47,7 +47,7 @@ class SelectForm extends React.Component {
               </div>
             </Tooltip>
           </Col>
-          <Col xl={2} lg={2} span={3} >
+          <Col xl={2} lg={3} span={3} >
             <Tooltip placement="top" title="Author">
               <div>
                 <FormItem {...formItemLayout} >
@@ -58,7 +58,7 @@ class SelectForm extends React.Component {
               </div>
             </Tooltip>
           </Col>
-          <Col xl={2} lg={2} span={3} >
+          <Col xl={2} lg={3} span={3} >
             <Tooltip placement="top" title="Language">
               <div>
                 <FormItem {...formItemLayout} >
@@ -101,9 +101,7 @@ class SelectForm extends React.Component {
               </div>
             </Tooltip>
           </Col>
-          <Col span={3} style={{ textAlign: 'left' }}>
-            <Button type="primary" htmlType="submit" style={{ height: 30 }}>Search</Button>
-          </Col>
+          <Button type="primary" htmlType="submit" style={{ height: 30 }}>Search</Button>
         </Row>
       </Form>
     );
