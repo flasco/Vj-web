@@ -6,12 +6,11 @@ import LoginWindow from './components/LoginWindow';
 import UserBoard from './components/UserBoard';
 import UserComp from './components/UserComp';
 
-import header from '../../assert/header.jpg'
-
 import './index.css';
 
 const MenuItem = Menu.Item;
 const { Header, Content, Footer } = Layout;
+const header = 'http://upload.besoo.com/file/201611/24/1915559745908.jpg'
 
 class Nav extends React.Component {
   constructor(props) {
@@ -59,7 +58,7 @@ class Nav extends React.Component {
           </Menu>
           <div className={this.props.isLogin ? "Nav-head" : "Nav-head Nav-head-no-sign"} onMouseOver={this.onMouseEnter} onMouseOut={this.onMouseLeave}>
             <UserComp
-              header={header}
+              header={this.props.header || header}
               isLogin={this.props.isLogin}
               setUserLoginBoard={this.props.setUserLoginBoard}
               onMouseEnter={this.onMouseEnter} />
@@ -71,7 +70,7 @@ class Nav extends React.Component {
             setUserLoginBoard={this.props.setUserLoginBoard}
             windowType={this.props.userLoginBoard.windowType} />}
           <UserBoard
-            header={header}
+            header={this.props.header || header}
             userQuit={this.userLogout}
             setMouse={this.props.setMouse}
             onMouseOut={this.onMouseLeave}
@@ -84,7 +83,7 @@ class Nav extends React.Component {
         </Content>
         <Footer style={{ textAlign: 'center' }}>
           Ant Design ©2017 Created by flasco
-      </Footer>
+        </Footer>
       </Layout>
     );
   }

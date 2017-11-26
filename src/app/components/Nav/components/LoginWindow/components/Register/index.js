@@ -56,8 +56,12 @@ class RegisterForm extends React.Component {
           {getFieldDecorator('agreement', {
             valuePropName: 'checked',
             rules: [{
-              required: true,
-              message: 'make sure that you read the agreement :)'
+              validator: (rule, value, callback) => {
+                if (!value) {
+                  callback('make sure that you read the agreement :)');
+                }
+                callback();
+              }
             }]
           })(
             <Checkbox>I have read the <a href="">agreement</a></Checkbox>

@@ -7,8 +7,10 @@ import reducers from './app/reducers'
 
 import App from './app';
 import registerServiceWorker from './registerServiceWorker';
+import { loadState } from './app/localStorage'
 
-let store = createStore(reducers);
+let initState = loadState();
+let store = createStore(reducers, initState);
 
 ReactDOM.render(
   <Provider store={store}>

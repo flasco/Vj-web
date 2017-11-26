@@ -29,11 +29,10 @@ class LoginWindow extends React.PureComponent {
   }
 
   async loginSubmit(values) {
-    // console.log(values);
-    let flag = await userLoginCheck(values);
-    if (flag) {
+    let res = await userLoginCheck(values);
+    if (res.flag) {
       this.closeLoginWindow();
-      this.props.userLogin(values);
+      this.props.userLogin(res.res);
     } else {
       this.setError(true);
       message.error('Login Error.');
@@ -41,7 +40,6 @@ class LoginWindow extends React.PureComponent {
   }
 
   async registerSubmit(values) {
-    // console.log(values);
     let flag = await userRegisterCheck(values);
     if (flag) {
       this.closeLoginWindow();

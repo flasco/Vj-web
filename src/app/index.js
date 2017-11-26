@@ -8,12 +8,19 @@ import Routes from './Routes';
 import { setMouse, userLogin, userLogout, setUserLoginBoard } from './actions'
 
 class App extends React.Component {
+  componentWillMount() {
+    if (false) {
+      console.log('cookie expired!');
+      this.props.dispatch(userLogout());
+    }
+  }
   render() {
-    const { dispatch, userBoardHover, isLogin, userLoginBoard } = this.props
+    const { dispatch, userBoardHover, isLogin, userLoginBoard, header } = this.props
     return (
       <Router>
         <Nav
           isLogin={isLogin}
+          header={header}
           userBoardHover={userBoardHover}
           userLoginBoard={userLoginBoard}
           setUserLoginBoard={type => dispatch(setUserLoginBoard(type))}
@@ -30,8 +37,9 @@ class App extends React.Component {
 function select(state) {
   return {
     userBoardHover: state.mouse.userBoardHover,
+    header: state.user.header,
     isLogin: state.user.isLogin,
-    userLoginBoard: state.userLoginBoard
+    userLoginBoard: state.userLoginBoard,
   };
 }
 

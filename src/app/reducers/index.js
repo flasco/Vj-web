@@ -7,23 +7,30 @@ const mouseState = {
 const userState = {
   isLogin: false,
   userName: '',
-  password:'',
+  password: '',
+  header: '',
 }
 const userLoginBoardState = {
   isloginBoard: false,
   windowType: 1,
 }
 
+export const initState = {
+  mouse: { ...mouseState },
+  user: { ...userState },
+  userLoginBoard: { ...userLoginBoardState }
+}
+
 function user(state = userState, action) {
   switch (action.type) {
     case USER_LOGIN:
-      // console.log(action.info);
-      return Object.assign({}, state, { ...action.info })
+      localStorage.setItem('user', JSON.stringify(action.info));//本地存储
+      return Object.assign({}, state, { ...action.info });
     case USER_LOGOUT:
-      // console.log(state);
-      return Object.assign({}, state, { isLogin: false, userName: '' })
+      localStorage.clear();
+      return Object.assign({}, state, { isLogin: false, userName: '' });
     default:
-      return state
+      return state;
   }
 }
 

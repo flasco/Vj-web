@@ -17,22 +17,23 @@ class UserBoard extends React.Component {
   }
 
   render() {
+    const { header, userName, userBoardHover, onMouseOut, onMouseOver } = this.props;
     return (
-      <div className="userboard-container" style={{ visibility: this.props.userBoardHover ? 'hidden' : false }}
-        onMouseOut={this.props.onMouseOut}>
-        <div className="userboard-container-inner" onMouseOver={this.props.onMouseOver}
-          style={{ visibility: this.props.userBoardHover ? 'hidden' : false }} >
-          <img src={this.props.header} className="userboard-header" alt="flasco" />
+      <div className="userboard-container" style={{ visibility: userBoardHover ? 'hidden' : false }}
+        onMouseOut={onMouseOut}>
+        <div className="userboard-container-inner" onMouseOver={onMouseOver}
+          style={{ visibility: userBoardHover ? 'hidden' : false }} >
+          <img src={header} className="userboard-header" alt="flasco" />
           <div className="userboard-first-right" style={{ float: 'left', marginTop: 13, lineHeight: 'normal' }}>
-            <span className="userboard-name">Flasco</span>
+            <span className="userboard-name">{userName}</span>
             <div className="userboard-meta">
               <a>解题数 <b>147</b></a>
               <a>做题数 <b>458</b></a>
             </div>
           </div>
           <ul className="userboard-items">
-            <li><Link key="report" to={`../`} style={{ width: '100%', height: '100%', display: 'inline-table' }}>解题报告</Link></li>
-            <li><Link key="center" to={`../`} style={{ width: '100%', height: '100%', display: 'inline-table' }}>个人中心</Link></li>
+            <li><Link key="report" to={`../`}>解题报告</Link></li>
+            <li><Link key="center" to={`../`}>个人中心</Link></li>
           </ul>
           <a className="userboard-quit" onClick={this.userQuit}>安全退出</a>
         </div>
@@ -45,6 +46,7 @@ class UserBoard extends React.Component {
 function select(state) {
   return {
     userBoardHover: state.mouse.userBoardHover,
+    userName: state.user.userName,
   };
 }
 
