@@ -1,9 +1,10 @@
 import React from 'react';
-
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import './index.css';
 
 class UserBoard extends React.Component {
-  constructor(props) {
+  constructor(props, context) {
     super(props);
     this.state = {
 
@@ -11,7 +12,7 @@ class UserBoard extends React.Component {
   }
 
   userQuit = () => {
-    this.props.setUsertype(false);
+    this.props.userQuit();
     this.props.setMouse(true);
   }
 
@@ -30,8 +31,8 @@ class UserBoard extends React.Component {
             </div>
           </div>
           <ul className="userboard-items">
-            <li><span>解题报告</span></li>
-            <li><span>个人中心</span></li>
+            <li><Link key="report" to={`../`} style={{ width: '100%', height: '100%', display: 'inline-table' }}>解题报告</Link></li>
+            <li><Link key="center" to={`../`} style={{ width: '100%', height: '100%', display: 'inline-table' }}>个人中心</Link></li>
           </ul>
           <a className="userboard-quit" onClick={this.userQuit}>安全退出</a>
         </div>
@@ -41,4 +42,11 @@ class UserBoard extends React.Component {
   }
 }
 
-export default UserBoard;
+function select(state) {
+  return {
+    userBoardHover: state.mouse.userBoardHover,
+  };
+}
+
+
+export default connect(select)(UserBoard);

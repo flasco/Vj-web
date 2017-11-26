@@ -5,7 +5,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import Nav from './components/Nav';
 import Routes from './Routes';
 
-import { setMouse, setUsertype, setUserLoginBoard } from './actions'
+import { setMouse, userLogin, userLogout, setUserLoginBoard } from './actions'
 
 class App extends React.Component {
   render() {
@@ -18,7 +18,8 @@ class App extends React.Component {
           userLoginBoard={userLoginBoard}
           setUserLoginBoard={type => dispatch(setUserLoginBoard(type))}
           setMouse={type => dispatch(setMouse(type))}
-          setUsertype={type => dispatch(setUsertype(type))}>
+          userLogin={info => dispatch(userLogin(info))}
+          userLogout={type => dispatch(userLogout(type))}>
           {Routes}
         </Nav>
       </Router>

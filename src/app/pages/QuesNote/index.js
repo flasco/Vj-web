@@ -15,7 +15,7 @@ class QuesNote extends React.Component{
   render(){
     return(
       <div>
-        <h1>这里是解题报告</h1>
+        <h1>这里是解题报告的详情</h1>
       </div>
     );
   }

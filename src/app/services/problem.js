@@ -70,7 +70,7 @@ export async function fetchQuesList(selectOj,page) {
   };
 }
 
-export async function fetchQuesDet(id) {
+export async function fetchQuesDet(oj,id) {
   devMode && await sleep(1000);
   let data;
   if (devMode) {

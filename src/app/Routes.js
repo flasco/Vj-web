@@ -10,6 +10,10 @@ import QuesList from '../app/pages/QuesList';
 import QueSubmit from '../app/pages/QueSubmit';
 import QuesNote from '../app/pages/QuesNote';
 
+import UserShow from '../app/pages/UserShow';
+import UserConf from '../app/pages/UserConf';
+
+import NoteList from '../app/pages/NoteList';
 import QuesDet from '../app/pages/QuesDet';
 
 import ContestList from '../app/pages/ContestList';
@@ -24,6 +28,17 @@ const MainView = ({ match }) => (
     <Route path={`${match.url}/contest`} component={ContestView} />
     <Route path={`${match.url}/rank`} component={RankList} />
     <Route path={`${match.url}/status`} component={RealSuatus} />
+    <Route path={`${match.url}/user`} component={UserView} />
+    <Route component={() => <h1>Request Err</h1>} />
+  </Switch>
+)
+
+const UserView = ({ match }) => (
+  <Switch>
+    <Route exact path={`${match.url}/show`} component={UserShow} />
+    <Route exact path={`${match.url}/setting`} component={UserConf} />
+    <Route path={`${match.url}/note`} component={NoteList} />
+    <Route path={`${match.url}/note/:nid`} component={QuesNote} />
     <Route component={() => <h1>Request Err</h1>} />
   </Switch>
 )
@@ -34,16 +49,20 @@ const ContestView = ({ match }) => (
     <Route exact path={`${match.url}/:cid`} component={ContestDet} />
     <Route exact path={`${match.url}/:cid/:qid`} component={QuesDet} />
     <Route path={`${match.url}/:cid/:qid/submit`} component={QueSubmit} />
-    <Route path={`${match.url}/:cid/:qid/note`} component={QuesNote} />
+    <Route path={`${match.url}/:cid/:qid/note`} component={NoteList} />
+    <Route path={`${match.url}/:cid/:qid/note/:nid`} component={QuesNote} />
+    <Route component={() => <h1>Request Err</h1>} />
   </Switch>
 )
 
 const QuesView = ({ match }) => (
   <Switch>
     <Route exact path={`${match.url}/`} component={QuesList} />
-    <Route exact path={`${match.url}/:id`} component={QuesDet} />
-    <Route path={`${match.url}/:id/submit`} component={QueSubmit} />
-    <Route path={`${match.url}/:id/note`} component={QuesNote} />
+    <Route exact path={`${match.url}/:oj/:id`} component={QuesDet} />
+    <Route path={`${match.url}/:oj/:id/submit`} component={QueSubmit} />
+    <Route path={`${match.url}/:oj/:id/note`} component={NoteList} />
+    <Route path={`${match.url}/:oj/:id/note/:nid`} component={QuesNote} />
+    <Route component={() => <h1>Request Err</h1>} />
   </Switch>
 )
 

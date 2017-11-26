@@ -3,10 +3,23 @@ import React from 'react';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 
 class RegisterForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      buttonLoading: false,
+    }
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.isError) {
+      this.setState({ buttonLoading: false })
+      this.props.setError(false);
+    }
+  }
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
+        this.setState({ buttonLoading: true })
         this.props.submit(values);
       }
     });
@@ -42,7 +55,7 @@ class RegisterForm extends React.Component {
         <Form.Item >
           {getFieldDecorator('agreement', {
             valuePropName: 'checked',
-            rules:[{
+            rules: [{
               required: true,
               message: 'make sure that you read the agreement :)'
             }]
@@ -51,7 +64,7 @@ class RegisterForm extends React.Component {
             )}
         </Form.Item>
         <Form.Item >
-          <Button type="primary" htmlType="submit" className="login-form-button">Register</Button>
+          <Button type="primary" htmlType="submit" className="login-form-button" loading={this.state.buttonLoading}>Register</Button>
         </Form.Item>
       </Form>
     );

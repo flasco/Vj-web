@@ -29,8 +29,14 @@ class Nav extends React.Component {
     this.props.isLogin && this.props.setMouse(true);
   }
 
-  userLogin = () => {
-    this.props.setUsertype(true);
+  userLogin = (info) => {
+    this.props.userLogin({
+      ...info,
+      isLogin: true,
+    });
+  }
+  userLogout = () => {
+    this.props.userLogout();
   }
 
   render() {
@@ -45,11 +51,11 @@ class Nav extends React.Component {
             defaultSelectedKeys={this.state.selectedKeys}
             selectedKeys={[key]}
             style={{ lineHeight: '64px', float: 'left' }}>
-            <MenuItem key="ques"><Link to="/main/ques">题库</Link></MenuItem>
-            <MenuItem key="contest"><Link to="/main/contest">比赛</Link></MenuItem>
-            <MenuItem key="rank"><Link to="/main/rank">排名</Link></MenuItem>
-            <MenuItem key="status"><Link to="/main/status">状态</Link></MenuItem>
-            <MenuItem key="info"><Link to="/main/info">资讯</Link></MenuItem>
+            <MenuItem key="ques"><Link to="/main/ques">Problem</Link></MenuItem>
+            <MenuItem key="contest"><Link to="/main/contest">Contest</Link></MenuItem>
+            <MenuItem key="rank"><Link to="/main/rank">Rank</Link></MenuItem>
+            <MenuItem key="status"><Link to="/main/status">Status</Link></MenuItem>
+            <MenuItem key="info"><Link to="/main/info">Info</Link></MenuItem>
           </Menu>
           <div className={this.props.isLogin ? "Nav-head" : "Nav-head Nav-head-no-sign"} onMouseOver={this.onMouseEnter} onMouseOut={this.onMouseLeave}>
             <UserComp
@@ -66,12 +72,10 @@ class Nav extends React.Component {
             windowType={this.props.userLoginBoard.windowType} />}
           <UserBoard
             header={header}
-            userQuit={this.userQuit}
+            userQuit={this.userLogout}
             setMouse={this.props.setMouse}
             onMouseOut={this.onMouseLeave}
-            onMouseOver={this.onMouseEnter}
-            setUsertype={this.props.setUsertype}
-            userBoardHover={this.props.userBoardHover} />
+            onMouseOver={this.onMouseEnter} />
         </Header>
         <Content style={{ padding: '0 50px' }}>
           <div style={{ background: '#fff', marginTop: 32, padding: 24, minHeight: 280 }}>

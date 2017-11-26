@@ -82,7 +82,7 @@ class QuesList extends React.Component {
     }, {
       title: (<Input placeholder='Title' style={{ width: 260 }} size="small" onChange={(e) => this.setState({ titleText: e.target.value })} onPressEnter={(e) => console.log(this.state.titleText)} />),
       key: 'title',
-      render: (text, record) => <span><Link to={`./ques/${record.remoteProblemId}`}>{record.title}</Link></span>,
+      render: (text, record) => <span><Link to={`./ques/${record.remoteOJ}/${record.remoteProblemId}`}>{record.title}</Link></span>,
       sorter: (a, b) => a.title.length - b.title.length,
       sortOrder: sortedInfo.columnKey === 'title' && sortedInfo.order,
     }, {

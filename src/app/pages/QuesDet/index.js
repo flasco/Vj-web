@@ -28,12 +28,13 @@ class QuesDet extends React.Component {
     });
 
     if (props.match.params.id === undefined) {
-      console.log('比赛页面Jmp');
+      // console.log('比赛页面Jmp');
       this.cid = props.match.params.cid;
       this.qid = props.match.params.qid;
     } else {
-      console.log('题库页面Jmp');
+      // console.log('题库页面Jmp');
       this.qid = props.match.params.id;
+      this.oj = props.match.params.oj;
     }
 
     this.state = {
@@ -49,7 +50,7 @@ class QuesDet extends React.Component {
   }
 
   async fetchData() {
-    let d = await fetchQuesDet(this.qid);
+    let d = await fetchQuesDet(this.oj, this.qid);
     this.setState({ data: d, loading: false })
   }
 
@@ -71,9 +72,9 @@ class QuesDet extends React.Component {
 
           <PanelBlock data={this.state.data} />
           <div className="quesDet-ul">
-            <Link key="submit" to={`./${this.qid}/submit`}>提交</Link>
-            <Link key="note" to={`./${this.qid}/note`}>解题报告</Link>
-            <Link key="return" to={`./`}>返回</Link>
+            <Link key="submit" to={`./${this.qid}/submit`}>Submit</Link>
+            <Link key="note" to={`./${this.qid}/note`}>Problem Report</Link>
+            <Link key="return" to={`./`}>Back</Link>
 
             {/* <Link key="statistic" to={`./ques/statistic/${this.proId}`}>Statistic</Link> */}
             {/* <Link key="discuss" to={`./ques/discuss/${this.proId}`}>Discuss</Link> */}
