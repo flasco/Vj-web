@@ -32,13 +32,9 @@ const columns = [{
   key: 'judgeStatus',
   render: (text, record) => <span className={getColor(record.judgeStatus)}>{record.judgeStatus}</span>
 }, {
-  title: 'Oj',
-  key: 'remoteOj',
-  dataIndex: 'remoteOj',
-}, {
-  title: 'Pro.Id',
-  key: 'remoteProblemId',
-  dataIndex: 'remoteProblemId',
+  title: 'OJ-Id',
+  key: 'OJ-Id',
+  render: (text, record) => <span>{`${record.remoteOj}-${record.remoteProblemId}`}</span>
 }, {
   title: 'Exe.Time',
   key: 'exeTime',
@@ -96,8 +92,7 @@ class RealSuatus extends React.Component {
         <h1 style={{ textAlign: 'center', marginBottom: 14 }}>Realtime Status</h1>
         <SelectForm search={this.search} />
         <Table
-          bordered={true}
-          // size="middle"
+          size="middle"
           className="realStatus-table"
           columns={columns}
           dataSource={this.state.data}

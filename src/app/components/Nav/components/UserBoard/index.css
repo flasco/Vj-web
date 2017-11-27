@@ -1,12 +1,13 @@
 .userboard-container{
-  position: absolute;
-  right: 18px;
+  position: relative;
+  left: 680px;
   top: 64px;
   width: 306px;
   z-index: 1000;
 }
 
 .userboard-container-inner{
+  position: absolute;
   width: 306px;
   height:208px;
   background-color: #fff;
@@ -23,7 +24,6 @@
   width: 72px;
   height: 72px;
   border-radius: 50%;
-  border: 2px solid #fff;
   margin-right: 12px;
 }
 

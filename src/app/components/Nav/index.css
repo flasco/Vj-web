@@ -1,9 +1,8 @@
 body {
   margin: 0;
   padding: 0;
-  min-width: 1166px;
+  min-width: 1024px;
   font-family: sans-serif;
-  background-color:#ececec;
 }
 .Nav-logo {
   width: 120px;

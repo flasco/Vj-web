@@ -47,7 +47,11 @@ class RegisterForm extends React.Component {
         <Form.Item>
           {getFieldDecorator('email', {
             validateTrigger: "onBlur",
-            rules: [{ required: true, pattern: /.*@.*\..*/, message: 'make sure that your Email.Addr is Prescribed.' }],
+            rules: [{
+              type: 'email', message: 'The input is not valid E-mail!',
+            }, {
+              required: true, message: 'Please input your E-mail!',
+            }],
           })(
             <Input prefix={<Icon type="mail" style={{ fontSize: 13 }} />} placeholder="Email" />
             )}

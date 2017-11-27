@@ -65,7 +65,7 @@ class QuesList extends React.Component {
     let { sortedInfo } = this.state;
     const columns = [{
       title: (
-        <Select defaultValue="HDU" style={{ width: 70 }} size="small"
+        <Select defaultValue="HDU" style={{ width: 60 }} size="small"
           onChange={(val) => selectOj = val}>
           <Option value="HDU">HDU</Option>
           <Option value="PKU">PKU</Option>
@@ -74,7 +74,7 @@ class QuesList extends React.Component {
       key: 'remoteOJ',
       dataIndex: 'remoteOJ',
     }, {
-      title: (<Input placeholder='Pro.Id' style={{ width: 70 }} size="small" onChange={(e) => this.setState({ proIdText: e.target.value })} onPressEnter={(e) => console.log(this.state.proIdText)} />),
+      title: (<Input placeholder='Pro.Id' style={{ width: 60 }} size="small" onChange={(e) => this.setState({ proIdText: e.target.value })} onPressEnter={(e) => console.log(this.state.proIdText)} />),
       key: 'remoteProblemId',
       dataIndex: 'remoteProblemId',
       sorter: (a, b) => a.remoteProblemId - b.remoteProblemId,

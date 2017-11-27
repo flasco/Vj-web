@@ -47,8 +47,7 @@ class LoginWindow extends React.PureComponent {
       this.props.userLogin({
         userName:values.userName,
         password:values.password,
-      });
-      //接下来最好直接登录账号，调用redux的方法，注册完之后直接上号。下面的代码待续吧~
+      });//直接登录账号。
     } else {
       this.setError(true);
       message.error('Register Error, please change your userName');

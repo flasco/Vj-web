@@ -32,8 +32,8 @@ class UserBoard extends React.Component {
             </div>
           </div>
           <ul className="userboard-items">
-            <li><Link key="report" to={`../`}>解题报告</Link></li>
-            <li><Link key="center" to={`../`}>个人中心</Link></li>
+            <li><Link key="report" to={`/user/note`}>解题报告</Link></li>
+            <li><Link key="center" to={`/user/setting`}>个人中心</Link></li>
           </ul>
           <a className="userboard-quit" onClick={this.userQuit}>安全退出</a>
         </div>

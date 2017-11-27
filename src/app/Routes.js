@@ -28,7 +28,6 @@ const MainView = ({ match }) => (
     <Route path={`${match.url}/contest`} component={ContestView} />
     <Route path={`${match.url}/rank`} component={RankList} />
     <Route path={`${match.url}/status`} component={RealSuatus} />
-    <Route path={`${match.url}/user`} component={UserView} />
     <Route component={() => <h1>Request Err</h1>} />
   </Switch>
 )
@@ -72,6 +71,7 @@ const Routes = (
   <Switch>
     <Route exact path="/" component={Welcome} />
     <Route path="/main" component={MainView} />
+    <Route path="/user" component={UserView} />
     <Route component={() => <h1>Request Err</h1>} />
   </Switch>
 );
