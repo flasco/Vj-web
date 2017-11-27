@@ -1,5 +1,6 @@
 import React from 'react';
 import { Modal, Upload, message, Icon } from 'antd';
+import { uploadAvatar } from '../../../../services/user';
 
 function getBase64(img, callback) {
   const reader = new FileReader();
@@ -29,19 +30,28 @@ class Uploader extends React.PureComponent {
     };
   }
 
-
-
-  handleChange = (info) => {
-    if (info.file.status === 'done') {
-      // Get this url from response in real world.
-      console.log(info);
-      getBase64(info.file.originFileObj, imageUrl => this.setState({ imageUrl }));
-    }
-  }
-
-
   render() {
     const imageUrl = this.state.imageUrl;
+    const props = {
+      action: '//jsonplaceholder.typicode.com/posts/',
+      onRemove: (file) => {
+        this.setState(({ fileList }) => {
+          const index = fileList.indexOf(file);
+          const newFileList = fileList.slice();
+          newFileList.splice(index, 1);
+          return {
+            fileList: newFileList,
+          };
+        });
+      },
+      beforeUpload: (file) => {
+        this.setState(({ fileList }) => ({
+          fileList: [...fileList, file],
+        }));
+        return false;
+      },
+      fileList: this.state.fileList,
+    };
     return (
       <Modal
         width={300}
@@ -49,14 +59,21 @@ class Uploader extends React.PureComponent {
         onCancel={this.props.handleCancel}
         footer={null}>
         <div>
-          <h1 style={{marginBottom:12}}>Header Upload</h1>
+          <h1 style={{ marginBottom: 12 }}>Header Upload</h1>
           <Upload
             className="avatar-uploader"
-            name="avatar"
+            name="userIcon"
             showUploadList={false}
-            action="http://localhost:3025/upload"
-            beforeUpload={beforeUpload}
-            onChange={this.handleChange}>
+            customRequest={async (componentsData) => {
+              let originFile = componentsData.file;
+              let formData = new FormData();
+              formData.append("command", "upload_image");
+              formData.append("imageType", this.name);
+              formData.append(componentsData.filename, originFile, originFile.name);
+              const x = await uploadAvatar(formData);
+              console.log(x);
+            }}
+            beforeUpload={beforeUpload}>
             {
               imageUrl ?
                 <img src={imageUrl} alt="" className="avatar" /> :

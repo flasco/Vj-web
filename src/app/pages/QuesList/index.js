@@ -16,18 +16,14 @@ class QuesList extends React.Component {
       data: [],
       pagination: {},
       loading: false,
-      sortedInfo: {
-        order: '',
-        columnKey: '',
-        proIdText: '',
-        titleText: '',
-      }
+      proIdText: '',
+      titleText: '',
     }
     this.fetchL = this.fetchL.bind(this);
   }
 
   componentDidMount() {
-    this.fetchL(selectOj, 1, {});
+    this.fetchL(selectOj, 1);
   }
 
   componentWillUnmount() {
@@ -36,11 +32,12 @@ class QuesList extends React.Component {
     };
   }
 
-  async fetchL(selectOj, page, sorter) {
+  async fetchL(remoteOj, page, remoteProblemId = '', title = '') {
     this.setState({ loading: true });
-    const datax = await fetchQuesList(selectOj, page, sorter);
+    const datax = await fetchQuesList(remoteOj, page, remoteProblemId, title);
     const pagination = { ...this.state.pagination };
-    pagination.total = datax.totalCount || pagination.total;
+
+    pagination.total = datax.totalCount;
     this.setState({
       loading: false,
       data: datax.results,
@@ -48,43 +45,38 @@ class QuesList extends React.Component {
     });
   }
 
-  handleTableChange = (pagination, filters, sorter) => {
+  searchQues = async () => {
+    this.fetchL(selectOj, 1, this.state.proIdText, this.state.titleText);
+  }
+
+  handleTableChange = (pagination, filters) => {
     const pager = { ...this.state.pagination };
     pager.current = pagination.current;
     this.setState({
       pagination: pager,
-      sortedInfo: sorter,
     });
-    this.fetchL(selectOj, pagination.current, {
-      sortKey: sorter.columnKey,
-      sortOrder: sorter.order
-    });
+    this.fetchL(selectOj, pagination.current);
   }
 
   render() {
-    let { sortedInfo } = this.state;
     const columns = [{
       title: (
         <Select defaultValue="HDU" style={{ width: 60 }} size="small"
-          onChange={(val) => selectOj = val}>
+          onChange={(val) => { selectOj = val; this.searchQues() }}>
           <Option value="HDU">HDU</Option>
           <Option value="PKU">PKU</Option>
         </Select>
       ),
-      key: 'remoteOJ',
-      dataIndex: 'remoteOJ',
+      key: 'remoteOj',
+      dataIndex: 'remoteOj',
     }, {
-      title: (<Input placeholder='Pro.Id' style={{ width: 60 }} size="small" onChange={(e) => this.setState({ proIdText: e.target.value })} onPressEnter={(e) => console.log(this.state.proIdText)} />),
+      title: (<Input placeholder='Pro.Id' style={{ width: 60 }} size="small" onChange={(e) => this.setState({ proIdText: e.target.value })} onPressEnter={(e) => this.searchQues()} />),
       key: 'remoteProblemId',
       dataIndex: 'remoteProblemId',
-      sorter: (a, b) => a.remoteProblemId - b.remoteProblemId,
-      sortOrder: sortedInfo.columnKey === 'remoteProblemId' && sortedInfo.order,
     }, {
-      title: (<Input placeholder='Title' style={{ width: 260 }} size="small" onChange={(e) => this.setState({ titleText: e.target.value })} onPressEnter={(e) => console.log(this.state.titleText)} />),
+      title: (<Input placeholder='Title' style={{ width: 260 }} size="small" onChange={(e) => this.setState({ titleText: e.target.value })} onPressEnter={(e) => this.searchQues()} />),
       key: 'title',
-      render: (text, record) => <span><Link to={`./ques/${record.remoteOJ}/${record.remoteProblemId}`}>{record.title}</Link></span>,
-      sorter: (a, b) => a.title.length - b.title.length,
-      sortOrder: sortedInfo.columnKey === 'title' && sortedInfo.order,
+      render: (text, record) => <span><Link to={`/main/ques/${record.remoteOj}/${record.remoteProblemId}`}>{record.title}</Link></span>,
     }, {
       title: 'Ratio',
       key: 'ratio',

@@ -29,10 +29,12 @@ class QuesDet extends React.Component {
 
     if (props.match.params.id === undefined) {
       // console.log('比赛页面Jmp');
+      this.typx = true;
       this.cid = props.match.params.cid;
       this.qid = props.match.params.qid;
     } else {
       // console.log('题库页面Jmp');
+      this.typx = false;
       this.qid = props.match.params.id;
       this.oj = props.match.params.oj;
     }
@@ -74,7 +76,7 @@ class QuesDet extends React.Component {
           <div className="quesDet-ul">
             <Link key="submit" to={`./${this.qid}/submit`}>Submit</Link>
             <Link key="note" to={`./${this.qid}/note`}>Problem Report</Link>
-            <Link key="return" to={`./`}>Back</Link>
+            <Link key="return" to={this.typx?`./`:'../'}>Back</Link>
 
             {/* <Link key="statistic" to={`./ques/statistic/${this.proId}`}>Statistic</Link> */}
             {/* <Link key="discuss" to={`./ques/discuss/${this.proId}`}>Discuss</Link> */}

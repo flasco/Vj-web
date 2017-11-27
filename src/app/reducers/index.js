@@ -6,7 +6,7 @@ const mouseState = {
 }
 const userState = {
   isLogin: false,
-  userName: '',
+  accountName: '',
   password: '',
   header: '',
 }

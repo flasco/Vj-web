@@ -31,11 +31,11 @@ class LoginForm extends React.Component {
     return (
       <Form onSubmit={this.handleSubmit} className="login-form">
         <Form.Item>
-          {getFieldDecorator('userName', {
+          {getFieldDecorator('accountName', {
             validateTrigger: "onBlur",
-            rules: [{ required: true, message: 'make sure that your username is Prescribed.', max: 10, min: 3 }],
+            rules: [{ required: true, message: 'make sure that your accountName is Prescribed.', max: 10, min: 3 }],
           })(
-            <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="Username" />
+            <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="accountName" />
             )}
         </Form.Item>
         <Form.Item>

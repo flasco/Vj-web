@@ -29,11 +29,11 @@ class RegisterForm extends React.Component {
     return (
       <Form onSubmit={this.handleSubmit} className="login-form">
         <Form.Item>
-          {getFieldDecorator('userName', {
+          {getFieldDecorator('accountName', {
             validateTrigger: "onBlur",
-            rules: [{ required: true, message: 'make sure that 3 ≤ userName.len ≤ 10.', max: 10, min: 3 }],
+            rules: [{ required: true, message: 'make sure that 3 ≤ accountName.len ≤ 10.', max: 10, min: 3 }],
           })(
-            <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="Username" />
+            <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="AccountName" />
             )}
         </Form.Item>
         <Form.Item>
@@ -68,7 +68,7 @@ class RegisterForm extends React.Component {
               }
             }]
           })(
-            <Checkbox>I have read the <a href="">agreement</a></Checkbox>
+            <Checkbox>I agree the agreement</Checkbox>
             )}
         </Form.Item>
         <Form.Item >

@@ -17,7 +17,7 @@ class UserBoard extends React.Component {
   }
 
   render() {
-    const { header, userName, userBoardHover, onMouseOut, onMouseOver } = this.props;
+    const { header, accountName, userBoardHover, onMouseOut, onMouseOver } = this.props;
     return (
       <div className="userboard-container" style={{ visibility: userBoardHover ? 'hidden' : false }}
         onMouseOut={onMouseOut}>
@@ -25,7 +25,7 @@ class UserBoard extends React.Component {
           style={{ visibility: userBoardHover ? 'hidden' : false }} >
           <img src={header} className="userboard-header" alt="flasco" />
           <div className="userboard-first-right" style={{ float: 'left', marginTop: 13, lineHeight: 'normal' }}>
-            <span className="userboard-name">{userName}</span>
+            <span className="userboard-name">{accountName}</span>
             <div className="userboard-meta">
               <a>解题数 <b>147</b></a>
               <a>做题数 <b>458</b></a>
@@ -46,7 +46,7 @@ class UserBoard extends React.Component {
 function select(state) {
   return {
     userBoardHover: state.mouse.userBoardHover,
-    userName: state.user.userName,
+    accountName: state.user.accountName,
   };
 }
 
