@@ -43,8 +43,8 @@ class Nav extends React.Component {
     const { children, isLogin, header, userLoginBoard, setUserLoginBoard, setMouse } = this.props;
     return (
       <Layout className="layout">
-        <Header style={{padding:'0 22px'}}>
-          <div style={{ margin: '0 auto', maxWidth: 980,minWidth:980 }}>
+        <Header style={{ padding: '0 22px' }}>
+          <div style={{ margin: '0 auto', maxWidth: 980, minWidth: 980 }}>
             <div className="Nav-logo"><span>Virtual Judge</span></div>
             <Menu
               theme="dark"
@@ -58,12 +58,11 @@ class Nav extends React.Component {
               <MenuItem key="status"><Link to="/main/status">Status</Link></MenuItem>
               <MenuItem key="info"><Link to="/main/info">Info</Link></MenuItem>
             </Menu>
-            <div className={isLogin ? "Nav-head" : "Nav-head Nav-head-no-sign"} onMouseOver={this.onMouseEnter} onMouseOut={this.onMouseLeave}>
+            <div className={isLogin ? "Nav-head" : "Nav-head Nav-head-no-sign"} onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave}>
               <UserComp
                 header={header || defaultHeader}
                 isLogin={isLogin}
-                setUserLoginBoard={setUserLoginBoard}
-                onMouseEnter={this.onMouseEnter} />
+                setUserLoginBoard={setUserLoginBoard} />
             </div>
             {userLoginBoard.isloginBoard && <LoginWindow
               userLogin={this.userLogin}
@@ -75,12 +74,12 @@ class Nav extends React.Component {
               header={header || defaultHeader}
               userQuit={this.userLogout}
               setMouse={setMouse}
-              onMouseOut={this.onMouseLeave}
-              onMouseOver={this.onMouseEnter} />
+              onMouseLeave={this.onMouseLeave}
+              onMouseEnter={this.onMouseEnter} />
           </div>
         </Header>
-        <Content style={{ margin: '0 auto', maxWidth: 980,minWidth:980 }}>
-          <div style={{ background: '#fff', margin: 0, marginTop: 32, padding: 24, minHeight: 280,width:'100%' }}>
+        <Content style={{ margin: '0 auto', maxWidth: 980, minWidth: 980 }}>
+          <div style={{ background: '#fff', margin: 0, marginTop: 32, padding: 24, minHeight: 280, width: '100%' }}>
             {children}
           </div>
         </Content>

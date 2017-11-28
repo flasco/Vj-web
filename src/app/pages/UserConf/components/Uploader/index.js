@@ -32,26 +32,6 @@ class Uploader extends React.PureComponent {
 
   render() {
     const imageUrl = this.state.imageUrl;
-    const props = {
-      action: '//jsonplaceholder.typicode.com/posts/',
-      onRemove: (file) => {
-        this.setState(({ fileList }) => {
-          const index = fileList.indexOf(file);
-          const newFileList = fileList.slice();
-          newFileList.splice(index, 1);
-          return {
-            fileList: newFileList,
-          };
-        });
-      },
-      beforeUpload: (file) => {
-        this.setState(({ fileList }) => ({
-          fileList: [...fileList, file],
-        }));
-        return false;
-      },
-      fileList: this.state.fileList,
-    };
     return (
       <Modal
         width={300}

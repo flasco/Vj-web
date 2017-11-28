@@ -13,35 +13,35 @@ export async function fetchContestList(page, title = '', accountName = '', statu
   if (devMode) {
     await sleep(700);
     data = [{
-      contestId: '0001',
-      contestName: '绝地吃鸡大比赛',
+      id: '0001',
+      title: '绝地吃鸡大比赛',
       startTime: '2017-11-23 15:44:54',
       contestType: 'Public',
-      contestStatus: 'Pending'
+      status: 'Pending'
     }, {
-      contestId: '0002',
-      contestName: '绝地吃鸡大比赛',
+      id: '0002',
+      title: '绝地吃鸡大比赛',
       startTime: '2017-11-23 15:44:54',
       contestType: 'Public',
-      contestStatus: 'Pending'
+      status: 'Pending'
     }, {
-      contestId: '0003',
-      contestName: '绝地吃鸡大比赛',
+      id: '0003',
+      title: '绝地吃鸡大比赛',
       startTime: '2017-11-23 15:44:54',
       contestType: 'Public',
-      contestStatus: 'Pending'
+      status: 'Pending'
     }, {
-      contestId: '0004',
-      contestName: '绝地吃鸡大比赛',
+      id: '0004',
+      title: '绝地吃鸡大比赛',
       startTime: '2017-11-23 15:44:54',
       contestType: 'Public',
-      contestStatus: 'Ended'
+      status: 'Ended'
     }, {
-      contestId: '0005',
-      contestName: '绝地吃鸡大比赛',
+      id: '0005',
+      title: '绝地吃鸡大比赛',
       startTime: '2017-11-23 15:44:54',
       contestType: 'Private',
-      contestStatus: 'Ended'
+      status: 'Ended'
     },];
 
     data = data.slice(10 * (page - 1), 10 * page);

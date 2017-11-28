@@ -17,11 +17,11 @@ class UserBoard extends React.Component {
   }
 
   render() {
-    const { header, accountName, userBoardHover, onMouseOut, onMouseOver } = this.props;
+    const { header, accountName, userBoardHover, onMouseLeave, onMouseEnter } = this.props;
     return (
       <div className="userboard-container" style={{ visibility: userBoardHover ? 'hidden' : false }}
-        onMouseOut={onMouseOut}>
-        <div className="userboard-container-inner" onMouseOver={onMouseOver}
+      onMouseLeave={onMouseLeave} onMouseEnter={onMouseEnter}>
+        <div className="userboard-container-inner"
           style={{ visibility: userBoardHover ? 'hidden' : false }} >
           <img src={header} className="userboard-header" alt="flasco" />
           <div className="userboard-first-right" style={{ float: 'left', marginTop: 13, lineHeight: 'normal' }}>

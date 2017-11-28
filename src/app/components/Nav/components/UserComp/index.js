@@ -15,8 +15,7 @@ class UserComp extends React.Component {
         <Avatar icon="user"
           className="Nav-Ava"
           size="large"
-          src={this.props.header}
-          onMouseOver={this.props.onMouseEnter} />
+          src={this.props.header} />
       );
     } else {
       return (

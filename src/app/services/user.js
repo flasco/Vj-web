@@ -15,7 +15,7 @@ export async function userLoginCheck(info) {
   if (devMode) {
     await sleep(1200);
     console.log(info);
-    if (info.userName.indexOf('cool') !== -1) {
+    if (info.accountName.indexOf('cool') !== -1) {
       let inf = {
         flag: true,
         res: {
@@ -30,8 +30,6 @@ export async function userLoginCheck(info) {
     }
   } else {
     const { data } = await axios.post(`${serverIp}/sessions`, info);
-    // const x = await axios.get(`${serverIp}/sessions`);  //验证是否在登录状态
-    // console.log(x.data);
     let inf = {
       flag: data.user !== null,
       res: data.user
@@ -41,9 +39,13 @@ export async function userLoginCheck(info) {
 }
 
 export async function loginCheck() {
-  const { data } = await axios.get(`${serverIp}/sessions`);  //验证是否在登录状态
-  console.log(data);
-  return data.success !== 1;
+  if(!devMode){
+    const { data } = await axios.get(`${serverIp}/sessions`);  //验证是否在登录状态
+    console.log(data);
+    return data.success !== 1;
+  }else{
+    return true;
+  }
 }
 
 export async function userRegisterCheck(info) {
