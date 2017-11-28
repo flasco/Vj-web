@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './index.css';
 
-class UserBoard extends React.Component {
+class UserBoard extends React.PureComponent {
   constructor(props, context) {
     super(props);
     this.state = {
@@ -32,8 +32,8 @@ class UserBoard extends React.Component {
             </div>
           </div>
           <ul className="userboard-items">
-            <li><Link key="report" to={`/user/note`}>解题报告</Link></li>
-            <li><Link key="center" to={`/user/setting`}>个人中心</Link></li>
+            <li><Link key="report" to={`/user/${accountName}/note`}>解题报告</Link></li>
+            <li><Link key="center" to={`/user/${accountName}/setting`}>个人中心</Link></li>
           </ul>
           <a className="userboard-quit" onClick={this.userQuit}>安全退出</a>
         </div>

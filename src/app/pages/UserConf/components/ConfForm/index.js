@@ -42,35 +42,37 @@ class ConfForm extends React.Component {
         span: 14,
       },
     };
+    const { data, accountName } = this.props;
     return (
       <Form onSubmit={this.handleSubmit} className="confForm-form" >
         <FormItem
           {...formItemLayout}
           label="NickName">
           {getFieldDecorator('nickName', {
-            initialValue: '无夏丶',
+            initialValue: data.nickName,
             rules: [{
-              required: true, message: 'Please input your nickName',
+              required: true, message: 'Please input your nickName', max: 12
             }],
           })(
             <Input style={{ width: '50%' }} />
             )}
           <div className="confForm-img">
-            <img src="http://img2.woyaogexing.com/2017/11/07/705db8f16970ff85!400x400_big.jpg" className="confForm-header" alt="无夏丶" />
+            <img src={data.header} className="confForm-header" alt={data.nickName} />
             <a className="confForm-header-a" onClick={this.showModal}>Change</a>
-            <Uploader visible={this.state.UpVisible} handleCancel={this.handleCancel}/>
+            <Uploader visible={this.state.UpVisible} handleCancel={this.handleCancel} />
           </div>
         </FormItem>
         <FormItem
           {...formItemLayout}
           label="AccountName">
-          <span>cool</span>
+          <span>{accountName}</span>
         </FormItem>
         <FormItem
           {...formItemLayout}
           label="Signature">
           {getFieldDecorator('desc', {
-            initialValue: '',
+            initialValue: data.description,
+            rules: [{ max: 120 }]
           })(
             <Input.TextArea placeholder="write sth. about yourself" style={{ height: 88, resize: 'none' }} />
             )}
@@ -79,7 +81,7 @@ class ConfForm extends React.Component {
           {...formItemLayout}
           label="Gender">
           {getFieldDecorator('sex', {
-            initialValue: 'man',
+            initialValue: data.gender,
           })(
             <Radio.Group >
               <Radio.Button value="man">man</Radio.Button>
@@ -92,7 +94,8 @@ class ConfForm extends React.Component {
           {...formItemLayout}
           label="School">
           {getFieldDecorator('school', {
-            initialValue: '',
+            initialValue: data.school,
+            rules: [{ max: 40 }]
           })(
             <Input style={{ width: '50%' }} placeholder="school name." />
             )}

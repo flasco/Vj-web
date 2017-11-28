@@ -1,0 +1,15 @@
+
+
+.showForm-form{
+  width: 820px;
+  margin: 0 auto;
+}
+
+.showForm-form label,
+.showForm-form span{
+  font-size: 14px!important;
+}
+
+.showForm-form > .ant-form-item{
+      margin-bottom: 0!important;
+}

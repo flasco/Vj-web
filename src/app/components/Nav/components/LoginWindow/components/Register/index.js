@@ -6,7 +6,8 @@ class RegisterForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      buttonLoading: false,
+      buttonLoading: false, 
+      confirmDirty: false,
     }
   }
   componentWillReceiveProps(nextProps) {
@@ -24,6 +25,25 @@ class RegisterForm extends React.Component {
       }
     });
   }
+  checkPassword = (rule, value, callback) => {
+    const form = this.props.form;
+    if (value && value !== form.getFieldValue('password')) {
+      callback('Two passwords that you enter is inconsistent!');
+    } else {
+      callback();
+    }
+  }
+  checkConfirm = (rule, value, callback) => {
+    const form = this.props.form;
+    if (value && this.state.confirmDirty) {
+      form.validateFields(['confirm'], { force: true });
+    }
+    callback();
+  }
+  handleConfirmBlur = (e) => {
+    const value = e.target.value;
+    this.setState({ confirmDirty: this.state.confirmDirty || !!value });
+  }
   render() {
     const { getFieldDecorator } = this.props.form;
     return (
@@ -39,10 +59,23 @@ class RegisterForm extends React.Component {
         <Form.Item>
           {getFieldDecorator('password', {
             validateTrigger: "onBlur",
-            rules: [{ required: true, message: 'make sure that 6 ≤ passWord.len ≤ 12.', max: 12, min: 6 }],
+            rules: [{ required: true, message: 'make sure that 6 ≤ passWord.len ≤ 12.', max: 12, min: 6 }, {
+              validator: this.checkConfirm,
+            }],
           })(
             <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="Password" />
             )}
+        </Form.Item>
+        <Form.Item hasFeedback >
+          {getFieldDecorator('confirm', {
+            rules: [{
+              required: true, message: 'Please confirm your password!',
+            }, {
+              validator: this.checkPassword,
+            }],
+          })(
+            <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" onBlur={this.handleConfirmBlur} placeholder='confirm password'/>
+          )}
         </Form.Item>
         <Form.Item>
           {getFieldDecorator('email', {

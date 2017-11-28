@@ -13,7 +13,7 @@ class App extends React.Component {
   componentWillMount() {
     if (this.props.isLogin) {
       loginCheck().then(val => {
-        if (val) {
+        if (!val) {
           console.log('cookie expired!');
           this.props.dispatch(userLogout());
         }

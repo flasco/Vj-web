@@ -28,7 +28,7 @@ function user(state = userState, action) {
       return Object.assign({}, state, { ...action.info });
     case USER_LOGOUT:
       localStorage.clear();
-      return Object.assign({}, state, { isLogin: false, userName: '' });
+      return Object.assign({}, state, { ...userState });
     default:
       return state;
   }

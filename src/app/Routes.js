@@ -34,10 +34,10 @@ const MainView = ({ match }) => (
 
 const UserView = ({ match }) => (
   <Switch>
-    <Route exact path={`${match.url}/show`} component={UserShow} />
-    <Route exact path={`${match.url}/setting`} component={UserConf} />
-    <Route path={`${match.url}/note`} component={NoteList} />
-    <Route path={`${match.url}/note/:nid`} component={QuesNote} />
+    <Route exact path={`${match.url}/:accountName`} component={UserShow} />
+    <Route path={`${match.url}/:accountName/setting`} component={UserConf} />
+    <Route path={`${match.url}/:accountName/note`} component={NoteList} />
+    <Route path={`${match.url}/:accountName/note/:nid`} component={QuesNote} />
     <Route component={() => <h1>Request Err</h1>} />
   </Switch>
 )

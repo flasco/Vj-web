@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Input, Select } from 'antd';
+import { Table, Input, Select, Tooltip } from 'antd';
 import { Link } from 'react-router-dom';
 
 import { fetchQuesList } from '../../services/problem';
@@ -70,11 +70,11 @@ class QuesList extends React.Component {
       key: 'remoteOj',
       dataIndex: 'remoteOj',
     }, {
-      title: (<Input placeholder='Pro.Id' style={{ width: 60 }} size="small" onChange={(e) => this.setState({ proIdText: e.target.value })} onPressEnter={(e) => this.searchQues()} />),
+      title: (<Tooltip placement="top" title="press Enter to search"><Input placeholder='Pro.Id' style={{ width: 60 }} size="small" onChange={(e) => this.setState({ proIdText: e.target.value })} onPressEnter={(e) => this.searchQues()} /></Tooltip>),
       key: 'remoteProblemId',
       dataIndex: 'remoteProblemId',
     }, {
-      title: (<Input placeholder='Title' style={{ width: 260 }} size="small" onChange={(e) => this.setState({ titleText: e.target.value })} onPressEnter={(e) => this.searchQues()} />),
+      title: (<Tooltip placement="top" title="press Enter to search"><Input placeholder='Title' style={{ width: 260 }} size="small" onChange={(e) => this.setState({ titleText: e.target.value })} onPressEnter={(e) => this.searchQues()} /></Tooltip>),
       key: 'title',
       render: (text, record) => <span><Link to={`/main/ques/${record.remoteOj}/${record.remoteProblemId}`}>{record.title}</Link></span>,
     }, {

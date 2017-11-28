@@ -2,12 +2,6 @@ import React from 'react';
 import { Modal, Upload, message, Icon } from 'antd';
 import { uploadAvatar } from '../../../../services/user';
 
-function getBase64(img, callback) {
-  const reader = new FileReader();
-  reader.addEventListener('load', () => callback(reader.result));
-  reader.readAsDataURL(img);
-}
-
 function beforeUpload(file) {
   const isJPG = file.type === 'image/jpeg';
   if (!isJPG) {
@@ -46,12 +40,14 @@ class Uploader extends React.PureComponent {
             showUploadList={false}
             customRequest={async (componentsData) => {
               let originFile = componentsData.file;
-              let formData = new FormData();
-              formData.append("command", "upload_image");
-              formData.append("imageType", this.name);
-              formData.append(componentsData.filename, originFile, originFile.name);
-              const x = await uploadAvatar(formData);
-              console.log(x);
+              if(beforeUpload(originFile)){
+                let formData = new FormData();
+                formData.append("command", "upload_image");
+                formData.append("imageType", this.name);
+                formData.append(componentsData.filename, originFile, originFile.name);
+                const x = await uploadAvatar(formData);
+                console.log(x);
+              }
             }}
             beforeUpload={beforeUpload}>
             {

@@ -1,15 +1,13 @@
 import React from 'react';
 import { Form } from 'antd';
 
+
 import './index.css';
 const FormItem = Form.Item;
 
-class ShowForm extends React.Component {
+class ShowForm extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      // UpVisible: false,
-    }
   }
 
   render() {
@@ -21,30 +19,31 @@ class ShowForm extends React.Component {
         span: 14,
       },
     };
+    const { data } = this.props;
     return (
-      <Form className="confForm-form" >
+      <Form className="showForm-form" >
         <FormItem
           {...formItemLayout}
           label="NickName">
-          <span>无夏丶</span>
+          <span>{data.nickName}</span>
           <div className="confForm-img">
-            <img src="http://img2.woyaogexing.com/2017/11/07/705db8f16970ff85!400x400_big.jpg" className="confForm-header" alt="无夏丶" />
+            <img src={data.header} className="confForm-header" alt={data.nickName} />
           </div>
         </FormItem>
         <FormItem
           {...formItemLayout}
-          label="Signature">
-          <span>这人贼懒，没有写签名。</span>
-        </FormItem>
-        <FormItem
-          {...formItemLayout}
           label="Gender">
-            <span>woman</span>
+          <span>{data.gender}</span>
         </FormItem>
         <FormItem
           {...formItemLayout}
           label="School">
-          <span>浙江科技学院</span>
+          <span>{data.school}</span>
+        </FormItem>
+        <FormItem
+          {...formItemLayout}
+          label="Signature">
+          <span dangerouslySetInnerHTML={{ __html: data.description.replace(/\n/g,'<br/>') }} />
         </FormItem>
       </Form>
     );
