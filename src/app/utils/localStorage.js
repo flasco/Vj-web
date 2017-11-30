@@ -3,9 +3,9 @@ import { cipher, decipher } from './crypto';
 
 
 
-export function loadState() {
-  let user = getItem('@virtualJudge_user');
-  if (user === null) {
+export async function loadState() {
+  let user = await getItem('@virtualJudge_user');
+  if (user === void 0 || user === null) {
     return initState;
   }
   return Object.assign({}, initState, { user })
