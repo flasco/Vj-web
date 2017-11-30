@@ -2,25 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import { loginCheck } from './services/user';
-
 import Nav from './components/Nav';
 import Routes from './Routes';
 
 import { setMouse, userLogin, userLogout, setUserLoginBoard } from './actions'
 
 class App extends React.Component {
-  componentWillMount() {
-    if (this.props.isLogin) {
-      loginCheck().then(val => {
-        if (!val) {
-          console.log('cookie expired!');
-          this.props.dispatch(userLogout());
-        }
-      });
-    }
-  }
-
   render() {
     const { dispatch, userBoardHover, isLogin, userLoginBoard, header } = this.props
     return (

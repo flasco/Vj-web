@@ -13,7 +13,7 @@ class QueSubmit extends React.Component {
     this.state = {
       selectChild: '',
     };
-    if (props.match.params.id === undefined) {
+    if (props.match.params.id === void 0) {
       // console.log('比赛页面Jmp');
       this.cid = props.match.params.cid;
       this.qid = props.match.params.qid;

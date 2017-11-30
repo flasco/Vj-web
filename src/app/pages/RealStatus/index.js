@@ -60,19 +60,23 @@ const columns = [{
 class RealSuatus extends React.Component {
   constructor(props) {
     super(props);
+    let pushedState = this.props.location.state;
+    this.selector = {
+      runId: '', proId: '', author: '', language: '0', status: '0',
+    };
+    this.selector = Object.assign({}, this.selector, pushedState);
     this.state = {
       data: [],
       pagination: '',
       loading: true,
     }
-
   }
   componentDidMount() {
-    this.fetchData(1);
+    this.fetchData(1, this.selector);
   }
-  async fetchData(runId, proId, author, languageId, suatusId, page) {
+  async fetchData(page, { author = '', status = '', runId = '', proId = '', language = '' }) {
     this.setState({ loading: true });
-    let data = await fetchRealStatus(runId, proId, author, languageId, suatusId, page)
+    let data = await fetchRealStatus(runId, proId, author, language, status, page)
     const pagination = { ...this.state.pagination };
     this.setState({
       loading: false,
@@ -80,17 +84,23 @@ class RealSuatus extends React.Component {
       pagination,
     })
   }
-  handleTableChange = () => {
-
+  handleTableChange = (pagination) => {
+    const pager = { ...this.state.pagination };
+    pager.current = pagination.current;
+    this.setState({
+      pagination: pager,
+    });
+    this.fetchData(pagination.current, this.selector);
   }
   search = (values) => {
-    console.log(values);
+    this.selector = Object.assign({}, this.selector, values)
+    this.fetchData(1, this.selector);
   }
   render() {
     return (
       <div>
         <h1 style={{ textAlign: 'center', marginBottom: 14 }}>Realtime Status</h1>
-        <SelectForm search={this.search} />
+        <SelectForm search={this.search} selector={this.selector} />
         <Table
           size="middle"
           className="realStatus-table"

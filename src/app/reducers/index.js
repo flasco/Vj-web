@@ -10,6 +10,7 @@ const userState = {
   password: '',
   header: '',
 }
+
 const userLoginBoardState = {
   isloginBoard: false,
   windowType: 1,
@@ -24,10 +25,12 @@ export const initState = {
 function user(state = userState, action) {
   switch (action.type) {
     case USER_LOGIN:
-      localStorage.setItem('user', JSON.stringify(action.info));//本地存储
+      localStorage.setItem('@virtualJudge_user', action.info);//本地存储
+      sessionStorage.setItem('isLoginCache', true);
       return Object.assign({}, state, { ...action.info });
     case USER_LOGOUT:
-      localStorage.clear();
+      localStorage.removeItem('@virtualJudge_user');
+      sessionStorage.setItem('isLoginCache', false);
       return Object.assign({}, state, { ...userState });
     default:
       return state;

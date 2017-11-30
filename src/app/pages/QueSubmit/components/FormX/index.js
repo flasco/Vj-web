@@ -14,7 +14,7 @@ class FormX extends React.Component {
       if (!err) {
         postCode({
           ...values,
-          cid: this.props.cid,
+          remoteOj: this.props.cid,
           type: this.props.type,
         });
         this.props.history.push('/main/status');
@@ -50,7 +50,7 @@ class FormX extends React.Component {
           </Col>
           <Col span={12} >
             <FormItem {...formItemLayout} label={`Lan.Id`}>
-              {getFieldDecorator(`language`, { initialValue: '0' })(
+              {getFieldDecorator(`language`, { initialValue: 'G++' })(
                 <Select size='default'>
                   {children}
                 </Select>

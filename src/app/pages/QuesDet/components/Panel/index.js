@@ -6,7 +6,7 @@ import './index.css';
 class PanelBlock extends React.Component {
   renderMathJax = () => {
     const currentNode = ReactDOM.findDOMNode(this);
-    if (window.MathJax !== undefined && window.MathJax.Hub !== undefined && window.MathJax.Hub.Queue !== undefined) {
+    if (window.MathJax !== void 0 && window.MathJax.Hub !== void 0 && window.MathJax.Hub.Queue !== void 0) {
       window.MathJax.Hub.Queue(["Typeset", window.MathJax.Hub, currentNode]);
     }
   }
@@ -34,7 +34,7 @@ class PanelBlock extends React.Component {
 
 class Panel extends React.Component {
   render() {
-    if (this.props.desc !== undefined && this.props.desc.length > 0) {
+    if (this.props.desc !== void 0 && this.props.desc.length > 0) {
       return (
         <div className="quesDet-Panel-block">
           <div className="quesDet-Panel-title">{this.props.name}</div>

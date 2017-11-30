@@ -1,7 +1,7 @@
 import { initState } from './reducers';
 
 export function loadState() {
-  let user = JSON.parse(localStorage.getItem('user'));
+  let user = localStorage.getItem('@virtualJudge_user');
   if (user === null) {
     return initState;
   }

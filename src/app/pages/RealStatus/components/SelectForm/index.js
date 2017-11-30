@@ -6,6 +6,15 @@ const FormItem = Form.Item;
 const Option = Select.Option;
 
 class SelectForm extends React.Component {
+  componentDidMount() {
+    if (this.props.author !== void 0) {
+      this.props.form.validateFields((err, values) => {
+        if (!err) {
+          this.props.search(values);
+        }
+      });
+    }
+  }
   handleSearch = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
@@ -30,9 +39,11 @@ class SelectForm extends React.Component {
             <Tooltip placement="top" title="RunId">
               <div>
                 <FormItem {...formItemLayout} >
-                  {getFieldDecorator(`RunId`)(
+                  {getFieldDecorator(`runId`, {
+                    initialValue: this.props.selector.runId,
+                  })(
                     <Input placeholder="RunId" style={{ height: 30 }} />
-                  )}
+                    )}
                 </FormItem>
               </div>
             </Tooltip>
@@ -41,9 +52,11 @@ class SelectForm extends React.Component {
             <Tooltip placement="top" title="Problem Id">
               <div>
                 <FormItem {...formItemLayout} >
-                  {getFieldDecorator(`ProId`)(
+                  {getFieldDecorator(`proId`, {
+                    initialValue: this.props.selector.proId,
+                  })(
                     <Input placeholder="ProId" style={{ height: 30 }} />
-                  )}
+                    )}
                 </FormItem>
               </div>
             </Tooltip>
@@ -52,9 +65,11 @@ class SelectForm extends React.Component {
             <Tooltip placement="top" title="Author">
               <div>
                 <FormItem {...formItemLayout} >
-                  {getFieldDecorator(`Author`)(
+                  {getFieldDecorator(`author`, {
+                    initialValue: this.props.selector.author
+                  })(
                     <Input placeholder="Author" style={{ height: 30 }} />
-                  )}
+                    )}
                 </FormItem>
               </div>
             </Tooltip>
@@ -63,8 +78,8 @@ class SelectForm extends React.Component {
             <Tooltip placement="top" title="Language">
               <div>
                 <FormItem {...formItemLayout} >
-                  {getFieldDecorator(`Language`, {
-                    initialValue: '0',
+                  {getFieldDecorator(`language`, {
+                    initialValue: this.props.selector.language
                   })(
                     <Select onChange={(val) => console.log(val)}>
                       <Option value="0">All</Option>
@@ -84,8 +99,8 @@ class SelectForm extends React.Component {
             <Tooltip placement="top" title="Status">
               <div>
                 <FormItem {...formItemLayout} >
-                  {getFieldDecorator(`Status`, {
-                    initialValue: '0'
+                  {getFieldDecorator(`status`, {
+                    initialValue: this.props.selector.status
                   })(
                     <Select onChange={(val) => console.log(val)}>
                       <Option value="0">All</Option>

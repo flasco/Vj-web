@@ -2,6 +2,8 @@ import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
 
+import { loginCheck } from '../../services/user';
+
 import LoginWindow from './components/LoginWindow';
 import UserBoard from './components/UserBoard';
 import UserComp from './components/UserComp';
@@ -17,7 +19,30 @@ class Nav extends React.Component {
     super(props);
     this.state = {
       selectedKey: [props.location.pathname.slice(1)],
+      isloaded: false,
     }
+  }
+  componentWillMount() {
+    this.check();
+  }
+  /**
+   * 检测是否登录，如果sessionStorage里面有登录记录就不用发送登录检测，
+   * 不然就发一次登录检测，判断登录情况。
+   */
+  check = async () => {
+    let isLogin = sessionStorage.getItem('isLoginCache');
+    if (!isLogin) {
+      if (this.props.isLogin) {
+        const val = await loginCheck();
+        if (!val) {
+          console.log('cookie expired!');
+          this.props.userLogout();
+        } else {
+          sessionStorage.setItem('isLoginCache', true);
+        }
+      }
+    }
+    this.setState({ isloaded: true });
   }
 
   onMouseEnter = () => {
@@ -45,7 +70,7 @@ class Nav extends React.Component {
       <Layout className="layout">
         <Header style={{ padding: '0 22px' }}>
           <div style={{ margin: '0 auto', maxWidth: 980, minWidth: 980 }}>
-            <div className="Nav-logo"><span>Virtual Judge</span></div>
+            <div className="Nav-logo" onClick={() => this.props.history.push('/')}><span>Virtual Judge</span></div>
             <Menu
               theme="dark"
               mode="horizontal"
@@ -58,12 +83,12 @@ class Nav extends React.Component {
               <MenuItem key="status"><Link to="/main/status">Status</Link></MenuItem>
               <MenuItem key="info"><Link to="/main/info">Info</Link></MenuItem>
             </Menu>
-            <div className={isLogin ? "Nav-head" : "Nav-head Nav-head-no-sign"} onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave}>
+            {this.state.isloaded && <div className={isLogin ? "Nav-head" : "Nav-head Nav-head-no-sign"} onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave}>
               <UserComp
                 header={header || defaultHeader}
                 isLogin={isLogin}
                 setUserLoginBoard={setUserLoginBoard} />
-            </div>
+            </div>}
             {userLoginBoard.isloginBoard && <LoginWindow
               userLogin={this.userLogin}
               isloginBoard={userLoginBoard.isloginBoard}

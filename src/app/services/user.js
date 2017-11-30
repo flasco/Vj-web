@@ -44,6 +44,7 @@ export async function loginCheck() {
     console.log(data);
     return data.success === 1;
   } else {
+    await sleep(750);
     return true;
   }
 }

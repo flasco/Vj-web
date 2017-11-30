@@ -27,7 +27,7 @@ class QuesDet extends React.Component {
       window.MathJax.Hub.Config(MATHJAX_OPTIONS);
     });
 
-    if (props.match.params.id === undefined) {
+    if (props.match.params.id === void 0) {
       // console.log('比赛页面Jmp');
       this.typx = true;
       this.cid = props.match.params.cid;
