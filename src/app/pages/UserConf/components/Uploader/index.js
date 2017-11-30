@@ -45,8 +45,7 @@ class Uploader extends React.PureComponent {
                 formData.append("command", "upload_image");
                 formData.append("imageType", this.name);
                 formData.append(componentsData.filename, originFile, originFile.name);
-                const x = await uploadAvatar(formData);
-                console.log(x);
+                await uploadAvatar(formData);
               }
             }}
             beforeUpload={beforeUpload}>

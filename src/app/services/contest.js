@@ -52,7 +52,6 @@ export async function fetchContestList(page, title = '', accountName = '', statu
   } else {
     const x1 = await axios.get(`${serverIp}/contests/count?page=${page}&size=${size}&status=${status}&accountName=${accountName}&title=${title}&contestType=${contestType}`);
     const x2 = await axios.get(`${serverIp}/contests?page=${page}&size=${size}&accountName=${accountName}&status=${status}&title=${title}&contestType=${contestType}`);
-    console.log(x2.data);
     return {
       ...x1.data,//totalCount
       results: x2.data,

@@ -14,7 +14,6 @@ axios.defaults.withCredentials = true//设置允许携带cookies
 export async function userLoginCheck(info) {
   if (devMode) {
     await sleep(1200);
-    console.log(info);
     if (info.accountName.indexOf('cool') !== -1) {
       let inf = {
         flag: true,
@@ -41,7 +40,6 @@ export async function userLoginCheck(info) {
 export async function loginCheck() {
   if (!devMode) {
     const { data } = await axios.get(`${serverIp}/sessions`);  //验证是否在登录状态
-    console.log(data);
     return data.success === 1;
   } else {
     await sleep(750);
@@ -61,7 +59,6 @@ export async function userRegisterCheck(info) {
 
 export async function uploadAvatar(file) {
   const { data } = await axios.post(`${serverIp}/files/pic`, file);
-  console.log(data);
   return data;
 }
 

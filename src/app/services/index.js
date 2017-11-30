@@ -12,7 +12,6 @@ const { devMode, serverIp } = config;
 
 
 export async function fetchRealStatus(runId, proId, author, languageId, suatusId, page) {
-  console.log(author);
   let data = [{
     runId: '23006988',
     submitTime: '2017-11-25 18:25:03',
@@ -139,7 +138,6 @@ export async function getSelectChild(plantformId) {
 }
 
 export async function postCode(values) {
-  console.log(values)
   devMode && await sleep(850);
   !devMode && await axios.post(`${serverIp}/submissions`, {
     ...values,

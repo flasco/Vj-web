@@ -72,8 +72,6 @@ export async function fetchQuesList(remoteOj, page, remoteProblemId = '', title 
   } else {
     const x1 = await axios.get(`${serverIp}/problems/count?page=${page}&size=${size}&remoteOj=${remoteOj}&remoteProblemId=${remoteProblemId}&title=${title}`);
     const x2 = await axios.get(`${serverIp}/problems?page=${page}&size=${size}&remoteOj=${remoteOj}&remoteProblemId=${remoteProblemId}&title=${title}`);
-    console.log(x1.data);
-    console.log(x2.data);
     return {
       ...x1.data,//totalCount
       results:x2.data,

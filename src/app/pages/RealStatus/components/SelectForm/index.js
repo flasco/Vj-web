@@ -81,7 +81,7 @@ class SelectForm extends React.Component {
                   {getFieldDecorator(`language`, {
                     initialValue: this.props.selector.language
                   })(
-                    <Select onChange={(val) => console.log(val)}>
+                    <Select>
                       <Option value="0">All</Option>
                       <Option value="1">G++</Option>
                       <Option value="2">GCC</Option>
@@ -102,7 +102,7 @@ class SelectForm extends React.Component {
                   {getFieldDecorator(`status`, {
                     initialValue: this.props.selector.status
                   })(
-                    <Select onChange={(val) => console.log(val)}>
+                    <Select >
                       <Option value="0">All</Option>
                       <Option value="1">Accepted</Option>
                       <Option value="2">Wrong Answer</Option>

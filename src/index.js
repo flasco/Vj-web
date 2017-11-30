@@ -7,7 +7,7 @@ import reducers from './app/reducers'
 
 import App from './app';
 import registerServiceWorker from './registerServiceWorker';
-import { loadState } from './app/localStorage'
+import { loadState } from './app/utils/localStorage'
 
 let initState = loadState();
 let store = createStore(reducers, initState);

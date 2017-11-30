@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux'
 import { MOUSE, USER_LOGIN, USER_LOGOUT, USER_BOARD } from '../actions'
 
+import { setItem, removeItem } from '../utils/localStorage';
+
 const mouseState = {
   userBoardHover: true,
 }
@@ -25,11 +27,11 @@ export const initState = {
 function user(state = userState, action) {
   switch (action.type) {
     case USER_LOGIN:
-      localStorage.setItem('@virtualJudge_user', action.info);//本地存储
+      setItem('@virtualJudge_user', action.info);//本地存储
       sessionStorage.setItem('isLoginCache', true);
       return Object.assign({}, state, { ...action.info });
     case USER_LOGOUT:
-      localStorage.removeItem('@virtualJudge_user');
+      removeItem('@virtualJudge_user');
       sessionStorage.setItem('isLoginCache', false);
       return Object.assign({}, state, { ...userState });
     default:
