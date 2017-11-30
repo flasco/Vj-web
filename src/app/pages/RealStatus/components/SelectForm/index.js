@@ -1,6 +1,5 @@
 import React from 'react';
 import { Form, Row, Col, Input, Button, Select, Tooltip } from 'antd';
-// import { Link } from 'react-router-dom';
 
 import './index.css';
 const FormItem = Form.Item;
@@ -10,7 +9,9 @@ class SelectForm extends React.Component {
   handleSearch = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
-      this.props.search(values);
+      if (!err) {
+        this.props.search(values);
+      }
     });
   }
 

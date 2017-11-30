@@ -1,15 +1,9 @@
 import React from 'react';
 import { Form } from 'antd';
-
-
 import './index.css';
 const FormItem = Form.Item;
 
 class ShowForm extends React.PureComponent {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const formItemLayout = {
       labelCol: {

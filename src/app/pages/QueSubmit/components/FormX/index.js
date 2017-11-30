@@ -11,11 +11,14 @@ class FormX extends React.Component {
   handleSearch = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
-      postCode({
-        ...values,
-        cid: this.props.cid,
-        type: this.props.type,
-      });
+      if (!err) {
+        postCode({
+          ...values,
+          cid: this.props.cid,
+          type: this.props.type,
+        });
+        this.props.history.push('/main/status');
+      }
     });
   }
 

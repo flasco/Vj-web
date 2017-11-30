@@ -6,6 +6,7 @@
 import axios from 'axios';
 // import sleep from '../utils/sleep';
 import config from '../../config';
+import sleep from '../utils/sleep';
 
 const { devMode,serverIp } = config;
 
@@ -139,7 +140,8 @@ export async function getSelectChild(plantformId) {
 
 export async function postCode(values) {
   // console.log(values)
-  devMode && await axios.post(`${serverIp}/problem/submit`, {
+  devMode && await sleep(850);
+  !devMode && await axios.post(`${serverIp}/problem/submit`, {
     ...values,
   });
 }

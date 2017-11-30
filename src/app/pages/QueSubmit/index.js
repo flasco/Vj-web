@@ -9,7 +9,7 @@ import './index.css';
 class QueSubmit extends React.Component {
   constructor(props) {
     super(props);
-
+    
     this.state = {
       selectChild: '',
     };
@@ -43,7 +43,7 @@ class QueSubmit extends React.Component {
           <p>Current Authenticated Author : {this.props.userName || 'Stranger'}</p>
         </div>
         <FormX selectChild={this.state.selectChild}
-          cid={this.cid} qid={this.qid} type={this.type} />
+          cid={this.cid} qid={this.qid} type={this.type} history={this.props.history}/>
       </div>
     );
   }
