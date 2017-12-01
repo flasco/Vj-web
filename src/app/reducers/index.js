@@ -1,16 +1,23 @@
 import { combineReducers } from 'redux'
-import { MOUSE, USER_LOGIN, USER_LOGOUT, USER_BOARD } from '../actions'
+import { MOUSE, USER_LOGIN, USER_LOGOUT, USER_BOARD, USER_UPDATE } from '../actions'
 
 import { setItem, removeItem } from '../utils/localStorage';
+import config from '../../config';
 
 const mouseState = {
   userBoardHover: true,
 }
 const userState = {
   isLogin: false,
+  id: '',
   accountName: '',
+  icon: '',
+  acCount: 0,
+  failCount: 0,
+  description: '',
+  school: '',
+  gender: '',
   password: '',
-  header: '',
 }
 
 const userLoginBoardState = {
@@ -27,9 +34,15 @@ export const initState = {
 function user(state = userState, action) {
   switch (action.type) {
     case USER_LOGIN:
+      action.info.icon = `${config.serverIp}${action.info.icon}`;
       setItem('@virtualJudge_user', action.info);//本地存储
+      console.log(action.info)
       sessionStorage.setItem('isLoginCache', true);
       return Object.assign({}, state, { ...action.info });
+    case USER_UPDATE:
+      let st = Object.assign({}, state, { ...action.info });
+      setItem('@virtualJudge_user', st);//本地存储
+      return st;
     case USER_LOGOUT:
       removeItem('@virtualJudge_user');
       sessionStorage.setItem('isLoginCache', false);

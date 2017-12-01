@@ -1,0 +1,79 @@
+@import './codemirror.css';
+@import './duotone-light.css';
+.noteEdit-markdown{
+  padding-left: 12px;
+  height: 450px;
+  overflow-y: scroll;
+  font-size: 12pt;
+}
+.noteEdit-markdown h1,
+.noteEdit-markdown h2,
+.noteEdit-markdown h3,
+.noteEdit-markdown h4 {
+  color: #111111;
+  font-weight: 400;
+  margin:1em 0;
+}
+
+.CodeMirror { 
+  height: 450px;/* 设置codemirror的高度 */
+}
+
+.noteEdit-markdown p{
+  margin:1em 0;
+}
+
+.noteEdit-markdown hr{
+  margin:0.5em 0;
+}
+
+
+.noteEdit-markdown legend {
+  border-bottom: 0;
+  color: #fff;
+  font-size: 1.25em;
+  margin: 0;
+  padding: 10px 0 0 0;
+}
+
+.noteEdit-markdown pre {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.noteEdit-markdown blockquote {
+  color: #666;
+  margin: 0;
+  padding-left: 3em;
+  border-left: 0.5em #eee solid;
+}
+
+.noteEdit-markdown tr {
+  border-top: 1px solid #c6cbd1;
+  background: #fff;
+}
+
+.noteEdit-markdown th,
+.noteEdit-markdown td {
+  border: 1px solid #dfe2e5;
+  padding: 6px 13px;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+.noteEdit-markdown table tr:nth-child(2n) {
+  background: #f6f8fa;
+}
+
+.upload-list-inline .ant-upload-list-item {
+  float: left;
+  width: 200px;
+  margin-right: 8px;
+}
+.upload-list-inline .ant-upload-animate-enter {
+  animation-name: uploadAnimateInlineIn;
+}
+.upload-list-inline .ant-upload-animate-leave {
+  animation-name: uploadAnimateInlineOut;
+}

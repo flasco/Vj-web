@@ -17,13 +17,13 @@ class UserBoard extends React.PureComponent {
   }
 
   render() {
-    const { header, accountName, userBoardHover, onMouseLeave, onMouseEnter } = this.props;
+    const { icon, accountName, uid, userBoardHover, onMouseLeave, onMouseEnter } = this.props;
     return (
       <div className="userboard-container" style={{ visibility: userBoardHover ? 'hidden' : false }}
       onMouseLeave={onMouseLeave} onMouseEnter={onMouseEnter}>
         <div className="userboard-container-inner"
           style={{ visibility: userBoardHover ? 'hidden' : false }} >
-          <img src={header} className="userboard-header" alt="flasco" />
+          <img src={icon} className="userboard-header" alt="flasco" />
           <div className="userboard-first-right" style={{ float: 'left', marginTop: 13, lineHeight: 'normal' }}>
             <span className="userboard-name">{accountName}</span>
             <div className="userboard-meta">
@@ -32,8 +32,8 @@ class UserBoard extends React.PureComponent {
             </div>
           </div>
           <ul className="userboard-items">
-            <li><Link key="report" to={`/user/${accountName}/note`}>解题报告</Link></li>
-            <li><Link key="center" to={`/user/${accountName}/setting`}>个人中心</Link></li>
+            <li><Link key="report" to={{pathname:`/user/${uid}/note`,state:{x:1}}}>解题报告</Link></li>
+            <li><Link key="center" to={{pathname:`/user/${uid}/setting`,state:{x:2}}}>个人中心</Link></li>
           </ul>
           <a className="userboard-quit" onClick={this.userQuit}>安全退出</a>
         </div>
@@ -47,6 +47,7 @@ function select(state) {
   return {
     userBoardHover: state.mouse.userBoardHover,
     accountName: state.user.accountName,
+    uid: state.user.id,
   };
 }
 

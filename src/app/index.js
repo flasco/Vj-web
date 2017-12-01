@@ -9,12 +9,12 @@ import { setMouse, userLogin, userLogout, setUserLoginBoard } from './actions'
 
 class App extends React.Component {
   render() {
-    const { dispatch, userBoardHover, isLogin, userLoginBoard, header } = this.props
+    const { dispatch, userBoardHover, isLogin, userLoginBoard, icon } = this.props
     return (
       <Router>
         <Nav
           isLogin={isLogin}
-          header={header}
+          icon={icon}
           userBoardHover={userBoardHover}
           userLoginBoard={userLoginBoard}
           setUserLoginBoard={type => dispatch(setUserLoginBoard(type))}
@@ -31,7 +31,7 @@ class App extends React.Component {
 function select(state) {
   return {
     userBoardHover: state.mouse.userBoardHover,
-    header: state.user.header,
+    icon: state.user.icon,
     isLogin: state.user.isLogin,
     userLoginBoard: state.userLoginBoard,
   };

@@ -12,7 +12,7 @@ import './index.css';
 
 const MenuItem = Menu.Item;
 const { Header, Content, Footer } = Layout;
-const defaultHeader = 'http://upload.besoo.com/file/201611/24/1915559745908.jpg';
+const defaultIcon = 'http://upload.besoo.com/file/201611/24/1915559745908.jpg';
 
 class Nav extends React.Component {
   constructor(props) {
@@ -31,15 +31,13 @@ class Nav extends React.Component {
    */
   check = async () => {
     let isLogin = sessionStorage.getItem('isLoginCache');
-    if (!isLogin) {
-      if (this.props.isLogin) {
-        const val = await loginCheck();
-        if (!val) {
-          console.log('cookie expired!');
-          this.props.userLogout();
-        } else {
-          sessionStorage.setItem('isLoginCache', true);
-        }
+    if (!isLogin && this.props.isLogin) {
+      const val = await loginCheck();
+      if (!val) {
+        console.log('cookie expired!');
+        this.props.userLogout();
+      } else {
+        sessionStorage.setItem('isLoginCache', true);
       }
     }
     this.setState({ isloaded: true });
@@ -65,7 +63,7 @@ class Nav extends React.Component {
 
   render() {
     let key = window.location.pathname.split('/')[2] || '';
-    const { children, isLogin, header, userLoginBoard, setUserLoginBoard, setMouse } = this.props;
+    const { children, isLogin, icon, userLoginBoard, setUserLoginBoard, setMouse } = this.props;
     return (
       <Layout className="layout">
         <Header style={{ padding: '0 22px' }}>
@@ -85,7 +83,7 @@ class Nav extends React.Component {
             </Menu>
             {this.state.isloaded && <div className={isLogin ? "Nav-head" : "Nav-head Nav-head-no-sign"} onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave}>
               <UserComp
-                header={header || defaultHeader}
+                icon={icon || defaultIcon}
                 isLogin={isLogin}
                 setUserLoginBoard={setUserLoginBoard} />
             </div>}
@@ -96,7 +94,7 @@ class Nav extends React.Component {
               setUserLoginBoard={setUserLoginBoard}
               windowType={userLoginBoard.windowType} />}
             <UserBoard
-              header={header || defaultHeader}
+              icon={icon || defaultIcon}
               userQuit={this.userLogout}
               setMouse={setMouse}
               onMouseLeave={this.onMouseLeave}

@@ -85,7 +85,8 @@ export async function fetchContestDetList(cid) {
       ratio: '35.37%(29/82)'
     },]
   } else {
-    const res = await axios.get(`${serverIp}/`)
+    const res = await axios.get(`${serverIp}/contests/${cid}`);
+    console.log(res.data);
     data = res.data;
   }
   return data;

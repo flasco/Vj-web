@@ -18,10 +18,10 @@ class ShowForm extends React.PureComponent {
       <Form className="showForm-form" >
         <FormItem
           {...formItemLayout}
-          label="NickName">
-          <span>{data.nickName}</span>
+          label="accountName">
+          <span>{data.accountName}</span>
           <div className="confForm-img">
-            <img src={data.header} className="confForm-header" alt={data.nickName} />
+            <img src={data.icon} className="confForm-header" alt={data.accountName} />
           </div>
         </FormItem>
         <FormItem

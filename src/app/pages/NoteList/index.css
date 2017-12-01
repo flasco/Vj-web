@@ -1,0 +1,13 @@
+.notelist-table td{
+  font-size: 14px;
+}
+.notelist-table th:nth-child(1){
+  width: 7%;
+}
+
+.notelist-table th:nth-child(2){
+  width: 80%;
+}
+.notelist-table th:nth-child(3){
+  width: 13%;
+}

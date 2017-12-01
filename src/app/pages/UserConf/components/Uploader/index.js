@@ -1,6 +1,10 @@
 import React from 'react';
 import { Modal, Upload, message, Icon } from 'antd';
-import { uploadAvatar } from '../../../../services/user';
+import { connect } from 'react-redux';
+
+import { userUpdate } from '../../../../actions';
+import config from '../../../../../config';
+const { serverIp } = config;
 
 function beforeUpload(file) {
   const isJPG = file.type === 'image/jpeg';
@@ -24,6 +28,14 @@ class Uploader extends React.PureComponent {
     };
   }
 
+  handleChange = (info) => {
+    if (info.file.response !== undefined) {
+      let path = `${serverIp}${info.file.response.path}`;
+      this.props.dispatch(userUpdate({ icon: path }));
+    }
+
+  }
+
   render() {
     const imageUrl = this.state.imageUrl;
     return (
@@ -36,18 +48,11 @@ class Uploader extends React.PureComponent {
           <h1 style={{ marginBottom: 12 }}>Header Upload</h1>
           <Upload
             className="avatar-uploader"
-            name="userIcon"
+            name="icon"
             showUploadList={false}
-            customRequest={async (componentsData) => {
-              let originFile = componentsData.file;
-              if(beforeUpload(originFile)){
-                let formData = new FormData();
-                formData.append("command", "upload_image");
-                formData.append("imageType", this.name);
-                formData.append(componentsData.filename, originFile, originFile.name);
-                await uploadAvatar(formData);
-              }
-            }}
+            action={`${serverIp}/files/icon`}
+            onChange={this.handleChange}
+            withCredentials={true}//允许携带cookie
             beforeUpload={beforeUpload}>
             {
               imageUrl ?
@@ -61,4 +66,6 @@ class Uploader extends React.PureComponent {
   }
 }
 
-export default Uploader;
+
+
+export default connect()(Uploader);

@@ -51,7 +51,7 @@ class RegisterForm extends React.Component {
         <Form.Item>
           {getFieldDecorator('accountName', {
             validateTrigger: "onBlur",
-            rules: [{ required: true, message: 'make sure that 3 ≤ accountName.len ≤ 10.', max: 10, min: 3 }],
+            rules: [{ required: true, message: 'length: [3,10],only allow a-z A-Z 0-9 _', max: 10, min: 3,pattern:/^[a-zA-Z_0-9]{3,10}$/g }],
           })(
             <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="AccountName" />
             )}
@@ -59,7 +59,7 @@ class RegisterForm extends React.Component {
         <Form.Item>
           {getFieldDecorator('password', {
             validateTrigger: "onBlur",
-            rules: [{ required: true, message: 'make sure that 6 ≤ passWord.len ≤ 12.', max: 12, min: 6 }, {
+            rules: [{ required: true, message: 'length: [6,12]', max: 12, min: 6 }, {
               validator: this.checkConfirm,
             }],
           })(

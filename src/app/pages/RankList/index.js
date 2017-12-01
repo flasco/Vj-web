@@ -10,8 +10,8 @@ const columns = [{
   dataIndex: 'rank',
 }, {
   title: 'Author',
-  key: 'nickName',
-  render: (text, record) => <Link to={`/user/${record.accountName}`}>{record.nickName}</Link>
+  key: 'accountName',
+  render: (text, record) => <Link to={`/user/${record.id}`}>{record.accountName}</Link>
 }, {
   title: 'Description',
   key: 'description',
@@ -19,15 +19,15 @@ const columns = [{
 }, {
   title: 'Solved',
   key: 'solved',
-  render: (text, record) => <Link to={{ pathname: `/main/status`, state: { author: record.accountName, status: '1' } }}>{record.solved}</Link>
+  render: (text, record) => <Link to={{ pathname: `/main/status`, state: { author: record.accountName, status: '1' } }}>{record.acCount}</Link>
 }, {
   title: 'Submitted',
   key: 'submitted',
-  render: (text, record) => <Link to={{ pathname: `/main/status`, state: { author: record.accountName } }}>{record.submitted}</Link>
+  render: (text, record) => <Link to={{ pathname: `/main/status`, state: { author: record.accountName } }}>{record.acCount + record.failCount}</Link>
 }, {
   title: 'AC Ratio',
   key: 'acRatio',
-  render: (text, record) => <span >{`${(record.solved / record.submitted * 100).toFixed(2)}%`}</span>
+  render: (text, record) => <span >{`${(record.acCount / ((record.acCount + record.failCount) !== 0 ? (record.acCount + record.failCount) : 1) * 100).toFixed(2)}%`}</span>
 }];
 
 class RankList extends React.Component {
@@ -54,6 +54,7 @@ class RankList extends React.Component {
   async fetchL(page) {
     this.setState({ loading: true });
     const datax = await getUserRank(page);
+    console.log(datax);
     const pagination = { ...this.state.pagination };
     pagination.total = datax.totalCount;
     this.setState({

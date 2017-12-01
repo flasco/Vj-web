@@ -11,22 +11,22 @@ import LoadingPage from '../../components/LoadingPage';
 class UserShow extends React.Component {
   constructor(props) {
     super(props);
-    this.accountName = props.match.params.accountName;
+    this.uid = props.match.params.uid;
 
-    this.fetchInfo(this.accountName);
+    this.fetchInfo(this.uid);
     this.state = {
-      isMe: this.accountName === props.accountName,
+      isMe: this.uid === `${props.uid}`,
       data: {},
       isLoading: true,
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ isMe: this.accountName === nextProps.accountName, })
+    this.setState({ isMe: this.uid === `${nextProps.uid}`, })
   }
 
-  fetchInfo = async (accountName) => {
-    const datx = await getUserInfo(accountName);
+  fetchInfo = async (uid) => {
+    const datx = await getUserInfo(uid);
     this.setState({
       data: datx,
       isLoading: false,
@@ -43,7 +43,7 @@ class UserShow extends React.Component {
         <Row >
           <Col span={14}><h1 style={{ textAlign: 'right', marginBottom: 24 }}>Persional Infomation</h1></Col>
           <Col span={10}>
-            {isMe && <Link key="setting" to={`./${this.accountName}/setting`} style={{ lineHeight: '36px', marginLeft: 20 }}>Setting</Link>}
+            {isMe && <Link key="setting" to={`./${this.uid}/setting`} style={{ lineHeight: '36px', marginLeft: 20 }}>Setting</Link>}
           </Col>
         </Row>
         <ShowForm data={data} />
@@ -54,7 +54,7 @@ class UserShow extends React.Component {
 
 function select(state) {
   return {
-    accountName: state.user.accountName,
+    uid: state.user.id,
   };
 }
 

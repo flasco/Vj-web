@@ -3,6 +3,7 @@ import { Table } from 'antd';
 // import { Link } from 'react-router-dom';
 
 import { fetchRealStatus } from '../../services'
+import { getTime } from '../../utils/sleep';
 
 import SelectForm from './components/SelectForm';
 import './index.css';
@@ -21,28 +22,28 @@ function getColor(text) {
 
 const columns = [{
   title: 'Run Id',
-  key: 'runId',
-  dataIndex: 'runId',
+  key: 'id',
+  dataIndex: 'id',
 }, {
   title: 'Sub.Time',
   key: 'submitTime',
-  dataIndex: 'submitTime',
+  render: (text, record) => <span>{getTime(new Date(record.submitTime))}</span>
 }, {
   title: 'Status',
-  key: 'judgeStatus',
-  render: (text, record) => <span className={getColor(record.judgeStatus)}>{record.judgeStatus}</span>
+  key: 'status',
+  render: (text, record) => <span className={getColor(record.status)}>{record.status}</span>
 }, {
   title: 'OJ-Id',
   key: 'OJ-Id',
   render: (text, record) => <span>{`${record.remoteOj}-${record.remoteProblemId}`}</span>
 }, {
   title: 'Exe.Time',
-  key: 'exeTime',
-  dataIndex: 'exeTime',
+  key: 'executionTime',
+  dataIndex: 'executionTime',
 }, {
   title: 'Exe.Mem',
-  key: 'exeMemory',
-  dataIndex: 'exeMemory',
+  key: 'executionMemory',
+  dataIndex: 'executionMemory',
 }, {
   title: 'Code Len.',
   key: 'codeLen',
@@ -53,8 +54,8 @@ const columns = [{
   dataIndex: 'language',
 }, {
   title: 'Author',
-  key: 'author',
-  dataIndex: 'author',
+  key: 'accountName',
+  dataIndex: 'accountName',
 }];
 
 class RealSuatus extends React.Component {
@@ -62,7 +63,7 @@ class RealSuatus extends React.Component {
     super(props);
     let pushedState = this.props.location.state;
     this.selector = {
-      runId: '', proId: '', author: '', language: '0', status: '0',
+      runId: '-1', proId: '', author: '', language: '', status: '',
     };
     this.selector = Object.assign({}, this.selector, pushedState);
     this.state = {
@@ -74,13 +75,15 @@ class RealSuatus extends React.Component {
   componentDidMount() {
     this.fetchData(1, this.selector);
   }
-  async fetchData(page, { author = '', status = '', runId = '', proId = '', language = '' }) {
+  async fetchData(page, { author = '', status = '', runId = '-1', proId = '', language = '' }) {
     this.setState({ loading: true });
-    let data = await fetchRealStatus(runId, proId, author, language, status, page)
+    let data = await fetchRealStatus(page, { runId, proId, author, language, status, })
+    console.log(data);
     const pagination = { ...this.state.pagination };
+    pagination.total = data.totalCount;
     this.setState({
       loading: false,
-      data: data,
+      data: data.results,
       pagination,
     })
   }

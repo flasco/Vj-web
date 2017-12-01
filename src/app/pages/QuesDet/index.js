@@ -75,9 +75,8 @@ class QuesDet extends React.Component {
           <PanelBlock data={this.state.data} />
           <div className="quesDet-ul">
             <Link key="submit" to={`./${this.qid}/submit`}>Submit</Link>
-            <Link key="note" to={`./${this.qid}/note`}>Problem Report</Link>
-            <Link key="return" to={this.typx?`./`:'../'}>Back</Link>
-
+            {this.typx || <Link key="note" to={`./${this.qid}/note`}>Note</Link>}
+            <Link key="return" to={this.typx ? `./` : '../'}>Back</Link>
             {/* <Link key="statistic" to={`./ques/statistic/${this.proId}`}>Statistic</Link> */}
             {/* <Link key="discuss" to={`./ques/discuss/${this.proId}`}>Discuss</Link> */}
           </div>

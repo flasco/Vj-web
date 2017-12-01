@@ -15,7 +15,7 @@ class UserComp extends React.Component {
         <Avatar icon="user"
           className="Nav-Ava"
           size="large"
-          src={this.props.header} />
+          src={this.props.icon} />
       );
     } else {
       return (

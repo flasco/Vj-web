@@ -78,9 +78,9 @@ class QuesList extends React.Component {
       key: 'title',
       render: (text, record) => <span><Link to={`/main/ques/${record.remoteOj}/${record.remoteProblemId}`}>{record.title}</Link></span>,
     }, {
-      title: 'Ratio',
-      key: 'ratio',
-      dataIndex: 'ratio',
+      title: 'remoteAddr',
+      key: 'url',
+      render: (text, record) => <Link target='_blank' to={record.url}>Click me</Link>
     }];
     return (
       <div>

@@ -6,7 +6,7 @@ import './index.css';
 class PanelBlock extends React.Component {
   renderMathJax = () => {
     const currentNode = ReactDOM.findDOMNode(this);
-    if (window.MathJax !== void 0 && window.MathJax.Hub !== void 0 && window.MathJax.Hub.Queue !== void 0) {
+    if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Queue) {
       window.MathJax.Hub.Queue(["Typeset", window.MathJax.Hub, currentNode]);
     }
   }

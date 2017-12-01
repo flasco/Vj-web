@@ -19,6 +19,8 @@ import QuesDet from '../app/pages/QuesDet';
 import ContestList from '../app/pages/ContestList';
 import ContestDet from '../app/pages/ContestDet';
 
+import NoteEdit from '../app/pages/NoteEdit';
+
 
 
 const MainView = ({ match }) => (
@@ -34,10 +36,10 @@ const MainView = ({ match }) => (
 
 const UserView = ({ match }) => (
   <Switch>
-    <Route exact path={`${match.url}/:accountName`} component={UserShow} />
-    <Route path={`${match.url}/:accountName/setting`} component={UserConf} />
-    <Route path={`${match.url}/:accountName/note`} component={NoteList} />
-    <Route path={`${match.url}/:accountName/note/:nid`} component={QuesNote} />
+    <Route exact path={`${match.url}/:uid`} component={UserShow} />
+    <Route path={`${match.url}/:uid/setting`} component={UserConf} />
+    <Route path={`${match.url}/:uid/note`} component={NoteList} />
+    <Route path={`${match.url}/:uid/note/:nid`} component={QuesNote} />
     <Route component={() => <h1>Request Err</h1>} />
   </Switch>
 )
@@ -56,6 +58,7 @@ const ContestView = ({ match }) => (
 
 const QuesView = ({ match }) => (
   <Switch>
+    <Route path={`${match.url}/noteEdit`} component={NoteEdit} />
     <Route exact path={`${match.url}/`} component={QuesList} />
     <Route exact path={`${match.url}/:oj/:id`} component={QuesDet} />
     <Route path={`${match.url}/:oj/:id/submit`} component={QueSubmit} />
