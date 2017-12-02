@@ -42,6 +42,7 @@ class ContestDet extends React.Component {
 
   async fetchData() {
     let d = await fetchContestDetList(cid);
+    console.log(d)
     this.setState({ data: d, loading: false })
   }
 

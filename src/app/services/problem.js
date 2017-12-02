@@ -15,62 +15,62 @@ export async function fetchQuesList(remoteOj, page, remoteProblemId = '', title 
       remoteOj: 'HDU',
       remoteProblemId: '1000',
       title: 'A + B Problem',
-      ratio: '30.87%(220395/713855)',
+      url: '30.87%(220395/713855)',
     }, {
       remoteOj: 'HDU',
       remoteProblemId: '1001',
       title: 'Sum Problem',
-      ratio: '25.36%(129232/509626)',
+      url: '25.36%(129232/509626)',
     }, {
       remoteOj: 'HDU',
       remoteProblemId: '1002',
       title: 'A + B Problem II',
-      ratio: '19.36%(74637/385502)',
+      url: '19.36%(74637/385502)',
     }, {
       remoteOj: 'HDU',
       remoteProblemId: '1003',
       title: 'Max Sum',
-      ratio: '23.77%(62287/262089)',
+      url: '23.77%(62287/262089)',
     }, {
       remoteOj: 'HDU',
       remoteProblemId: '1004',
       title: 'Let the Balloon Rise',
-      ratio: '39.50%(51308/129882)',
+      url: '39.50%(51308/129882)',
     }, {
       remoteOj: 'HDU',
       remoteProblemId: '1005',
       title: 'Number Sequence',
-      ratio: '24.88%(45648/183443)',
+      url: '24.88%(45648/183443)',
     }, {
       remoteOj: 'HDU',
       remoteProblemId: '1006',
       title: 'A + B Problem',
-      ratio: '30.87%(220395/713855)',
+      url: '30.87%(220395/713855)',
     }, {
       remoteOj: 'HDU',
       remoteProblemId: '1007',
       title: 'Sum Problem',
-      ratio: '25.36%(129232/509626)',
+      url: '25.36%(129232/509626)',
     }, {
       remoteOj: 'HDU',
       remoteProblemId: '1008',
       title: 'A + B Problem II',
-      ratio: '19.36%(74637/385502)',
+      url: '19.36%(74637/385502)',
     }, {
       remoteOj: 'HDU',
       remoteProblemId: '1009',
       title: 'Max Sum',
-      ratio: '23.77%(62287/262089)',
+      url: '23.77%(62287/262089)',
     }, {
       remoteOj: 'HDU',
       remoteProblemId: '1010',
       title: 'Let the Balloon Rise',
-      ratio: '39.50%(51308/129882)',
+      url: '39.50%(51308/129882)',
     }, {
       remoteOj: 'HDU',
       remoteProblemId: '1011',
       title: 'Number Sequence',
-      ratio: '24.88%(45648/183443)',
+      url: '24.88%(45648/183443)',
     }];
 
     data = data.slice(10 * (page - 1), 10 * page);

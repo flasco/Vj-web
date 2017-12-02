@@ -78,11 +78,12 @@ export async function getNoteList(page, type, p1, p2 = '') {
 
 export async function getNoteDet(id) {
   if(devMode){
+    await sleep(850);
     return {
       title:'[HDU] 2014题解 --- 无夏丶',
       author:'cool',
       to:'HDU, 2014',
-      content:'这里是一个测试语句啦啦啦',
+      content:'## Hello World!~\n\n> this is my **first** *word* to test.!\n\n```c\nint x = 0;\nprintf("%d",x)\n```\n\n下面我要放图片啦！\n\n<img src="https://ss0.baidu.com/73x1bjeh1BF3odCf/it/u=3379289131,4055642412&fm=85&s=58A9AB550C61FA1D889581C40300A033" style="width:120px;" alt="asd"/>',
     }
   }
 }

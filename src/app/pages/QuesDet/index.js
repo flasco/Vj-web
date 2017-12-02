@@ -42,9 +42,6 @@ class QuesDet extends React.Component {
     this.state = {
       data: {},
       loading: true,
-      ModalText: 'Content of the modal',
-      visible: false,
-      confirmLoading: false,
     }
   }
   componentDidMount() {

@@ -63,7 +63,9 @@ export async function fetchContestDetList(cid) {
   let data;
   if (devMode) {
     await sleep(1000);
-    data = [{
+    data = {
+      title:'123123',
+      containProblems:[{
       solved: true,
       remoteProblemId: '1001',
       title: 'Palindrome',
@@ -83,7 +85,7 @@ export async function fetchContestDetList(cid) {
       remoteProblemId: '1004',
       title: 'X-Men',
       ratio: '35.37%(29/82)'
-    },]
+    },]}
   } else {
     const res = await axios.get(`${serverIp}/contests/${cid}`);
     console.log(res.data);

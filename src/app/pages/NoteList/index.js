@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Table } from 'antd';
+import { Row, Col, Table, Button } from 'antd';
 import { Link } from 'react-router-dom';
 
 import { getNoteList } from '../../services/note';
@@ -28,13 +28,17 @@ class NoteList extends React.Component {
       pagination: {},
       loading: false,
     }
-
-    if (this.p1 = props.match.params.uid) {
+    console.log(props.match)
+    if (props.match.params.uid) {
+      this.p1 = props.match.params.uid;
       this.type = 1; //这里是用户的列表
-    } else if (this.p1 = props.match.params.oj) {
+    } else if (props.match.params.oj) {
+      this.p1 = props.match.params.oj
       this.type = 2; //这里是题库题目的题解跳转。
       this.p2 = props.match.params.id;
     }
+    console.log(this.type);
+
     this.fetchL = this.fetchL.bind(this);
   }
   componentDidMount() {
@@ -59,11 +63,18 @@ class NoteList extends React.Component {
     });
   }
 
+  noteWrite = () => {
+    this.props.history.push({ pathname: '/main/ques/noteEdit', state: { p1: this.p1, p2: this.p2 } });
+  }
+
   render() {
     return (
       <div>
         <Row style={{ marginBottom: 8 }}>
           <Col span={12} style={{ fontSize: 16 }}>Note List</Col>
+          <Col span={12} style={{ fontSize: 16 }}>
+            <Button type="primary" style={{ float: 'right' }} onClick={this.noteWrite}>Write</Button>
+          </Col>
         </Row>
         <Table
           className="notelist-table"

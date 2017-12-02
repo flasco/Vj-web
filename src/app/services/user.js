@@ -18,11 +18,13 @@ export async function userLoginCheck(info) {
       let inf = {
         flag: true,
         res: {
-          accountName:info.accountName,
+          id: 3,
+          accountName: info.accountName,
           icon: 'http://img2.woyaogexing.com/2017/11/07/705db8f16970ff85!400x400_big.jpg',
           isLogin: true,
         }
       }
+      console.log(inf)
       return inf;
     } else {
       return { flag: false };
@@ -58,9 +60,9 @@ export async function userRegisterCheck(info) {
 }
 
 export async function uploadAvatar(file) {
-  if(devMode){
+  if (devMode) {
     return '/12312';
-  }else{
+  } else {
     const { data } = await axios.post(`${serverIp}/files/icon`, file);
     console.log(data);
     return data;
@@ -71,8 +73,9 @@ export async function getUserInfo(uid) {
   if (devMode) {
     await sleep(800);
     let data;
-    if (uid !== 3) {
+    if (uid === '3') {
       data = {
+        id: 3,
         accountName: 'cool',
         icon: 'http://img2.woyaogexing.com/2017/11/07/705db8f16970ff85!400x400_big.jpg',
         description: '自你离去的那一天起，我便失去了所有的夏天。\n自你离去的那一天起，我便失去了所有的夏天。\n自你离去的那一天起，我便失去了所有的夏天。',
@@ -81,7 +84,8 @@ export async function getUserInfo(uid) {
       }
     } else {
       data = {
-        accountName:'shua',
+        id: 4,
+        accountName: 'shua',
         icon: 'http://img2.woyaogexing.com/2017/11/12/6751808381431831!400x400_big.jpg',
         description: '自你离去的那一天起，我便失去了所有的夏天。',
         gender: 'woman',
@@ -89,7 +93,7 @@ export async function getUserInfo(uid) {
       }
     }
     return data;
-  }else{
+  } else {
     const { data } = await axios.get(`${serverIp}/users/${uid}`)
     data.user.icon = `${config.serverIp}${data.user.icon}`;
     return data.user;
@@ -97,9 +101,9 @@ export async function getUserInfo(uid) {
 }
 
 export async function submitUserInfo(values) {
-  if(devMode){
+  if (devMode) {
     console.log(values)
-  }else{
+  } else {
     console.log(values)
   }
 }

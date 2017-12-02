@@ -34,7 +34,7 @@ export const initState = {
 function user(state = userState, action) {
   switch (action.type) {
     case USER_LOGIN:
-      action.info.icon = `${config.serverIp}${action.info.icon}`;
+      config.devMode || (action.info.icon = `${config.serverIp}${action.info.icon}`);
       setItem('@virtualJudge_user', action.info);//本地存储
       console.log(action.info)
       sessionStorage.setItem('isLoginCache', true);

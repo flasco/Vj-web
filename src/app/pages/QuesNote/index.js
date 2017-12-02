@@ -1,29 +1,50 @@
 import React from 'react';
-// import { Row, Col, Table, Input } from 'antd';
-// import { Link } from 'react-router-dom';
+import { Icon, Row, Col } from 'antd';
+import { Link } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
 
+import LoadingPage from '../../components/LoadingPage';
+
+import { getNoteDet } from '../../services/note';
 import './index.css';
 
-class QuesNote extends React.Component{
-  constructor(props){
+class QuesNote extends React.Component {
+  constructor(props) {
     super(props);
-    
+
     this.state = {
-
-    };
-
-    if (this.p1 = props.match.params.uid) {
-      this.type = 1; //这里是用户的列表
-    } else if (this.p1 = props.match.params.oj) {
-      this.type = 2; //这里是题库题目的题解跳转。
-      this.p2 = props.match.params.id;
+      data: {},
+      isLoading: true,
     }
-
+    this.nid = props.match.params.nid;
+    this.getNote();
   }
-  render(){
-    return(
+  getNote = async () => {
+    const data = await getNoteDet(this.nid);
+    console.log(data);
+    this.setState({ data, isLoading: false })
+  }
+  render() {
+    const { isLoading, data } = this.state;
+    if (isLoading) {
+      return <LoadingPage />
+    }
+    return (
       <div>
-        <h1>这里是解题报告的详情</h1>
+        <div style={{ textAlign: 'center', marginBottom: 12 }}>
+          <h1>{data.title}</h1>
+          <Row gutter={40} type="flex" justify="center">
+            <Col span={4}><Icon type="user" style={{ marginRight: 4 }} /><span style={{ fontSize: 14 }}>{data.author}</span></Col>
+            <Col span={4}><Icon type="pushpin-o" style={{ marginRight: 4 }} /><span style={{ fontSize: 14 }}>{data.to}</span></Col>
+          </Row>
+        </div>
+        <ReactMarkdown
+          className="noteEdit-markdown"
+          source={data.content}
+          escapeHtml={false} />
+        <div style={{ marginTop: 20, fontSize: '12pt', textAlign: 'center' }}>
+          <Link to="../note" >Back</Link>
+        </div>
       </div>
     );
   }
