@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Table } from 'antd';
+import { Row, Col, Table, Button } from 'antd';
 import { Link } from 'react-router-dom';
 
 import { fetchContestList } from '../../services/contest';
@@ -26,22 +26,27 @@ function getStatusColor(text) {
 const columns = [{
   title: 'Id',
   key: 'id',
+  width: '5%',
   dataIndex: 'id',
 }, {
   title: 'Contest Name',
   key: 'title',
+  width: '38%',
   render: (text, record) => <span><Link to={`./contest/${record.id}`}>{record.title}</Link></span>
 }, {
   title: 'Start Time (GMT+8)',
   key: 'startTime',
+  width: '12%',
   render: (text, record) => <span>{getFormatTime(record.startTime)}</span>
 }, {
   title: 'Type',
   key: 'contestType',
+  width: '5%',
   render: (text, record) => <span style={{ color: record.contestType === 0 ? 'red' : 'green' }}>{record.contestType === 0 ? 'public' : 'private'}</span>
 }, {
   title: 'Status',
   key: 'status',
+  width: '7%',
   render: (text, record) => <span style={{ color: getStatusColor(record.status) }}>{record.status}</span>
 }];
 
@@ -87,11 +92,18 @@ class ContestList extends React.Component {
     });
     this.fetchL(pagination.current);
   }
+
+  contestAdd = () =>{
+    this.props.history.push('./contest/add')
+  }
   render() {
     return (
       <div>
         <Row style={{ marginBottom: 8 }}>
           <Col span={12} style={{ fontSize: 16 }}>Contest List</Col>
+          <Col span={12} style={{ fontSize: 16 }}>
+            <Button type="primary" style={{ float: 'right' }} onClick={this.contestAdd}>Add</Button>
+          </Col>
         </Row>
         <Table
           className="contestList-table"

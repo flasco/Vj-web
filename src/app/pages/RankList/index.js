@@ -7,26 +7,32 @@ import './index.css';
 const columns = [{
   title: 'Rank',
   key: 'rank',
+  width:'5%',
   dataIndex: 'rank',
 }, {
   title: 'Author',
   key: 'accountName',
+  width:'12%',
   render: (text, record) => <Link to={`/user/${record.id}`}>{record.accountName}</Link>
 }, {
   title: 'Description',
   key: 'description',
+  width:'50%',
   render: (text, record) => <span >{record.description.length > 30 ? `${record.description.substring(0, 28)}...` : record.description}</span>
 }, {
   title: 'Solved',
   key: 'solved',
+  width:'8%',
   render: (text, record) => <Link to={{ pathname: `/main/status`, state: { author: record.accountName, status: '1' } }}>{record.acCount}</Link>
 }, {
   title: 'Submitted',
   key: 'submitted',
+  width:'12%',
   render: (text, record) => <Link to={{ pathname: `/main/status`, state: { author: record.accountName } }}>{record.acCount + record.failCount}</Link>
 }, {
   title: 'AC Ratio',
   key: 'acRatio',
+  width:'8%',
   render: (text, record) => <span >{`${(record.acCount / ((record.acCount + record.failCount) !== 0 ? (record.acCount + record.failCount) : 1) * 100).toFixed(2)}%`}</span>
 }];
 

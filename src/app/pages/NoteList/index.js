@@ -8,14 +8,17 @@ import './index.css';
 const columns = [{
   title: 'Id',
   key: 'id',
+  width:'7%',
   dataIndex: 'id',
 }, {
   title: 'Title',
   key: 'title',
+  width:'80%',
   render: (text, record) => <Link to={`./note/${record.id}`}>{record.title}</Link>
 }, {
   title: 'Author',
   key: 'author',
+  width:'13%',
   render: (text, record) => <Link to={`/user/${record.author}`}>{record.author}</Link>
 },]
 

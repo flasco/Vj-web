@@ -13,7 +13,7 @@ class ContestAdd extends React.Component {
   render() {
     return (
       <div>
-        <h1>这里是比赛添加界面</h1>
+        <h1 style={{marginBottom:24,textAlign:'center'}}>Contest Add</h1>
         <ContestForm />
       </div>
     );

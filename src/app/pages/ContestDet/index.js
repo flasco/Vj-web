@@ -10,19 +10,23 @@ import './index.css';
 let cid;
 const columns = [{
   title: 'Solved',
+  width:'7%',
   key: 'solved',
   render: (rext, record) => record.solved && <Icon type="check" style={{ color: 'red' }} />
 }, {
   title: 'Pro.Id',
+  width:'7%',
   key: 'remoteProblemId',
   dataIndex: 'remoteProblemId',
 }, {
   title: 'Title',
   key: 'title',
+  width:'42%',
   render: (text, record) => <span><Link to={`./${cid}/${record.remoteProblemId}`}>{record.title}</Link></span>
 }, {
   title: 'Ratio',
   key: 'ratio',
+  width:'20%',
   dataIndex: 'ratio',
 }];
 

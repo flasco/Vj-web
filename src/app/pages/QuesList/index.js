@@ -67,19 +67,23 @@ class QuesList extends React.Component {
           <Option value="PKU">PKU</Option>
         </Select>
       ),
+      width:'7%',
       key: 'remoteOj',
       dataIndex: 'remoteOj',
     }, {
       title: (<Tooltip placement="top" title="press Enter to search"><Input placeholder='Pro.Id' style={{ width: 60 }} size="small" onChange={(e) => this.setState({ proIdText: e.target.value })} onPressEnter={(e) => this.searchQues()} /></Tooltip>),
       key: 'remoteProblemId',
+      width:'12%',
       dataIndex: 'remoteProblemId',
     }, {
       title: (<Tooltip placement="top" title="press Enter to search"><Input placeholder='Title' style={{ width: 260 }} size="small" onChange={(e) => this.setState({ titleText: e.target.value })} onPressEnter={(e) => this.searchQues()} /></Tooltip>),
       key: 'title',
+      width:'68%',
       render: (text, record) => <span><Link to={`/main/ques/${record.remoteOj}/${record.remoteProblemId}`}>{record.title}</Link></span>,
     }, {
       title: 'remoteAddr',
       key: 'url',
+      width:'32%',
       render: (text, record) => <Link target='_blank' to={record.url}>Click me</Link>
     }]; 
     return (

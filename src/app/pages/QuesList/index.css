@@ -1,15 +1,3 @@
 .ques-table td{
   font-size: 14px;
 }
-.ques-table th:nth-child(1){
-  width: 7%;
-}
-.ques-table th:nth-child(2){
-  width: 12%;
-}
-.ques-table th:nth-child(3){
-  width: 68%;
-}
-.ques-table th:nth-child(4){
-  width: 32%;
-}
