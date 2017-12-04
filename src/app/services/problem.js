@@ -83,7 +83,7 @@ export async function fetchQuesList(remoteOj, page, remoteProblemId = '', title 
     const x2 = await axios.get(`${serverIp}/problems?page=${page}&size=${size}&remoteOj=${remoteOj}&remoteProblemId=${remoteProblemId}&title=${title}`);
     return {
       ...x1.data,//totalCount
-      results:x2.data,
+      results: x2.data,
     }
   }
 }

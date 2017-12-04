@@ -21,7 +21,7 @@ class QuesNote extends React.Component {
   }
   getNote = async () => {
     const data = await getNoteDet(this.nid);
-    console.log(data);
+    // console.log(data);
     this.setState({ data, isLoading: false })
   }
   render() {
@@ -35,8 +35,9 @@ class QuesNote extends React.Component {
           <h1>{data.title}</h1>
           <Row gutter={40} type="flex" justify="center">
             <Col span={4}><Icon type="user" style={{ marginRight: 4 }} /><span style={{ fontSize: 14 }}>{data.author}</span></Col>
-            <Col span={4}><Icon type="pushpin-o" style={{ marginRight: 4 }} /><span style={{ fontSize: 14 }}>{data.to}</span></Col>
+            <Col span={4}><Icon type="pushpin-o" style={{ marginRight: 4 }} /><span style={{ fontSize: 14 }}>{`${data.remoteOj} - ${data.remoteId}`}</span></Col>
           </Row>
+          <Link to={{ pathname: '/main/ques/noteEdit', state: { nid: this.nid } }} style={{ fontSize: '12pt' }}>Edit</Link>
         </div>
         <ReactMarkdown
           className="noteEdit-markdown"

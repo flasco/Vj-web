@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, DatePicker, Button, Table, Modal, Select, Popconfirm } from 'antd';
+import { Input, Button, Table, Select, Popconfirm } from 'antd';
 
 
 import { fetchQuesDet } from '../../../../services/problem';
@@ -21,6 +21,11 @@ class ProblemAddTable extends React.Component {
     }
 
     this.columns = [{
+      title: 'Index',
+      dataIndex: 'key',
+      width: '10%',
+      render: (text, record, index) => <span>{index + 1}</span>,
+    }, {
       title: 'Oj',
       dataIndex: 'remoteOj',
       width: '10%',
@@ -40,7 +45,7 @@ class ProblemAddTable extends React.Component {
       dataIndex: 'operation',
       render: (text, record) => {
         return (
-          this.state.dataSource.length > 0 ?
+          this.props.dataSource.length > 0 ?
             (
               <span>
                 <a onClick={() => this.edit(record.key)} style={{ marginRight: 8 }}>Edit</a>
@@ -55,18 +60,18 @@ class ProblemAddTable extends React.Component {
   }
 
   handleAdd = async () => {
-    const { count, dataSource } = this.state;
+    const { count } = this.state;
+    const { dataSource } = this.props;
+    this.setState({ buttonLoading: true })
     const data = await fetchQuesDet(this.state.oj, this.state.id);
     const newData = {
       key: count,
       ...data,
     };
-    
+    this.props.refreshList([...dataSource, newData]);
     this.setState({
-      dataSource: [...dataSource, newData],
       count: count + 1,
-    },()=>{
-      this.props.refreshList(this.state.dataSource)
+      buttonLoading: false
     });
   }
 
@@ -75,19 +80,19 @@ class ProblemAddTable extends React.Component {
   }
 
   editItem = (values) => {
-    const { dataSource, editKey } = this.state;
+    const { editKey } = this.state;
+    const { dataSource } = this.props;
     const newData = Object.assign({}, dataSource[editKey], values);
     dataSource.splice(editKey, 1, newData);
+    this.props.refreshList(dataSource)
+
     this.setState({
-      dataSource: [...dataSource],
-      visible:false
-    },()=>{
-      this.props.refreshList(this.state.dataSource)
+      visible: false
     })
   }
 
   edit = (key) => {
-    const { dataSource } = this.state;
+    const { dataSource } = this.props;
     let editKey = -1;
     for (let i = 0, j = dataSource.length; i < j; i++) {
       if (dataSource[i].key === key) {
@@ -102,7 +107,7 @@ class ProblemAddTable extends React.Component {
   }
 
   delete = (key) => {
-    const { dataSource } = this.state;
+    const { dataSource } = this.props;
     let deleteKey = -1;
     for (let i = 0, j = dataSource.length; i < j; i++) {
       if (dataSource[i].key === key) {
@@ -113,17 +118,13 @@ class ProblemAddTable extends React.Component {
 
     if (deleteKey !== -1) {
       dataSource.splice(deleteKey, 1);
-      this.setState({
-        dataSource: [...dataSource],
-      },()=>{
-        this.props.refreshList(this.state.dataSource)
-      });
+      this.props.refreshList(dataSource)
     }
   }
 
 
   render() {
-    const { dataSource } = this.state;
+    const { dataSource } = this.props;
     return (
       <div>
         <div style={{ marginBottom: 14, textAlign: 'center' }}>
@@ -133,13 +134,13 @@ class ProblemAddTable extends React.Component {
               <Option value="PKU">PKU</Option>
             </Select>
           } style={{ width: '200px', marginRight: 24 }} placeholder=" Id" value={this.state.id} onChange={(e) => this.setState({ id: e.target.value })} />
-          <Button onClick={this.handleAdd} loading={this.state.buttonLoading}>Add</Button>
+          <Button onClick={this.handleAdd} loading={this.state.buttonLoading} icon="plus">Add</Button>
         </div>
-        <Table bordered dataSource={dataSource} columns={this.columns} pagination={false} />
+        <Table bordered dataSource={dataSource} columns={this.columns} pagination={false} rowKey={(item, index) => index} />
         <QuesEditModal
           visible={this.state.visible}
           handleCancel={this.handleCancel}
-          data={this.state.dataSource[this.state.editKey]}
+          data={this.props.dataSource[this.state.editKey]}
           submit={this.editItem} />
       </div>
 

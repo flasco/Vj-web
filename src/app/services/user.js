@@ -64,7 +64,7 @@ export async function uploadAvatar(file) {
     return '/12312';
   } else {
     const { data } = await axios.post(`${serverIp}/files/icon`, file);
-    console.log(data);
+    // console.log(data);
     return data;
   }
 }

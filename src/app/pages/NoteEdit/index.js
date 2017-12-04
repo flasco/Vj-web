@@ -1,6 +1,7 @@
 import React from 'react';
 // import { Link } from 'react-router-dom';
 
+import { getNoteDet } from '../../services/note';
 
 import EditForm from './components/EditForm';
 
@@ -10,6 +11,9 @@ class NoteEdit extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      data: {},
+    }
 
     this.info = props.location.state;
     console.log(this.info)
@@ -18,20 +22,27 @@ class NoteEdit extends React.Component {
         //个人写
         console.log(`你要写：oj:${this.info.p1},id:${this.info.p2}`);
       } else {
-        console.log(`你好，${this.info.p1}`);
+        if (this.info.nid) {
+          console.log('你要修改了！')
+          this.fetchNote(this.info.nid);
+        } else {
+          console.log(`你好，${this.info.p1}`);
+        }
       }
     } else {
       console.log(`你没有访问权限。`)
     }
   }
 
+  fetchNote = async (nid) => {
+    const data = await getNoteDet(nid);
+    console.log(data);
+    this.setState({ data });
+  }
+
   render() {
     return (
-      <div className="noteEdit-cont">
-        <EditForm />
-        <br />
-        <div style={{ textAlign: 'center' }}></div>
-      </div>
+      <EditForm data={this.state.data} />
     );
   }
 

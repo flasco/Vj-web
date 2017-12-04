@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import loadScript from 'load-script'
 
 import { fetchQuesDet } from '../../services/problem'
+import { fetchContestQues } from '../../services/contest'
 
 import PanelBlock from './components/Panel';
 
@@ -26,12 +27,13 @@ class QuesDet extends React.Component {
     loadScript(MATHJAX_SCRIPT, () => {
       window.MathJax.Hub.Config(MATHJAX_OPTIONS);
     });
-
+    console.log(props.location.state);
     if (props.match.params.id === void 0) {
       // console.log('比赛页面Jmp');
       this.typx = true;
       this.cid = props.match.params.cid;
-      this.qid = props.match.params.qid;
+      this.oj = props.location.state.oj;
+      this.qid = props.location.state.qid;
     } else {
       // console.log('题库页面Jmp');
       this.typx = false;
@@ -49,8 +51,13 @@ class QuesDet extends React.Component {
   }
 
   async fetchData() {
-    let d = await fetchQuesDet(this.oj, this.qid);
-    this.setState({ data: d, loading: false })
+    if (this.typx) {
+      let d = await fetchContestQues(this.oj, this.qid, this.cid);
+      this.setState({ data: d, loading: false })
+    } else {
+      let d = await fetchQuesDet(this.oj, this.qid, this.cid);
+      this.setState({ data: d, loading: false })
+    }
   }
 
   render() {
@@ -73,7 +80,7 @@ class QuesDet extends React.Component {
           <div className="quesDet-ul">
             <Link key="submit" to={`./${this.qid}/submit`}>Submit</Link>
             {this.typx || <Link key="note" to={`./${this.qid}/note`}>Note</Link>}
-            <Link key="return" to={this.typx ? `./` : '../'}>Back</Link>
+            <Link key="return" to={this.typx ? `../${this.cid}` : '../'}>Back</Link>
             {/* <Link key="statistic" to={`./ques/statistic/${this.proId}`}>Statistic</Link> */}
             {/* <Link key="discuss" to={`./ques/discuss/${this.proId}`}>Discuss</Link> */}
           </div>

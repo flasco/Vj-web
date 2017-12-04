@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Button, Row, Col, Upload, Icon, Input, Tooltip, Select } from 'antd';
 import ReactMarkdown from 'react-markdown';
-
+import { connect } from 'react-redux';
 import { UnControlled } from '../Editor';
 import config from '../../../../../config';
 
@@ -49,6 +49,20 @@ class EditForm extends React.Component {
       fileList: [...fileList]
     };
   }
+
+  submit = (e) => {
+    e.preventDefault();
+    this.props.form.validateFields(async (err, values) => {
+      if (!err) {
+        let data = {
+          ...values,
+          content: this.state.value,
+          userId:this.props.userId,
+        }
+        console.log(data);
+      }
+    });
+  }
   render() {
     const { getFieldDecorator } = this.props.form;
     const formItemLayout = {
@@ -61,26 +75,35 @@ class EditForm extends React.Component {
     };
 
     return (
-      <Form>
+      <Form onSubmit={this.submit}>
         <FormItem
           {...formItemLayout}
-          style={{marginBottom:12}}
+          style={{ marginBottom: 12 }}
           label="Title">
-          <Input placeholder="This is Title" />
+          {getFieldDecorator('title', {
+            initialValue: '',
+          })(
+            <Input placeholder="This is Title" />
+            )}
         </FormItem>
         <FormItem
           {...formItemLayout}
           label="To">
-          <Input addonBefore={
-            getFieldDecorator('remoteOj', {
-              initialValue: 'HDU',
-            })(
-              <Select style={{ width: 60 }}>
-                <Option value="HDU">HDU</Option>
-                <Option value="PKU">PKU</Option>
-              </Select>
-              )
-          } style={{ width: '45%' }} placeholder=" Id"/>
+          {getFieldDecorator('remoteId', {
+            initialValue: '',
+          })(
+            <Input addonBefore={
+              getFieldDecorator('remoteOj', {
+                initialValue: 'HDU',
+              })(
+                <Select style={{ width: 60 }}>
+                  <Option value="HDU">HDU</Option>
+                  <Option value="PKU">PKU</Option>
+                </Select>
+                )
+            } style={{ width: '45%' }} placeholder=" Id" />
+            )}
+
           <Upload
             name="pic"
             action={`${serverIp}/files/pic`}
@@ -96,7 +119,7 @@ class EditForm extends React.Component {
               return false
             }}>
             <Tooltip title="max fileList length is 9, if you want add more, use some and delete it, url is still useful">
-              <Button disabled={fileList.length >= 9} style={{height:32,marginLeft:24}}>
+              <Button disabled={fileList.length >= 9} style={{ height: 32, marginLeft: 24 }}>
                 <Icon type="upload" /> upload
             </Button>
             </Tooltip>
@@ -126,8 +149,8 @@ class EditForm extends React.Component {
               escapeHtml={false} />
           </Col>
         </Row>
-        <FormItem>
-          <Button>提交</Button>
+        <FormItem style={{ textAlign: 'center' }}>
+          <Button type="primary" htmlType="submit" >提交</Button>
         </FormItem>
       </Form>
     );
@@ -136,4 +159,10 @@ class EditForm extends React.Component {
 
 const EditFormWarpper = Form.create()(EditForm);
 
-export default EditFormWarpper;
+function select(state) {
+  return {
+    userId: state.user.id,
+  };
+}
+
+export default connect(select)(EditFormWarpper);

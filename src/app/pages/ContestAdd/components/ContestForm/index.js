@@ -1,7 +1,11 @@
 import React from 'react';
-import { Form, Input, DatePicker, Button, message,Select } from 'antd';
+import { Form, Input, DatePicker, Button, message, Select, Col, Row } from 'antd';
+
+import { fetchContestDetList } from '../../../../services/contest';
 
 import ProblemAddTable from '../ProblemAddTable';
+import LoadingPage from '../../../../components/LoadingPage';
+import moment from 'moment';
 
 
 const FormItem = Form.Item;
@@ -13,14 +17,45 @@ class ContestForm extends React.Component {
     super(props);
 
     this.state = {
-      problemList: [],
+      containProblems: [],
+      isLoading: true,
+      isPrivate: false,
     }
+
+  }
+  componentDidMount() {
+    if (this.props.cid !== void 0) {
+      fetchContestDetList(this.props.cid).then(val => {
+        console.log(val);
+        this.refreshList(val.containProblems);
+        this.setState({ isLoading: false })
+        this.props.form.setFieldsValue({
+          title: val.title,
+          timePicker: [
+            moment(new Date(val.startTime)),
+            moment(new Date(val.startTime + val.duration))
+          ],
+          contestType: `${val.contestType}`
+        });
+        
+      })
+    } else {
+      this.setState({ isLoading: false })
+    }
+
   }
 
   refreshList = (list) => {
     this.setState({
-      problemList: list
+      containProblems: list
     })
+  }
+
+  handleSelectChange = (value) => {
+    this.setState({ isPrivate: value === '1' })
+    this.props.form.setFieldsValue({
+      password: '',
+    });
   }
 
   handleSubmit = (e) => {
@@ -29,18 +64,20 @@ class ContestForm extends React.Component {
       if (err) {
         return;
       }
-      if (this.state.problemList.length < 1) {
+      if (this.state.containProblems.length < 1) {
         message.error('please add problem ! ');
         return;
       }
       const rangeTimeValue = values['timePicker'];
       let startTime = rangeTimeValue[0].valueOf();
-      let duringTime = rangeTimeValue[1].valueOf() - rangeTimeValue[0].valueOf();
+      let duration = rangeTimeValue[1].valueOf() - rangeTimeValue[0].valueOf();
       const subValues = {
         title: values.title,
+        contestType: values.contestType,
+        password: values.password,
         startTime,
-        duringTime,
-        list: this.state.problemList
+        duration,
+        containProblems: this.state.containProblems
       }
       console.log(subValues);
     });
@@ -52,9 +89,12 @@ class ContestForm extends React.Component {
         span: 3
       },
       wrapperCol: {
-        span: 6
+        span: 8
       },
     };
+    if (this.state.isLoading) {
+      return <LoadingPage />
+    }
     return (
       <Form onSubmit={this.handleSubmit}>
         <FormItem label='Title'
@@ -67,15 +107,30 @@ class ContestForm extends React.Component {
         </FormItem>
         <FormItem label='Type'
           {...formItemLayout}>
-          {getFieldDecorator('type', {
-            initialValue:'public',
-            rules: [{ required: true, message: 'Please input title' }],
-          })(
-            <Select>
-              <Option value='public'>public</Option>
-              <Option value='private'>private</Option>
-            </Select>
-            )}
+          <Row gutter={12}>
+            <Col span={8}>
+              <FormItem>
+                {getFieldDecorator('contestType', {
+                  initialValue: '0',
+                  rules: [{ required: true, message: 'Please input title' }],
+                })(
+                  <Select onChange={this.handleSelectChange}>
+                    <Option value='0'>public</Option>
+                    <Option value='1'>private</Option>
+                  </Select>
+                  )}
+              </FormItem>
+            </Col>
+            <Col span={16}>
+              <FormItem>
+                {getFieldDecorator('password', {
+                  initialValue: '',
+                })(
+                  <Input placeholder="password" disabled={!this.state.isPrivate} />
+                  )}
+              </FormItem>
+            </Col>
+          </Row>
         </FormItem>
         <FormItem label='RangTime'
           {...formItemLayout}>
@@ -85,7 +140,7 @@ class ContestForm extends React.Component {
             <RangePicker showTime format="YYYY-MM-DD HH:mm:ss" />
             )}
         </FormItem>
-        <ProblemAddTable refreshList={this.refreshList} />
+        <ProblemAddTable refreshList={this.refreshList} dataSource={this.state.containProblems} />
         <FormItem style={{ textAlign: 'center', marginTop: 24 }}>
           <Button type="primary" htmlType="submit" >Submit</Button>
         </FormItem>

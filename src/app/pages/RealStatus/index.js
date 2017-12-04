@@ -75,10 +75,16 @@ class RealSuatus extends React.Component {
   componentDidMount() {
     this.fetchData(1, this.selector);
   }
+  componentWillUnmount() {
+    //重写组件的setState方法，直接返回空
+    this.setState = (state, callback) => {
+      return;
+    };
+  }
   async fetchData(page, { author = '', status = '', runId = '-1', proId = '', language = '' }) {
     this.setState({ loading: true });
     let data = await fetchRealStatus(page, { runId, proId, author, language, status, })
-    console.log(data);
+    // console.log(data);
     const pagination = { ...this.state.pagination };
     pagination.total = data.totalCount;
     this.setState({

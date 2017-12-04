@@ -36,7 +36,7 @@ class UserConf extends React.Component {
   render() {
     const { uid } = this.props;
     const { isLoading, data } = this.state;
-    console.log(data.id);
+    // console.log(data.id);
     if (isLoading) {
       return (<LoadingPage />);
     }
