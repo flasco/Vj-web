@@ -102,7 +102,7 @@ class ContestList extends React.Component {
         <Row style={{ marginBottom: 8 }}>
           <Col span={12} style={{ fontSize: 16 }}>Contest List</Col>
           <Col span={12} style={{ fontSize: 16 }}>
-            <Button type="primary" style={{ float: 'right' }} onClick={this.contestAdd}>Add</Button>
+            <Button type="primary" style={{ float: 'right' }} onClick={this.contestAdd}>Create</Button>
           </Col>
         </Row>
         <Table

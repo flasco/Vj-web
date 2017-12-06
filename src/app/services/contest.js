@@ -123,3 +123,8 @@ export async function fetchContestQues(oj, id, cid) {
   }
   return data;
 }
+
+export async function createContest(values) {
+  const data = await axios.post(`${serverIp}/contests`,values);
+  return data;
+}

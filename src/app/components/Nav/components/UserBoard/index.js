@@ -23,7 +23,7 @@ class UserBoard extends React.PureComponent {
       onMouseLeave={onMouseLeave} onMouseEnter={onMouseEnter}>
         <div className="userboard-container-inner"
           style={{ visibility: userBoardHover ? 'hidden' : false }} >
-          <img src={icon} className="userboard-header" alt="flasco" />
+          <img src={icon} className="userboard-header" alt={accountName} />
           <div className="userboard-first-right" style={{ float: 'left', marginTop: 13, lineHeight: 'normal' }}>
             <span className="userboard-name">{accountName}</span>
             <div className="userboard-meta">
