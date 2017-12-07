@@ -1,9 +1,12 @@
 import React from 'react';
 // import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import { getNoteDet } from '../../services/note';
 
 import EditForm from './components/EditForm';
+import LoadingPage from '../../components/LoadingPage';
+import NoPermisson from '../../components/NoPermisson';
 
 import './index.css';
 
@@ -13,10 +16,11 @@ class NoteEdit extends React.Component {
 
     this.state = {
       data: {},
+      isLoading: true,
+      isNoPermission: false,
     }
 
     this.info = props.location.state;
-    console.log(this.info)
     if (this.info) {
       if (this.info.p2) { //p2 != undefined
         //个人写
@@ -27,25 +31,42 @@ class NoteEdit extends React.Component {
           this.fetchNote(this.info.nid);
         } else {
           console.log(`你好，${this.info.p1}`);
+          requestAnimationFrame(() => {
+            this.setState({ isLoading: false })
+          })
         }
       }
-    } else {
-      console.log(`你没有访问权限。`)
     }
   }
 
   fetchNote = async (nid) => {
-    const data = await getNoteDet(nid);
-    console.log(data);
-    this.setState({ data });
+    if (nid === -1) {
+      this.setState({ isLoading: false });
+    } else {
+      const data = await getNoteDet(nid);
+      this.setState({ data, isLoading: false, isNoPermission: data.author !== this.props.accountName });
+    }
   }
 
   render() {
+    if (this.state.isLoading) {
+      return <LoadingPage />
+    }
+    if (this.state.isNoPermission) {
+      return <NoPermisson history={this.props.history} />
+    }
     return (
-      <EditForm data={this.state.data} />
+      <EditForm data={this.state.data} userId={this.props.userId} />
     );
   }
 
 }
 
-export default NoteEdit;
+function select(state) {
+  return {
+    userId: state.user.id,
+    accountName: state.user.accountName,
+  };
+}
+
+export default connect(select)(NoteEdit);

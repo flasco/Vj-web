@@ -27,7 +27,7 @@ class ShowForm extends React.PureComponent {
         <FormItem
           {...formItemLayout}
           label="Gender">
-          <span>{data.gender}</span>
+          <span>{(data.gender === '1' && 'man') || (data.gender === '2' && 'woman') || (data.gender === '3' && 'secret')}</span>
         </FormItem>
         <FormItem
           {...formItemLayout}
@@ -37,7 +37,7 @@ class ShowForm extends React.PureComponent {
         <FormItem
           {...formItemLayout}
           label="Signature">
-          <span dangerouslySetInnerHTML={{ __html: data.description.replace(/\n/g,'<br/>') }} />
+          <span dangerouslySetInnerHTML={{ __html: data.description.replace(/\n/g, '<br/>') }} />
         </FormItem>
       </Form>
     );

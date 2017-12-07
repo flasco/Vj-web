@@ -10,6 +10,7 @@ class UserComp extends React.Component {
   }
 
   render() {
+    // console.log(this.props.icon)
     if (this.props.isLogin) {
       return (
         <Avatar icon="user"

@@ -13,15 +13,15 @@ class UserConf extends React.Component {
   constructor(props) {
     super(props);
     this.uid = props.match.params.uid;
-    this.fetchInfo(this.uid);
+    this.permission = `${this.uid}` === `${props.uid}`;
+    this.permission && this.fetchInfo(this.uid);
     this.state = {
       data: {},
-      isLoading: true,
+      isLoading: this.permission,
     }
   }
 
   fetchInfo = async (uid) => {
-    console.log(uid)
     const datx = await getUserInfo(uid);
     this.setState({
       data: datx,
@@ -34,27 +34,23 @@ class UserConf extends React.Component {
   }
 
   render() {
-    const { uid } = this.props;
     const { isLoading, data } = this.state;
-    // console.log(data.id);
     if (isLoading) {
       return (<LoadingPage />);
     }
-    if (data.id === uid) {
-      return (
-        <div>
-          <Row>
-            <Col span={14}><h1 style={{ textAlign: 'right', marginBottom: 24 }}>My Infomation</h1></Col>
-            <Col span={10}><Link key="show" to={`../${this.uid}`} style={{ lineHeight: '36px', marginLeft: 20 }}>Visitor Watch</Link></Col>
-          </Row>
-          <ConfForm data={data} submit={this.submitInfo} />
-        </div>
-      );
-    } else {
-      return (
-        <NoPermission history={this.props.history} />
-      );
+    if (!this.permission) {
+      return <NoPermission history={this.props.history} />
     }
+    return (
+      <div>
+        <Row>
+          <Col span={14}><h1 style={{ textAlign: 'right', marginBottom: 24 }}>My Infomation</h1></Col>
+          <Col span={10}><Link key="show" to={`../${this.uid}`} style={{ lineHeight: '36px', marginLeft: 20 }}>Visitor Watch</Link></Col>
+        </Row>
+        <ConfForm data={data} submit={this.submitInfo} />
+      </div>
+    );
+
   }
 }
 

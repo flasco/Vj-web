@@ -1,7 +1,6 @@
 import React from 'react';
 import { Form, Button, Row, Col, Upload, Icon, Input, Tooltip, Select } from 'antd';
 import ReactMarkdown from 'react-markdown';
-import { connect } from 'react-redux';
 import { UnControlled } from '../Editor';
 import config from '../../../../../config';
 
@@ -43,17 +42,11 @@ const Option = Select.Option;
 class EditForm extends React.Component {
   constructor(props) {
     super(props);
-    let str = "## HEAD 2 \n markdown examples \n ``` welcome ```\n\n<img src='https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png' alt='xxx.png' style='width:72px;'/>";
+    let str = "## HEAD 2 \n markdown examples \n\n ``` welcome ```\n\n<img src='https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png' alt='xxx.png' style='width:72px;'/>";
     this.state = {
-      value: str,
+      value: props.data.content !== undefined ? props.data.content : str,
       fileList: [...fileList]
     };
-    console.log(this.props.data)
-  }
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.data !== undefined) {
-      this.setState({ value: nextProps.data.content });
-    }
   }
   submit = (e) => {
     e.preventDefault();
@@ -166,10 +159,6 @@ class EditForm extends React.Component {
 
 const EditFormWarpper = Form.create()(EditForm);
 
-function select(state) {
-  return {
-    userId: state.user.id,
-  };
-}
 
-export default connect(select)(EditFormWarpper);
+
+export default EditFormWarpper;

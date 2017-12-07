@@ -79,7 +79,7 @@ export async function getUserInfo(uid) {
         accountName: 'cool',
         icon: 'http://img2.woyaogexing.com/2017/11/07/705db8f16970ff85!400x400_big.jpg',
         description: '自你离去的那一天起，我便失去了所有的夏天。\n自你离去的那一天起，我便失去了所有的夏天。\n自你离去的那一天起，我便失去了所有的夏天。',
-        gender: 'woman',
+        gender: '2',
         school: 'United States Ivy League'
       }
     } else {
@@ -88,7 +88,7 @@ export async function getUserInfo(uid) {
         accountName: 'shua',
         icon: 'http://img2.woyaogexing.com/2017/11/12/6751808381431831!400x400_big.jpg',
         description: '自你离去的那一天起，我便失去了所有的夏天。',
-        gender: 'woman',
+        gender: '2',
         school: '英国加里敦大学'
       }
     }
