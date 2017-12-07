@@ -43,13 +43,18 @@ const Option = Select.Option;
 class EditForm extends React.Component {
   constructor(props) {
     super(props);
-
+    let str = "## HEAD 2 \n markdown examples \n ``` welcome ```\n\n<img src='https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png' alt='xxx.png' style='width:72px;'/>";
     this.state = {
-      value: "## HEAD 2 \n markdown examples \n ``` welcome ```\n\n<img src='https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png' alt='xxx.png' style='width:72px;'/>",
+      value: str,
       fileList: [...fileList]
     };
+    console.log(this.props.data)
   }
-
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.data !== undefined) {
+      this.setState({ value: nextProps.data.content });
+    }
+  }
   submit = (e) => {
     e.preventDefault();
     this.props.form.validateFields(async (err, values) => {
@@ -57,7 +62,7 @@ class EditForm extends React.Component {
         let data = {
           ...values,
           content: this.state.value,
-          userId:this.props.userId,
+          userId: this.props.userId,
         }
         console.log(data);
       }
@@ -73,6 +78,7 @@ class EditForm extends React.Component {
         span: 24
       },
     };
+    const { data } = this.props;
 
     return (
       <Form onSubmit={this.submit}>
@@ -81,7 +87,7 @@ class EditForm extends React.Component {
           style={{ marginBottom: 12 }}
           label="Title">
           {getFieldDecorator('title', {
-            initialValue: '',
+            initialValue: data === undefined ? '' : data.title,
           })(
             <Input placeholder="This is Title" />
             )}
@@ -90,11 +96,11 @@ class EditForm extends React.Component {
           {...formItemLayout}
           label="To">
           {getFieldDecorator('remoteId', {
-            initialValue: '',
+            initialValue: data === undefined ? '' : data.remoteId,
           })(
             <Input addonBefore={
               getFieldDecorator('remoteOj', {
-                initialValue: 'HDU',
+                initialValue: data === undefined ? 'HDU' : data.remoteId,
               })(
                 <Select style={{ width: 60 }}>
                   <Option value="HDU">HDU</Option>
@@ -133,7 +139,8 @@ class EditForm extends React.Component {
               options={{
                 mode: 'xml',
                 theme: 'duotone-light',
-                lineNumbers: true
+                lineNumbers: true,
+                lineWrapping: true,
               }}
               autoCursor={false}
               autoScroll={true}

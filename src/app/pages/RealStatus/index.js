@@ -63,7 +63,7 @@ class RealSuatus extends React.Component {
     super(props);
     let pushedState = this.props.location.state;
     this.selector = {
-      runId: '-1', proId: '', author: '', language: '', status: '',
+      runId: '', proId: '', author: '', language: '0', status: '0',
     };
     this.selector = Object.assign({}, this.selector, pushedState);
     this.state = {
