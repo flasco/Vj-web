@@ -1,6 +1,5 @@
 import React from 'react';
 import { Modal, Upload, message, Icon } from 'antd';
-import { connect } from 'react-redux';
 
 import { userUpdate } from '../../../../actions';
 import config from '../../../../../config';
@@ -68,4 +67,4 @@ class Uploader extends React.PureComponent {
 
 
 
-export default connect()(Uploader);
+export default Uploader;
