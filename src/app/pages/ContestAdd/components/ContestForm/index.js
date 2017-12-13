@@ -1,6 +1,5 @@
 import React from 'react';
 import { Form, Input, DatePicker, Button, message, Select, Col, Row } from 'antd';
-import { connect } from 'react-redux';
 
 import { fetchContestDetList } from '../../../../services/contest';
 
@@ -79,7 +78,6 @@ class ContestForm extends React.Component {
         startTime,
         duration,
         containProblems: this.state.containProblems,
-        userId:this.props.uid,
       }
       this.props.submit(subValues);
     });
@@ -151,12 +149,7 @@ class ContestForm extends React.Component {
   }
 }
 
-function select(state) {
-  return {
-    uid: state.user.id,
-  };
-}
 
 const ContestFormWarpper = Form.create()(ContestForm);
 
-export default connect(select)(ContestFormWarpper);
+export default ContestFormWarpper;

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Row, Col, Table, Button } from 'antd';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import { fetchContestList } from '../../services/contest';
 
@@ -102,7 +103,7 @@ class ContestList extends React.Component {
         <Row style={{ marginBottom: 8 }}>
           <Col span={12} style={{ fontSize: 16 }}>Contest List</Col>
           <Col span={12} style={{ fontSize: 16 }}>
-            <Button type="primary" style={{ float: 'right' }} onClick={this.contestAdd}>Create</Button>
+            {this.props.isLogin && <Button type="primary" style={{ float: 'right' }} onClick={this.contestAdd}>Create</Button>}
           </Col>
         </Row>
         <Table
@@ -118,4 +119,10 @@ class ContestList extends React.Component {
   }
 }
 
-export default ContestList;
+function select(state) {
+  return {
+    isLogin: state.user.isLogin
+  }
+}
+
+export default connect(select)(ContestList);

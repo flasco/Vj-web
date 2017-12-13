@@ -125,6 +125,10 @@ export async function fetchContestQues(oj, id, cid) {
 }
 
 export async function createContest(values) {
-  const data = await axios.post(`${serverIp}/contests`,values);
-  return data;
+  if(devMode){
+    return values;
+  }else{
+    const data = await axios.post(`${serverIp}/contests`,values);
+    return data;
+  }
 }
