@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux'
 import { Avatar } from 'antd';
 class UserComp extends React.Component {
 
@@ -10,7 +11,6 @@ class UserComp extends React.Component {
   }
 
   render() {
-    // console.log(this.props.icon)
     if (this.props.isLogin) {
       return (
         <Avatar icon="user"
@@ -30,4 +30,10 @@ class UserComp extends React.Component {
   }
 }
 
-export default UserComp;
+function select(state) {
+  return {
+    icon: state.user.icon,
+  }
+}
+
+export default connect(select)(UserComp);

@@ -54,7 +54,7 @@ export async function fetchContestList(page, title = '', accountName = '', statu
     const x2 = await axios.get(`${serverIp}/contests?page=${page}&size=${size}&accountName=${accountName}&status=${status}&title=${title}&contestType=${contestType}`);
     return {
       ...x1.data,//totalCount
-      results: x2.data,
+      results: x2.data.obj,
     }
   }
 }
@@ -91,8 +91,8 @@ export async function fetchContestDetList(cid) {
     }
   } else {
     const res = await axios.get(`${serverIp}/contests/${cid}`);
-    console.log(res.data);
-    data = res.data;
+    console.log(res)
+    data = res.data.obj;
   }
   return data;
 }
@@ -118,8 +118,8 @@ export async function fetchContestQues(oj, id, cid) {
       url: "http://acm.hdu.edu.cn/showproblem.php?pid=5613"
     };
   } else {
-    const res = await axios.get(`${serverIp}/problems/${oj}/${id}/${cid}`);
-    data = res.data;
+    const res = await axios.get(`${serverIp}/contests/${cid}/${oj}/${id}`);
+    data = res.data.obj;
   }
   return data;
 }

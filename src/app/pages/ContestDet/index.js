@@ -47,7 +47,6 @@ class ContestDet extends React.Component {
 
   async fetchData() {
     let d = await fetchContestDetList(cid);
-    console.log(d)
     this.setState({ data: d, loading: false })
   }
 
@@ -59,7 +58,7 @@ class ContestDet extends React.Component {
       return (
         <div style={{ marginBottom: 12 }}>
           <div style={{ textAlign: 'center', marginBottom: 20 }}>
-            <h1 style={{ display: 'inline', marginRight: 12 }}>{data.title}</h1>{userId === data.id && <Link to={{ pathname: './add', state: { cid } }} style={{ fontSize: '12pt' }} >Edit</Link>}<br />
+            <h1 style={{ display: 'inline', marginRight: 12 }}>{data.title}</h1>{userId === data.userId && <Link to={{ pathname: './add', state: { cid } }} style={{ fontSize: '12pt' }} >Edit</Link>}<br />
             <span style={{ marginRight: 12 }}>Start Time : {getTime(new Date(data.startTime))} </span>   <span>End Time : {getTime(new Date(data.startTime + data.duration))}</span><br />
             <span style={{ marginRight: 12 }}>Contest Type : {data.contestType === 0 ? 'Public' : 'Private'}</span> <span>Contest Status : {data.status}</span><br />
             <span>Current Server Time : {data.currentTime}</span>

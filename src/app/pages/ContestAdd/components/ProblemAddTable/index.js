@@ -66,7 +66,7 @@ class ProblemAddTable extends React.Component {
     const data = await fetchQuesDet(this.state.oj, this.state.id);
     const newData = {
       key: count,
-      isEdit: 0,
+      isEdited: 0,
       ...data,
     };
     this.props.refreshList([...dataSource, newData]);
@@ -83,7 +83,7 @@ class ProblemAddTable extends React.Component {
   editItem = (values) => {
     const { editKey } = this.state;
     const { dataSource } = this.props;
-    dataSource[editKey].isEdit = 1;
+    dataSource[editKey].isEdited = 1;
     const newData = Object.assign({}, dataSource[editKey], values);
     dataSource.splice(editKey, 1, newData);
     this.props.refreshList(dataSource)
