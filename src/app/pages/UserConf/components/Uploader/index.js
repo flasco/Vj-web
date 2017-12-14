@@ -20,24 +20,15 @@ function beforeUpload(file) {
 
 
 class Uploader extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      // visible: false,
-      imageUrl: '',
-    };
-  }
-
   handleChange = (info) => {
     if (info.file.response !== undefined) {
       let path = `${serverIp}${info.file.response.path}`;
       this.props.dispatch(userUpdate({ icon: path }));
     }
-
   }
 
   render() {
-    const imageUrl = this.state.imageUrl;
+    const imageUrl = this.props.icon;
     return (
       <Modal
         width={300}
@@ -66,5 +57,10 @@ class Uploader extends React.PureComponent {
   }
 }
 
+function select(state) {
+  return{
+    icon:state.user.icon
+  }
+}
 
-export default connect()(Uploader);
+export default connect(select)(Uploader);
