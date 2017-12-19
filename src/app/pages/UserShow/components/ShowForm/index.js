@@ -27,7 +27,7 @@ class ShowForm extends React.PureComponent {
         <FormItem
           {...formItemLayout}
           label="Gender">
-          <span>{(data.gender === '1' && 'man') || (data.gender === '2' && 'woman') || (data.gender === '3' && 'secret')}</span>
+          <span>{(`${data.gender}` === '1' && 'male') || (`${data.gender}` === '2' && 'female') || (`${data.gender}` === '3' && 'secret')}</span>
         </FormItem>
         <FormItem
           {...formItemLayout}

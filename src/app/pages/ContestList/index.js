@@ -59,7 +59,6 @@ class ContestList extends React.Component {
       pagination: {},
       loading: false,
     }
-    this.fetchL = this.fetchL.bind(this);
   }
 
   componentDidMount() {
@@ -73,7 +72,7 @@ class ContestList extends React.Component {
     };
   }
 
-  async fetchL(page) {
+  fetchL = async (page) => {
     this.setState({ loading: true });
     const datax = await fetchContestList(page);
     const pagination = { ...this.state.pagination };

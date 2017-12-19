@@ -71,7 +71,7 @@ export async function fetchContestDetList(cid) {
       userId: 2,
       status: "Ended",
       contestType: 0,
-      currentTime:'2017-11-23 16:43:23',
+      currentTime: '2017-11-23 16:43:23',
       password: null,
       accountName: null,
       problemList: null,
@@ -91,7 +91,7 @@ export async function fetchContestDetList(cid) {
     }
   } else {
     const res = await axios.get(`${serverIp}/contests/${cid}`);
-    console.log(res)
+    console.log(res.data)
     data = res.data.obj;
   }
   return data;
@@ -125,10 +125,19 @@ export async function fetchContestQues(oj, id, cid) {
 }
 
 export async function createContest(values) {
-  if(devMode){
+  if (devMode) {
     return values;
-  }else{
-    const data = await axios.post(`${serverIp}/contests`,values);
+  } else {
+    const { data } = await axios.post(`${serverIp}/contests`, values);
+    return data;
+  }
+}
+
+export async function updateContest(values,cid) {
+  if (devMode) {
+    return values;
+  } else {
+    const { data } = await axios.post(`${serverIp}/contests/${cid}`, values);
     return data;
   }
 }

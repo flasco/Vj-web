@@ -13,8 +13,6 @@ class LoginWindow extends React.PureComponent {
     this.state = {
       isError: false,
     };
-    this.registerSubmit = this.registerSubmit.bind(this);
-    this.loginSubmit = this.loginSubmit.bind(this);
   }
 
   closeLoginWindow = () => {
@@ -25,10 +23,10 @@ class LoginWindow extends React.PureComponent {
   setError = (type) => {
     this.setState({
       isError: type,
-    })
+    });
   }
 
-  async loginSubmit(values) {
+  loginSubmit = async (values) => {
     let res = await userLoginCheck(values);
     if (res.flag) {
       this.closeLoginWindow();
@@ -39,14 +37,14 @@ class LoginWindow extends React.PureComponent {
     }
   }
 
-  async registerSubmit(values) {
+  registerSubmit = async (values) => {
     let flag = await userRegisterCheck(values);
     if (flag) {
       this.closeLoginWindow();
       message.success('Register Success!');
       this.props.userLogin({
-        userName:values.userName,
-        password:values.password,
+        userName: values.userName,
+        password: values.password,
       });//直接登录账号。
     } else {
       this.setError(true);

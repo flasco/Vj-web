@@ -20,6 +20,7 @@ import NoteEdit from '../app/pages/NoteEdit';
 import ContestList from '../app/pages/ContestList';
 import ContestDet from '../app/pages/ContestDet';
 import ContestAdd from '../app/pages/ContestAdd';
+import ContestRank from '../app/pages/ContestRank';
 
 
 
@@ -50,7 +51,8 @@ const ContestView = ({ match }) => (
     <Route exact path={`${match.url}/`} component={ContestList} />
     <Route exact path={`${match.url}/add`} component={ContestAdd} />
     <Route exact path={`${match.url}/:cid`} component={ContestDet} />
-    <Route exact path={`${match.url}/:cid/:qid`} component={QuesDet} />
+    <Route exact path={`${match.url}/:cid/rank`} component={ContestRank} />    
+    <Route path={`${match.url}/:cid/:qid`} component={QuesDet} />
     <Route path={`${match.url}/:cid/:qid/submit`} component={QueSubmit} />
     <Route exact path={`${match.url}/:cid/:qid/note`} component={NoteList} />
     <Route path={`${match.url}/:cid/:qid/note/:nid`} component={QuesNote} />

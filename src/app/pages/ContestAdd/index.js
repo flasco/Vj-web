@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { message } from 'antd';
 
 import ContestForm from './components/ContestForm';
 
-import { createContest } from '../../services/contest';
+import { createContest,updateContest } from '../../services/contest';
 import NoPermisson from '../../components/NoPermisson';
 
 class ContestAdd extends React.Component {
@@ -14,17 +15,32 @@ class ContestAdd extends React.Component {
     }
   }
   submit = async (values) => {
+    let data = '';
+    if(this.props.location.state === undefined){
+      data = await createContest({
+        ...values,
+        userId: this.props.uid
+      });
+    }else{
+      // console.log(values);
+      data = await updateContest({
+        ...values,
+        userId: this.props.uid,
+        id:this.cid,
+      },this.cid);
+    }
 
-    const data = await createContest({
-      ...values,
-      userId:this.props.uid
-    });
-    console.log(data);
+    if (data.success === 1) {
+      message.success('create Success!');
+      this.props.history.push('/main/contest')
+    }
+    else message.error('create failed!');
+    
   }
 
   render() {
-    if(!this.props.isLogin){
-      return <NoPermisson history={this.props.history}/>
+    if (!this.props.isLogin) {
+      return <NoPermisson history={this.props.history} />
     }
     return (
       <div>
@@ -33,7 +49,6 @@ class ContestAdd extends React.Component {
       </div>
     );
   }
-
 }
 
 function select(state) {

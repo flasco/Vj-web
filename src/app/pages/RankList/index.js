@@ -44,7 +44,6 @@ class RankList extends React.Component {
       pagination: {},
       loading: false,
     }
-    this.fetchL = this.fetchL.bind(this);
   }
   componentDidMount() {
     this.fetchL(1);
@@ -57,7 +56,7 @@ class RankList extends React.Component {
     };
   }
 
-  async fetchL(page) {
+  fetchL = async (page) => {
     this.setState({ loading: true });
     const datax = await getUserRank(page);
     // console.log(datax);

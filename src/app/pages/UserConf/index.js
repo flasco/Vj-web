@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Row, Col } from 'antd';
+import { Row, Col, message } from 'antd';
 import { connect } from 'react-redux';
 
 import { getUserInfo, submitUserInfo } from '../../services/user';
@@ -30,7 +30,10 @@ class UserConf extends React.Component {
   }
 
   submitInfo = async (values) => {
-    await submitUserInfo(values);
+    let data = await submitUserInfo(values,this.props.uid);
+    // console.log(data);
+    if(data.success === 1) message.success('change success!');
+    else message.success('change failed!');
   }
 
   render() {

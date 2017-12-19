@@ -11,8 +11,7 @@ class ProblemAddTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataSource: [],
-      count: 0,
+      count: props.dataSource.length,
       visible: false,
       oj: 'HDU',
       id: '1000',
@@ -62,7 +61,7 @@ class ProblemAddTable extends React.Component {
   handleAdd = async () => {
     const { count } = this.state;
     const { dataSource } = this.props;
-    this.setState({ buttonLoading: true })
+    this.setState({ buttonLoading: true, id: '', })
     const data = await fetchQuesDet(this.state.oj, this.state.id);
     const newData = {
       key: count,
@@ -135,7 +134,7 @@ class ProblemAddTable extends React.Component {
               <Option value="HDU">HDU</Option>
               <Option value="PKU">PKU</Option>
             </Select>
-          } style={{ width: '200px', marginRight: 24 }} placeholder=" Id" value={this.state.id} onChange={(e) => this.setState({ id: e.target.value })} />
+          } style={{ width: '200px', marginRight: 24 }} placeholder=" Id" value={this.state.id} onPressEnter={this.handleAdd} onChange={(e) => this.setState({ id: e.target.value })} />
           <Button onClick={this.handleAdd} loading={this.state.buttonLoading} icon="plus">Add</Button>
         </div>
         <Table bordered dataSource={dataSource} columns={this.columns} pagination={false} rowKey={(item, index) => index} />
@@ -145,7 +144,6 @@ class ProblemAddTable extends React.Component {
           data={this.props.dataSource[this.state.editKey]}
           submit={this.editItem} />
       </div>
-
     );
   }
 }

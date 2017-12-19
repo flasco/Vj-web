@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
 import './index.css';
 
@@ -11,12 +10,4 @@ class Info extends React.Component{
   }
 }
 
-function select(state) {
-  return {
-    userBoardHover: state.mouse.userBoardHover,
-    isLogin: state.user.isLogin,
-    userLoginBoard:state.userLoginBoard
-  };
-}
-
-export default connect(select)(Info);
+export default Info;

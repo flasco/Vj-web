@@ -27,6 +27,7 @@ class ContestForm extends React.Component {
     if (this.props.cid !== void 0) {
       fetchContestDetList(this.props.cid).then(val => {
         console.log(val);
+        val.containProblems.filter((x, index) => x.key = index);
         this.refreshList(val.containProblems);
         this.setState({ isLoading: false })
         this.props.form.setFieldsValue({
@@ -37,7 +38,6 @@ class ContestForm extends React.Component {
           ],
           contestType: `${val.contestType}`
         });
-
       })
     } else {
       this.setState({ isLoading: false })
@@ -71,6 +71,11 @@ class ContestForm extends React.Component {
       const rangeTimeValue = values['timePicker'];
       let startTime = rangeTimeValue[0].valueOf();
       let duration = rangeTimeValue[1].valueOf() - rangeTimeValue[0].valueOf();
+      let now = Date.now();
+      if (startTime + duration + 4 * 3600000 < now) { //要求必须和现在的时间叉开4小时以上
+        message.error('please reselect time !');
+        return;
+      }
       const subValues = {
         title: values.title,
         contestType: values.contestType,
@@ -96,7 +101,7 @@ class ContestForm extends React.Component {
       return <LoadingPage />
     }
     return (
-      <Form onSubmit={this.handleSubmit}>
+      <Form>
         <FormItem label='Title'
           {...formItemLayout}>
           {getFieldDecorator('title', {
@@ -142,7 +147,7 @@ class ContestForm extends React.Component {
         </FormItem>
         <ProblemAddTable refreshList={this.refreshList} dataSource={this.state.containProblems} />
         <FormItem style={{ textAlign: 'center', marginTop: 24 }}>
-          <Button type="primary" htmlType="submit" >Submit</Button>
+          <Button type="primary" onClick={this.handleSubmit}>Submit</Button>
         </FormItem>
       </Form>
     );

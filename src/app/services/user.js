@@ -100,10 +100,11 @@ export async function getUserInfo(uid) {
   }
 }
 
-export async function submitUserInfo(values) {
+export async function submitUserInfo(values, uid) {
   if (devMode) {
     console.log(values)
   } else {
-    console.log(values)
+    let { data } = await axios.put(`${serverIp}/users/${uid}`, values);
+    return data;
   }
 }

@@ -67,8 +67,8 @@ class ConfForm extends React.Component {
             initialValue: `${data.gender}`,
           })(
             <Radio.Group >
-              <Radio.Button value="1">man</Radio.Button>
-              <Radio.Button value="2">woman</Radio.Button>
+              <Radio.Button value="1">male</Radio.Button>
+              <Radio.Button value="2">female</Radio.Button>
               <Radio.Button value="3">secret</Radio.Button>
             </Radio.Group>
             )}

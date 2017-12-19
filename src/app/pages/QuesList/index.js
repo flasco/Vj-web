@@ -19,7 +19,6 @@ class QuesList extends React.Component {
       proIdText: '',
       titleText: '',
     }
-    this.fetchL = this.fetchL.bind(this);
   }
 
   componentDidMount() {
@@ -32,7 +31,7 @@ class QuesList extends React.Component {
     };
   }
 
-  async fetchL(remoteOj, page, remoteProblemId = '', title = '') {
+  fetchL = async (remoteOj, page, remoteProblemId = '', title = '') => {
     this.setState({ loading: true });
     const datax = await fetchQuesList(remoteOj, page, remoteProblemId, title);
     const pagination = { ...this.state.pagination };
@@ -67,25 +66,25 @@ class QuesList extends React.Component {
           <Option value="PKU">PKU</Option>
         </Select>
       ),
-      width:'7%',
+      width: '7%',
       key: 'remoteOj',
       dataIndex: 'remoteOj',
     }, {
       title: (<Tooltip placement="top" title="press Enter to search"><Input placeholder='Pro.Id' style={{ width: 60 }} size="small" onChange={(e) => this.setState({ proIdText: e.target.value })} onPressEnter={(e) => this.searchQues()} /></Tooltip>),
       key: 'remoteProblemId',
-      width:'12%',
+      width: '12%',
       dataIndex: 'remoteProblemId',
     }, {
       title: (<Tooltip placement="top" title="press Enter to search"><Input placeholder='Title' style={{ width: 260 }} size="small" onChange={(e) => this.setState({ titleText: e.target.value })} onPressEnter={(e) => this.searchQues()} /></Tooltip>),
       key: 'title',
-      width:'68%',
+      width: '68%',
       render: (text, record) => <span><Link to={`/main/ques/${record.remoteOj}/${record.remoteProblemId}`}>{record.title}</Link></span>,
     }, {
       title: 'remoteAddr',
       key: 'url',
-      width:'32%',
+      width: '32%',
       render: (text, record) => <Link target='_blank' to={record.url}>Click me</Link>
-    }]; 
+    }];
     return (
       <div>
         <p span={12} style={{ marginBottom: 12, fontSize: 16 }}>Question List</p>

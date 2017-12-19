@@ -40,9 +40,7 @@ class NoteList extends React.Component {
       this.type = 2; //这里是题库题目的题解跳转。
       this.p2 = props.match.params.id;
     }
-    console.log(this.type);
-
-    this.fetchL = this.fetchL.bind(this);
+    // console.log(this.type);
   }
   componentDidMount() {
     this.fetchL(1);
@@ -54,7 +52,7 @@ class NoteList extends React.Component {
       return;
     };
   }
-  async fetchL(page) {
+  fetchL = async (page) => {
     this.setState({ loading: true });
     const datax = await getNoteList(page, this.type, this.p1, this.p2);
     const pagination = { ...this.state.pagination };

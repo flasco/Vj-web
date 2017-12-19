@@ -56,7 +56,7 @@ class ContestDet extends React.Component {
     const { userId } = this.props;
     if (!this.state.loading) {
       return (
-        <div style={{ marginBottom: 12 }}>
+        <div style={{ marginBottom: 12,fontSize: '10pt' }}>
           <div style={{ textAlign: 'center', marginBottom: 20 }}>
             <h1 style={{ display: 'inline', marginRight: 12 }}>{data.title}</h1>{userId === data.userId && <Link to={{ pathname: './add', state: { cid } }} style={{ fontSize: '12pt' }} >Edit</Link>}<br />
             <span style={{ marginRight: 12 }}>Start Time : {getTime(new Date(data.startTime))} </span>   <span>End Time : {getTime(new Date(data.startTime + data.duration))}</span><br />
@@ -70,6 +70,9 @@ class ContestDet extends React.Component {
             rowKey={(record, index) => index}
             pagination={false}
             onChange={this.handleTableChange} />
+          <div style={{ textAlign: 'center', marginTop: 20 }}>
+            <Link style={{ fontSize: '11pt' }} to={`./${cid}/rank`}>Rank</Link>
+          </div>
         </div>
       );
     } else {

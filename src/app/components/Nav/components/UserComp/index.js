@@ -21,8 +21,8 @@ class UserComp extends React.Component {
     } else {
       return (
         <div>
-          <a onClick={this.openLoginWindow.bind(this, 1)}>Login</a>
-          <a onClick={this.openLoginWindow.bind(this, 2)}>Register</a>
+          <a onClick={() => { this.openLoginWindow(1) }}>Login</a>
+          <a onClick={() => { this.openLoginWindow(2) }}>Register</a>
         </div>
       );
     }
