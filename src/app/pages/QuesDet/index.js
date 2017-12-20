@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon, Spin } from 'antd';
+import { Icon, Spin, message } from 'antd';
 import { Link } from 'react-router-dom';
 import loadScript from 'load-script'
 
@@ -7,6 +7,7 @@ import { fetchQuesDet } from '../../services/problem'
 import { fetchContestQues } from '../../services/contest'
 
 import PanelBlock from './components/Panel';
+import NoPermisson from '../../components/NoPermisson';
 
 import './index.css';
 
@@ -20,6 +21,7 @@ const MATHJAX_OPTIONS = {
   showMathMenuMSIE: false
 };
 
+let cid = '', oj = '', qid = '', pwd = '', typx = false;
 
 class QuesDet extends React.Component {
   constructor(props) {
@@ -27,23 +29,25 @@ class QuesDet extends React.Component {
     loadScript(MATHJAX_SCRIPT, () => {
       window.MathJax.Hub.Config(MATHJAX_OPTIONS);
     });
-    console.log(props.location.state);
+    // console.log(props.location.state);
     if (props.match.params.id === void 0) {
       // console.log('比赛页面Jmp');
-      this.typx = true;
-      this.cid = props.match.params.cid;
-      this.oj = props.location.state.oj;
-      this.qid = props.location.state.qid;
+      typx = true;
+      cid = props.match.params.cid;
+      oj = props.location.state.oj;
+      qid = props.location.state.qid;
+      pwd = props.location.state.pwd;
     } else {
       // console.log('题库页面Jmp');
-      this.typx = false;
-      this.qid = props.match.params.id;
-      this.oj = props.match.params.oj;
+      typx = false;
+      qid = props.match.params.id;
+      oj = props.match.params.oj;
     }
 
     this.state = {
       data: {},
       loading: true,
+      isFailed: false,
     }
   }
   componentDidMount() {
@@ -51,16 +55,24 @@ class QuesDet extends React.Component {
   }
 
   async fetchData() {
-    if (this.typx) {
-      let d = await fetchContestQues(this.oj, this.qid, this.cid);
-      this.setState({ data: d, loading: false })
+    if (typx) {
+      let d = await fetchContestQues(oj, qid, cid, pwd);
+      console.log(d)
+      if (d.success === 0) {
+        message.error('password error');
+        this.setState({ isFailed: true })
+      }
+      this.setState({ data: d.obj, loading: false })
     } else {
-      let d = await fetchQuesDet(this.oj, this.qid, this.cid);
+      let d = await fetchQuesDet(oj, qid, cid);
       this.setState({ data: d, loading: false })
     }
   }
 
   render() {
+    if (this.state.isFailed) {
+      return <NoPermisson path='/main/contest' history={this.props.history} />
+    }
     if (this.state.loading) {
       return (
         <div style={{ textAlign: 'center', marginTop: 40 }}>
@@ -78,9 +90,9 @@ class QuesDet extends React.Component {
 
           <PanelBlock data={this.state.data} />
           <div className="quesDet-ul">
-            <Link key="submit" to={`./${this.qid}/submit`}>Submit</Link>
-            {this.typx || <Link key="note" to={`./${this.qid}/note`}>Note</Link>}
-            <Link key="return" to={this.typx ? `../${this.cid}` : '../'}>Back</Link>
+            <Link key="submit" to={`./${qid}/submit`}>Submit</Link>
+            {typx || <Link key="note" to={`./${qid}/note`}>Note</Link>}
+            <Link key="return" to={typx ? `../${cid}` : '../'}>Back</Link>
             {/* <Link key="statistic" to={`./ques/statistic/${this.proId}`}>Statistic</Link> */}
             {/* <Link key="discuss" to={`./ques/discuss/${this.proId}`}>Discuss</Link> */}
           </div>

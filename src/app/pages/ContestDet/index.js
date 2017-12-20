@@ -4,11 +4,12 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { fetchContestDetList } from '../../services/contest';
+import NoPermission from '../../components/NoPermisson';
 import { getTime } from '../../utils/sleep';
 
 import './index.css';
 
-let cid;
+let cid, pwd = '';
 const columns = [{
   title: 'Solved',
   width: '7%',
@@ -23,7 +24,7 @@ const columns = [{
   title: 'Title',
   key: 'title',
   width: '42%',
-  render: (text, record, index) => <span><Link to={{ pathname: `./${cid}/${index + 1}`, state: { oj: record.remoteOj, qid: record.remoteProblemId } }}>{record.title}</Link></span>
+  render: (text, record, index) => <span><Link to={{ pathname: `./${cid}/${index + 1}`, state: { oj: record.remoteOj, qid: record.remoteProblemId, pwd } }}>{record.title}</Link></span>
 }, {
   title: 'Ratio',
   key: 'ratio',
@@ -35,9 +36,13 @@ class ContestDet extends React.Component {
   constructor(props) {
     super(props);
     cid = props.match.params.cid;
+    if (props.location.state !== undefined) {
+      pwd = props.location.state.pwd;
+    }
     this.state = {
       data: '',
       loading: true,
+      isFailed: false,
     };
   }
 
@@ -46,17 +51,27 @@ class ContestDet extends React.Component {
   }
 
   async fetchData() {
-    let d = await fetchContestDetList(cid);
-    this.setState({ data: d, loading: false })
+    let data = await fetchContestDetList(cid, pwd);
+    if (data.success === 0) {
+      this.setState({ isFailed: true })
+    } else {
+      this.setState({ data: data.obj, loading: false })
+    }
   }
-
 
   render() {
     const { data } = this.state;
     const { userId } = this.props;
+    if (this.state.isFailed) {
+      console.log(this.state.isFailed);
+      console.log(123);
+      return (
+        <NoPermission path='/main/contest' history={this.props.history}/>
+      )
+    }
     if (!this.state.loading) {
       return (
-        <div style={{ marginBottom: 12,fontSize: '10pt' }}>
+        <div style={{ marginBottom: 12, fontSize: '10pt' }}>
           <div style={{ textAlign: 'center', marginBottom: 20 }}>
             <h1 style={{ display: 'inline', marginRight: 12 }}>{data.title}</h1>{userId === data.userId && <Link to={{ pathname: './add', state: { cid } }} style={{ fontSize: '12pt' }} >Edit</Link>}<br />
             <span style={{ marginRight: 12 }}>Start Time : {getTime(new Date(data.startTime))} </span>   <span>End Time : {getTime(new Date(data.startTime + data.duration))}</span><br />
@@ -70,7 +85,7 @@ class ContestDet extends React.Component {
             rowKey={(record, index) => index}
             pagination={false}
             onChange={this.handleTableChange} />
-          <div style={{ textAlign: 'center', marginTop: 20 }}>
+          <div className='quesDet-ul'>
             <Link style={{ fontSize: '11pt' }} to={`./${cid}/rank`}>Rank</Link>
           </div>
         </div>

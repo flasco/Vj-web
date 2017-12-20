@@ -104,7 +104,7 @@ export async function submitUserInfo(values, uid) {
   if (devMode) {
     console.log(values)
   } else {
-    let { data } = await axios.put(`${serverIp}/users/${uid}`, values);
+    let { data } = await axios.post(`${serverIp}/users/${uid}`, values);
     return data;
   }
 }

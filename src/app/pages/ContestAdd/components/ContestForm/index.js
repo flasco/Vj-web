@@ -26,7 +26,7 @@ class ContestForm extends React.Component {
   componentDidMount() {
     if (this.props.cid !== void 0) {
       fetchContestDetList(this.props.cid).then(val => {
-        console.log(val);
+        val = val.obj;
         val.containProblems.filter((x, index) => x.key = index);
         this.refreshList(val.containProblems);
         this.setState({ isLoading: false })

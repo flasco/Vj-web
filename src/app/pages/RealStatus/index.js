@@ -9,15 +9,29 @@ import SelectForm from './components/SelectForm';
 import './index.css';
 
 function getColor(text) {
-  if (text.indexOf('Accept') !== -1) {
+  if (text === 'AC') {
     return "realStatus-acColor";
-  } else if (text.indexOf('Pres') !== -1) {
+  } else if (text === 'PE') {
     return "realStatus-PresError";
-  } else if (text.indexOf('Comp') !== -1) {
+  } else if (text === 'CE') {
     return "realStatus-CompError";
   } else {
     return "realStatus-waColor";
   }
+}
+
+function getStatus(text) {
+  if (text === 'AC') return 'Accepted'
+  else if (text === 'WA') return 'Wrong Answer'
+  else if (text === 'PE') return 'Presentation Error'
+  else if (text === 'CE') return 'Compilation Error'
+  else if (text === 'RE') return 'Runtime Error'
+  else if (text === 'TLE') return 'Time Limit Exceeded'
+  else if (text === 'MLE') return 'Memory Limit Exceeded'
+  else if (text === 'OLE') return 'Output Limit Exceeded'
+  else if (text === 'PENDING') return 'Pending'
+  else if (text === 'SUBMIT_FAILED') return 'Submit Failed'  
+  else return text;
 }
 
 const columns = [{
@@ -31,7 +45,7 @@ const columns = [{
 }, {
   title: 'Status',
   key: 'status',
-  render: (text, record) => <span className={getColor(record.status)}>{record.status}</span>
+  render: (text, record) => <span className={getColor(record.status)}>{getStatus(record.status)}</span>
 }, {
   title: 'OJ-Id',
   key: 'OJ-Id',
@@ -63,7 +77,7 @@ class RealSuatus extends React.Component {
     super(props);
     let pushedState = this.props.location.state;
     this.selector = {
-      runId: '', proId: '', author: '', language: '0', status: '0',
+      runId: '', proId: '', author: '', language: '', status: '',
     };
     this.selector = Object.assign({}, this.selector, pushedState);
     this.state = {

@@ -1,6 +1,5 @@
 import React from 'react';
-import { Row, Col, Table, Button } from 'antd';
-import { Link } from 'react-router-dom';
+import { Row, Col, Table, Button, Modal, Input } from 'antd';
 import { connect } from 'react-redux';
 
 import { fetchContestList } from '../../services/contest';
@@ -24,33 +23,6 @@ function getStatusColor(text) {
   }
 }
 
-const columns = [{
-  title: 'Id',
-  key: 'id',
-  width: '5%',
-  dataIndex: 'id',
-}, {
-  title: 'Contest Name',
-  key: 'title',
-  width: '38%',
-  render: (text, record) => <span><Link to={`./contest/${record.id}`}>{record.title}</Link></span>
-}, {
-  title: 'Start Time (GMT+8)',
-  key: 'startTime',
-  width: '12%',
-  render: (text, record) => <span>{getFormatTime(record.startTime)}</span>
-}, {
-  title: 'Type',
-  key: 'contestType',
-  width: '5%',
-  render: (text, record) => <span style={{ color: record.contestType === 0 ? 'red' : 'green' }}>{record.contestType === 0 ? 'public' : 'private'}</span>
-}, {
-  title: 'Status',
-  key: 'status',
-  width: '7%',
-  render: (text, record) => <span style={{ color: getStatusColor(record.status) }}>{record.status}</span>
-}];
-
 class ContestList extends React.Component {
   constructor(props) {
     super(props);
@@ -58,7 +30,36 @@ class ContestList extends React.Component {
       data: [],
       pagination: {},
       loading: false,
+      password: '',
+      isVisible: false,
     }
+
+    this.columns = [{
+      title: 'Id',
+      key: 'id',
+      width: '5%',
+      dataIndex: 'id',
+    }, {
+      title: 'Contest Name',
+      key: 'title',
+      width: '38%',
+      render: (text, record) => <a onClick={() => this.isPrivateCheck(record.contestType, record.id)}>{record.title}</a>//<Link to={{ pathname: `./contest/${record.id}`, state: { isPrivate: record.contestType } }}>
+    }, {
+      title: 'Start Time (GMT+8)',
+      key: 'startTime',
+      width: '12%',
+      render: (text, record) => <span>{getFormatTime(record.startTime)}</span>
+    }, {
+      title: 'Type',
+      key: 'contestType',
+      width: '5%',
+      render: (text, record) => <span style={{ color: record.contestType === 0 ? 'red' : 'green' }}>{record.contestType === 0 ? 'public' : 'private'}</span>
+    }, {
+      title: 'Status',
+      key: 'status',
+      width: '7%',
+      render: (text, record) => <span style={{ color: getStatusColor(record.status) }}>{record.status}</span>
+    }];
   }
 
   componentDidMount() {
@@ -77,6 +78,7 @@ class ContestList extends React.Component {
     const datax = await fetchContestList(page);
     const pagination = { ...this.state.pagination };
     pagination.total = datax.totalCount;
+    this.cid = 0;
     this.setState({
       loading: false,
       data: datax.results,
@@ -93,9 +95,27 @@ class ContestList extends React.Component {
     this.fetchL(pagination.current);
   }
 
-  contestAdd = () =>{
+  contestAdd = () => {
     this.props.history.push('./contest/add')
   }
+
+  isPrivateCheck = (type, id) => {
+    if (type === 1) {
+      this.cid = id;
+      this.setState({ isVisible: true });
+    } else {
+      this.props.history.push(`./contest/${id}`);
+    }
+  }
+
+  privatePush = () => {
+    this.props.history.push({ pathname: `./contest/${this.cid}`, state: { pwd: this.state.password } });
+  }
+
+  closeWindow = () => {
+    this.setState({ isVisible: false })
+  }
+
   render() {
     return (
       <div>
@@ -107,12 +127,26 @@ class ContestList extends React.Component {
         </Row>
         <Table
           className="contestList-table"
-          columns={columns}
+          columns={this.columns}
           dataSource={this.state.data}
           rowKey={(record, index) => index}
           pagination={this.state.pagination}
           loading={this.state.loading}
           onChange={this.handleTableChange} />
+        <Modal
+          width={300}
+          visible={this.state.isVisible}
+          onCancel={this.closeWindow}
+          style={{ top: 120 }}
+          footer={null}>
+          <h2 style={{ marginBottom: 12 }}>Permission Check</h2>
+          <Row gutter={20}>
+            <Col span={16}>
+              <Input placeholder='please input password' value={this.state.password} onPressEnter={this.privatePush} onChange={(e) => this.setState({ password: e.target.value })} />
+            </Col>
+            <Col span={8}><Button onClick={this.privatePush}>Submit</Button></Col>
+          </Row>
+        </Modal>
       </div>
     );
   }

@@ -12,12 +12,20 @@ class FormX extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        postCode({
-          ...values,
-          remoteOj: this.props.cid,
-          type: this.props.type,
-        });
-        this.props.history.push('/main/status');
+        if(this.props.type === 1){
+          postCode({
+            ...values,
+            remoteOj:this.props.cid,
+          })
+          this.props.history.push('/main/status');
+        }else{
+          postCode({
+            ...values,
+            contestId: this.props.cid,
+          });
+          this.props.history.push(`./${this.props.cid}/rank`);
+        }
+        
       }
     });
   }

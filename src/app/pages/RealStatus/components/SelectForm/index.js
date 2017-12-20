@@ -82,14 +82,14 @@ class SelectForm extends React.Component {
                     initialValue: this.props.selector.language
                   })(
                     <Select>
-                      <Option value="0">All</Option>
-                      <Option value="1">G++</Option>
-                      <Option value="2">GCC</Option>
-                      <Option value="3">C++</Option>
-                      <Option value="4">C</Option>
-                      <Option value="5">Pascal</Option>
-                      <Option value="6">Java</Option>
-                      <Option value="7">C#</Option>
+                      <Option value="">All</Option>
+                      <Option value="G++">G++</Option>
+                      <Option value="GCC">GCC</Option>
+                      <Option value="C++">C++</Option>
+                      <Option value="C">C</Option>
+                      <Option value="Pascal">Pascal</Option>
+                      <Option value="Java">Java</Option>
+                      <Option value="C#">C#</Option>
                     </Select>)}
                 </FormItem>
               </div>
@@ -103,15 +103,15 @@ class SelectForm extends React.Component {
                     initialValue: this.props.selector.status
                   })(
                     <Select >
-                      <Option value="0">All</Option>
-                      <Option value="1">Accepted</Option>
-                      <Option value="2">Wrong Answer</Option>
-                      <Option value="3">Presentation Error</Option>
-                      <Option value="4">Compilation Error</Option>
-                      <Option value="5">Runtime Error</Option>
-                      <Option value="6">Time Limit Exceeded</Option>
-                      <Option value="7">Memory Limit Exceeded</Option>
-                      <Option value="8">Output Limit Exceeded</Option>
+                      <Option value="">All</Option>
+                      <Option value="AC">Accepted</Option>
+                      <Option value="WA">Wrong Answer</Option>
+                      <Option value="PE">Presentation Error</Option>
+                      <Option value="CE">Compilation Error</Option>
+                      <Option value="RE">Runtime Error</Option>
+                      <Option value="TLE">Time Limit Exceeded</Option>
+                      <Option value="MLE">Memory Limit Exceeded</Option>
+                      <Option value="OLE">Output Limit Exceeded</Option>
                     </Select>)}
                 </FormItem>
               </div>

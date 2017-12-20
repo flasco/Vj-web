@@ -59,45 +59,49 @@ export async function fetchContestList(page, title = '', accountName = '', statu
   }
 }
 
-export async function fetchContestDetList(cid) {
+export async function fetchContestDetList(cid,pwd = '') {
   let data;
   if (devMode) {
     await sleep(1000);
     data = {
-      id: 3,
-      title: "testjson",
-      startTime: 1511618065170,
-      duration: 360000,
-      userId: 2,
-      status: "Ended",
-      contestType: 0,
-      currentTime: '2017-11-23 16:43:23',
-      password: null,
-      accountName: null,
-      problemList: null,
-      containProblems: [{
-        id: 85,
-        title: "Courses",
-        remoteProblemId: "1083",
-        url: "http://acm.hdu.edu.cn/showproblem.php?pid=1083",
-        remoteOj: "HDU"
-      }, {
-        id: 1002,
-        title: "ASCII码排序",
-        remoteProblemId: "2000",
-        url: "http://acm.hdu.edu.cn/showproblem.php?pid=2000",
-        remoteOj: "HDU"
-      }]
+      obj:{
+        id: 3,
+        title: "testjson",
+        startTime: 1511618065170,
+        duration: 360000,
+        userId: 2,
+        status: "Ended",
+        contestType: 0,
+        currentTime: '2017-11-23 16:43:23',
+        password: null,
+        accountName: null,
+        problemList: null,
+        containProblems: [{
+          id: 85,
+          title: "Courses",
+          remoteProblemId: "1083",
+          url: "http://acm.hdu.edu.cn/showproblem.php?pid=1083",
+          remoteOj: "HDU"
+        }, {
+          id: 1002,
+          title: "ASCII码排序",
+          remoteProblemId: "2000",
+          url: "http://acm.hdu.edu.cn/showproblem.php?pid=2000",
+          remoteOj: "HDU"
+        }]
+      },
+      success:1,
+      msg:'',
     }
   } else {
-    const res = await axios.get(`${serverIp}/contests/${cid}`);
+    const res = await axios.get(`${serverIp}/contests/${cid}?password=${pwd}`);
     console.log(res.data)
-    data = res.data.obj;
+    data = res.data;
   }
   return data;
 }
 
-export async function fetchContestQues(oj, id, cid) {
+export async function fetchContestQues(oj, id, cid, pwd) {
   let data;
   if (devMode) {
     await sleep(1000);
@@ -118,8 +122,9 @@ export async function fetchContestQues(oj, id, cid) {
       url: "http://acm.hdu.edu.cn/showproblem.php?pid=5613"
     };
   } else {
-    const res = await axios.get(`${serverIp}/contests/${cid}/${oj}/${id}`);
-    data = res.data.obj;
+    const res = await axios.get(`${serverIp}/contests/${cid}/${oj}/${id}?password=${pwd}`);
+    console.log(res.data);
+    data = res.data;
   }
   return data;
 }
