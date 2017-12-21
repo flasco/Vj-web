@@ -1,10 +1,25 @@
 import React from 'react';
-import { Form, Input, Button, Radio } from 'antd';
+import { Form, Input, Button, Radio,Upload, message } from 'antd';
 import { connect } from 'react-redux';
-import Uploader from '../Uploader';
+
+import { userUpdate } from '../../../../actions';
+import config from '../../../../../config';
 
 import './index.css';
+const { serverIp } = config;
 const FormItem = Form.Item;
+
+function beforeUpload(file) {
+  const isJPG = file.type === 'image/jpeg';
+  if (!isJPG) {
+    message.error('You can\'t upload without JPG file!');
+  }
+  const isLt2M = file.size / 1024 / 1024 < 2;
+  if (!isLt2M) {
+    message.error('Image must smaller than 2MB!');
+  }
+  return isJPG && isLt2M;
+}
 
 class ConfForm extends React.Component {
   constructor(props) {
@@ -32,6 +47,13 @@ class ConfForm extends React.Component {
     });
   }
 
+  handleChange = (info) => {
+    if (info.file.response !== undefined) {
+      let path = `${serverIp}${info.file.response.path}`;
+      this.props.dispatch(userUpdate({ icon: path }));
+    }
+  }
+
   render() {
     const { getFieldDecorator } = this.props.form;
     const formItemLayout = {
@@ -42,7 +64,7 @@ class ConfForm extends React.Component {
         span: 14,
       },
     };
-    const { data,icon } = this.props;
+    const { data, icon } = this.props;
     return (
       <Form onSubmit={this.handleSubmit} className="confForm-form" >
         <FormItem
@@ -54,11 +76,18 @@ class ConfForm extends React.Component {
           {...formItemLayout}
           label="AccountName">
           <span>{data.accountName}</span>
-          <div className="confForm-img">
-            <img src={icon} className="confForm-header" alt={data.accountName} />
-            <a className="confForm-header-a" onClick={this.showModal}>Change</a>
-            <Uploader visible={this.state.UpVisible} handleCancel={this.handleCancel} />
-          </div>
+          <Upload
+            name="icon"
+            showUploadList={false}
+            action={`${serverIp}/files/icon`}
+            onChange={this.handleChange}
+            withCredentials={true}//允许携带cookie
+            beforeUpload={beforeUpload}>
+            <div className="confForm-img">
+              <img src={icon} className="confForm-header" alt={data.accountName} />
+              <a className="confForm-header-a" onClick={this.showModal}>Change</a>
+            </div>
+          </Upload>
         </FormItem>
         <FormItem
           {...formItemLayout}
@@ -106,7 +135,7 @@ const ConfFormWarpper = Form.create()(ConfForm);
 
 function select(state) {
   return {
-    icon:state.user.icon
+    icon: state.user.icon
   };
 }
 
