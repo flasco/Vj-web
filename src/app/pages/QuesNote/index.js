@@ -19,6 +19,15 @@ class QuesNote extends React.Component {
     this.nid = props.match.params.nid;
     this.getNote();
   }
+
+  componentWillReceiveProps(nextProps) {
+    if(this.nid !== nextProps.match.params.nid){
+      this.nid = nextProps.match.params.nid
+      this.getNote();
+    }
+    return true
+  }
+
   getNote = async () => {
     const data = await getNoteDet(this.nid);
     // console.log(data);

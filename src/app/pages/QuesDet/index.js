@@ -29,7 +29,6 @@ class QuesDet extends React.Component {
     loadScript(MATHJAX_SCRIPT, () => {
       window.MathJax.Hub.Config(MATHJAX_OPTIONS);
     });
-    console.log(props.location.state);
     this.id = props.match.params.qid;
     typx = false;
     
@@ -55,10 +54,17 @@ class QuesDet extends React.Component {
   componentDidMount() {
     this.fetchData();
   }
+  componentWillReceiveProps(nextProps){
+    if(this.id !== nextProps.match.params.qid){
+      this.fetchData(nextProps.match.params.qid);
+    }
+    return true
+  }
 
-  async fetchData() {
+  async fetchData(quesId = qid) {
+
     if (typx) {
-      let d = await fetchContestQues(oj, qid, cid, pwd);
+      let d = await fetchContestQues(oj, quesId, cid, pwd);
       console.log(d)
       if (d.success === 0) {
         message.error('password error');
@@ -66,7 +72,7 @@ class QuesDet extends React.Component {
       }
       this.setState({ data: d.obj, loading: false })
     } else {
-      let d = await fetchQuesDet(oj, qid, cid);
+      let d = await fetchQuesDet(oj, quesId, cid);
       this.setState({ data: d, loading: false })
     }
   }

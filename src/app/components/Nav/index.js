@@ -27,6 +27,10 @@ class Nav extends React.Component {
   componentWillMount() {
     this.check();
   }
+  componentWillReceiveProps(nextProps){
+    console.log(nextProps)
+    return true;
+  }
   /**
    * 检测是否登录，如果sessionStorage里面有登录记录就不用发送登录检测，
    * 不然就发一次登录检测，判断登录情况。
@@ -71,7 +75,7 @@ class Nav extends React.Component {
   }
 
   render() {
-    let key = window.location.pathname.split('/')[2] || '';
+    let key = window.location.hash.split('/')[2] || '';
     const { children, isLogin, icon, userLoginBoard, setUserLoginBoard, setMouse } = this.props;
     return (
       <Layout className="layout">

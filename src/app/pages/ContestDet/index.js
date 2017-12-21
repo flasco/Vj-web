@@ -50,6 +50,14 @@ class ContestDet extends React.Component {
     this.fetchData();
   }
 
+  componentWillReceiveProps(nextProps) {
+    if(cid !== nextProps.match.params.cid){
+      cid = nextProps.match.params.cid
+      this.fetchData();
+    }
+    return true
+  }
+
   async fetchData() {
     let data = await fetchContestDetList(cid, pwd);
     if (data.success === 0) {
