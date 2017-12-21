@@ -20,6 +20,8 @@ export async function userLoginCheck(info) {
         res: {
           id: 3,
           accountName: info.accountName,
+          acCount:2,
+          failCount:4,
           icon: 'http://img2.woyaogexing.com/2017/11/07/705db8f16970ff85!400x400_big.jpg',
           isLogin: true,
         }
@@ -47,6 +49,10 @@ export async function loginCheck() {
     await sleep(750);
     return true;
   }
+}
+
+export async function userLogout() {
+  return await axios.post(`${serverIp}/sessions/logout`);
 }
 
 export async function userRegisterCheck(info) {
@@ -80,6 +86,8 @@ export async function getUserInfo(uid) {
         icon: 'http://img2.woyaogexing.com/2017/11/07/705db8f16970ff85!400x400_big.jpg',
         description: '自你离去的那一天起，我便失去了所有的夏天。\n自你离去的那一天起，我便失去了所有的夏天。\n自你离去的那一天起，我便失去了所有的夏天。',
         gender: '2',
+        acCount:2,
+        failCount:4,
         school: 'United States Ivy League'
       }
     } else {
@@ -88,6 +96,8 @@ export async function getUserInfo(uid) {
         accountName: 'shua',
         icon: 'http://img2.woyaogexing.com/2017/11/12/6751808381431831!400x400_big.jpg',
         description: '自你离去的那一天起，我便失去了所有的夏天。',
+        acCount:2,
+        failCount:4,
         gender: '2',
         school: '英国加里敦大学'
       }

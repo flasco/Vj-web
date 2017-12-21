@@ -9,21 +9,17 @@ import './index.css';
 class QueSubmit extends React.Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {
       selectChild: '',
     };
-    if (props.match.params.id === void 0) {
-      // console.log('比赛页面Jmp');
-      this.cid = props.match.params.cid;
-      this.qid = props.match.params.qid;
-      this.type = 2;
-    } else {
-      // console.log('题库页面Jmp');
-      this.cid = props.match.params.oj;
-      this.qid = props.match.params.id;
-      this.type = 1;
-    }
+    this.id = props.match.params.qid;
+    this.stat = props.location.state;
+    console.log(this.stat)
+    this.type = this.stat.cid !== '' ? 2 : 1;
+    this.cid = this.stat.cid;
+    this.qid = this.stat.qid;
+    this.oj = this.stat.oj;
 
     this.getSelectChild();
   }
@@ -43,7 +39,7 @@ class QueSubmit extends React.Component {
           <p>Current Authenticated Author : {this.props.userName || 'Stranger'}</p>
         </div>
         <FormX selectChild={this.state.selectChild}
-          cid={this.cid} qid={this.qid} type={this.type} history={this.props.history}/>
+          cid={this.cid} qid={this.qid} oj={this.oj} id={this.id} type={this.type} history={this.props.history} />
       </div>
     );
   }

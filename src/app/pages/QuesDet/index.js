@@ -29,20 +29,22 @@ class QuesDet extends React.Component {
     loadScript(MATHJAX_SCRIPT, () => {
       window.MathJax.Hub.Config(MATHJAX_OPTIONS);
     });
-    // console.log(props.location.state);
-    if (props.match.params.id === void 0) {
-      // console.log('比赛页面Jmp');
+    console.log(props.location.state);
+    this.id = props.match.params.qid;
+    typx = false;
+    
+    if (props.location.state !== void 0) {
       typx = true;
       cid = props.match.params.cid;
-      oj = props.location.state.oj;
-      qid = props.location.state.qid;
       pwd = props.location.state.pwd;
-    } else {
-      // console.log('题库页面Jmp');
-      typx = false;
-      qid = props.match.params.id;
+      qid = props.location.state.qid;
+      oj = props.location.state.oj;
+    }else{
+      cid = '';
+      qid = props.match.params.qid;
       oj = props.match.params.oj;
     }
+    
 
     this.state = {
       data: {},
@@ -90,8 +92,8 @@ class QuesDet extends React.Component {
 
           <PanelBlock data={this.state.data} />
           <div className="quesDet-ul">
-            <Link key="submit" to={`./${qid}/submit`}>Submit</Link>
-            {typx || <Link key="note" to={`./${qid}/note`}>Note</Link>}
+            <Link key="submit" to={{ pathname: `./${this.id}/submit`, state: { oj, qid, cid } }}>Submit</Link>
+            {typx || <Link key="note" to={`./${this.id}/note`}>Note</Link>}
             <Link key="return" to={typx ? `../${cid}` : '../'}>Back</Link>
             {/* <Link key="statistic" to={`./ques/statistic/${this.proId}`}>Statistic</Link> */}
             {/* <Link key="discuss" to={`./ques/discuss/${this.proId}`}>Discuss</Link> */}

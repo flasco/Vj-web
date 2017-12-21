@@ -19,7 +19,7 @@ const columns = [{
   title: 'Pro.Id',
   width: '7%',
   key: 'proId',
-  render: (text, record, index) => <span>{index + 1}</span>
+  render: (text, record, index) => <span>{String.fromCharCode(65 + index)}</span>
 }, {
   title: 'Title',
   key: 'title',

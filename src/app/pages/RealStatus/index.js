@@ -85,12 +85,16 @@ class RealSuatus extends React.Component {
       pagination: '',
       loading: true,
     }
+    this.timer = setInterval(()=>{
+      this.fetchData(1, this.selector);
+    },8000);
   }
   componentDidMount() {
     this.fetchData(1, this.selector);
+    
   }
   componentWillUnmount() {
-    //重写组件的setState方法，直接返回空
+    clearInterval(this.timer);//清除定时器
     this.setState = (state, callback) => {
       return;
     };
@@ -122,7 +126,9 @@ class RealSuatus extends React.Component {
   render() {
     return (
       <div>
-        <h1 style={{ textAlign: 'center', marginBottom: 14 }}>Realtime Status</h1>
+        <h1 style={{ textAlign: 'center', marginBottom: 2 }}>Realtime Status</h1>
+        <p style={{ textAlign: 'center', marginBottom: 2 }}>You can refresh table by click search button</p>
+        <p style={{ textAlign: 'center', marginBottom: 14 }}>Every 8 seconds it will refresh automatically</p>
         <SelectForm search={this.search} selector={this.selector} />
         <Table
           size="middle"

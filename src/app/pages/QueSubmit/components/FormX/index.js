@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Form, Input, Select, Button } from 'antd';
+import { Row, Col, Form, Input, Select, Button, message } from 'antd';
 
 import { postCode } from '../../../../services/index';
 
@@ -12,20 +12,29 @@ class FormX extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        if(this.props.type === 1){
-          postCode({
+        if (this.props.cid.length === 0) {
+          let data = postCode({
             ...values,
-            remoteOj:this.props.cid,
+            remoteOj: this.props.oj,
           })
-          this.props.history.push('/main/status');
-        }else{
-          postCode({
+          if (data.success === 0) {
+            message.error('no login. submit failed');
+          } else {
+            this.props.history.push('/main/status');
+          }
+        } else {
+          let data = postCode({
             ...values,
             contestId: this.props.cid,
+            remoteOj: this.props.oj,
+            index: this.props.id - 1,
           });
-          this.props.history.push(`./${this.props.cid}/rank`);
+          if (data.success === 0) {
+            message.error('no login. submit failed');
+          } else {
+            this.props.history.push(`/main/contest/${this.props.cid}/rank`);
+          }
         }
-        
       }
     });
   }

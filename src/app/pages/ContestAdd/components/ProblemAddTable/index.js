@@ -61,8 +61,16 @@ class ProblemAddTable extends React.Component {
   handleAdd = async () => {
     const { count } = this.state;
     const { dataSource } = this.props;
+    if(this.state.id === '') return ;
     this.setState({ buttonLoading: true, id: '', })
     const data = await fetchQuesDet(this.state.oj, this.state.id);
+    // console.log(data);
+    if(data === '') {
+      this.setState({
+        buttonLoading: false
+      });
+      return ;
+    }
     const newData = {
       key: count,
       isEdited: 0,

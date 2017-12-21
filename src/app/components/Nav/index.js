@@ -8,6 +8,8 @@ import LoginWindow from './components/LoginWindow';
 import UserBoard from './components/UserBoard';
 import UserComp from './components/UserComp';
 
+import { userLogout, getUserInfo } from '../../services/user';
+
 import './index.css';
 
 const MenuItem = Menu.Item;
@@ -33,10 +35,16 @@ class Nav extends React.Component {
     let isLogin = sessionStorage.getItem('isLoginCache');
     if (!isLogin && this.props.isLogin) {
       const val = await loginCheck();
+      console.log(val);
       if (!val) {
         console.log('cookie expired!');
         this.props.userLogout();
       } else {
+        getUserInfo(this.props.uid).then(val => {
+          if (val.acCount !== this.props.acCount || val.failCount !== this.props.failCount) {
+            this.props.uid === val.id && this.props.userUpdate(val);
+          }
+        })
         sessionStorage.setItem('isLoginCache', true);
       }
     }
@@ -57,7 +65,8 @@ class Nav extends React.Component {
       isLogin: true,
     });
   }
-  userLogout = () => {
+  userQuit = () => {
+    userLogout();
     this.props.userLogout();
   }
 
@@ -95,7 +104,7 @@ class Nav extends React.Component {
               windowType={userLoginBoard.windowType} />}
             <UserBoard
               icon={icon || defaultIcon}
-              userQuit={this.userLogout}
+              userQuit={this.userQuit}
               setMouse={setMouse}
               onMouseLeave={this.onMouseLeave}
               onMouseEnter={this.onMouseEnter} />
