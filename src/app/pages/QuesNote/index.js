@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon, Row, Col } from 'antd';
+import { Icon, Row, Col, message } from 'antd';
 import { Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 
@@ -21,7 +21,7 @@ class QuesNote extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(this.nid !== nextProps.match.params.nid){
+    if (this.nid !== nextProps.match.params.nid) {
       this.nid = nextProps.match.params.nid
       this.getNote();
     }
@@ -30,8 +30,11 @@ class QuesNote extends React.Component {
 
   getNote = async () => {
     const data = await getNoteDet(this.nid);
-    // console.log(data);
-    this.setState({ data, isLoading: false })
+    if (data.success === 0) {
+      message.error('fail to access!');
+    }
+    console.log(data.obj)
+    this.setState({ data: data.obj, isLoading: false })
   }
   render() {
     const { isLoading, data } = this.state;
@@ -43,8 +46,8 @@ class QuesNote extends React.Component {
         <div style={{ textAlign: 'center', marginBottom: 12 }}>
           <h1>{data.title}</h1>
           <Row gutter={40} type="flex" justify="center">
-            <Col span={4}><Icon type="user" style={{ marginRight: 4 }} /><span style={{ fontSize: 14 }}>{data.author}</span></Col>
-            <Col span={4}><Icon type="pushpin-o" style={{ marginRight: 4 }} /><span style={{ fontSize: 14 }}>{`${data.remoteOj} - ${data.remoteId}`}</span></Col>
+            <Col span={4}><Icon type="user" style={{ marginRight: 4,fontSize:16 }} /><span style={{ fontSize: 14 }}>{data.author}</span></Col>
+            <Col span={4}><Icon type="pushpin-o" style={{ marginRight: 4,fontSize:16 }} /><span style={{ fontSize: 14 }}>{`${data.remoteOj} - ${data.remoteProblemId}`}</span></Col>
           </Row>
           <Link to={{ pathname: '/main/ques/noteEdit', state: { nid: this.nid } }} style={{ fontSize: '12pt' }}>Edit</Link>
         </div>

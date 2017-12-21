@@ -113,7 +113,7 @@ export async function fetchRealStatus(page, { runId = '-1', oj = '', proId = '',
     return data;
   } else {
     const x1 = await axios.get(`${serverIp}/submissions?fromId=${runId}&page=${page}&size=${size}&remoteOj=${oj}&remoteProblemId=${proId}&accountName=${author}&language=${language}&status=${status}&contestId=${contestId}`)
-    const x2 = await axios.get(`${serverIp}/submissions/count?fromId=${runId}&page=${page}&size=${size}&remoteOj=${oj}&remoteProblemId=${proId}&accountName=${author}&language=${language}&status=${status}&contestId=${contestId}`)
+    const x2 = await axios.get(`${serverIp}/submissions/count?fromId=${runId}&remoteOj=${oj}&remoteProblemId=${proId}&accountName=${author}&language=${language}&status=${status}&contestId=${contestId}`)
     
     return {
       totalCount:x2.data.totalCount,

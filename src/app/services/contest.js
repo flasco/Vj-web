@@ -50,7 +50,7 @@ export async function fetchContestList(page, title = '', accountName = '', statu
       results: data,
     };
   } else {
-    const x1 = await axios.get(`${serverIp}/contests/count?page=${page}&size=${size}&status=${status}&accountName=${accountName}&title=${title}&contestType=${contestType}`);
+    const x1 = await axios.get(`${serverIp}/contests/count?status=${status}&accountName=${accountName}&title=${title}&contestType=${contestType}`);
     const x2 = await axios.get(`${serverIp}/contests?page=${page}&size=${size}&accountName=${accountName}&status=${status}&title=${title}&contestType=${contestType}`);
     return {
       ...x1.data,//totalCount

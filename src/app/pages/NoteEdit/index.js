@@ -15,28 +15,29 @@ class NoteEdit extends React.Component {
     super(props);
 
     this.state = {
-      data: {},
+      data: '',
       isLoading: true,
       isNoPermission: false,
     }
 
     this.info = props.location.state;
+    console.log(this.info)
     if (this.info) {
-      if (this.info.p2) { //p2 != undefined
+      if (this.info.remoteId) { //p2 != undefined
         //个人写
-        console.log(`你要写：oj:${this.info.p1},id:${this.info.p2}`);
+        console.log(`你要写：oj:${this.info.remoteOj},id:${this.info.remoteId}`);
       } else {
         if (this.info.nid) {
           console.log('你要修改了！')
           this.fetchNote(this.info.nid);
         } else {
-          console.log(`你好，${this.info.p1}`);
-          requestAnimationFrame(() => {
-            this.setState({ isLoading: false })
-          })
+          console.log(`你好，${this.info.userId}`);
         }
       }
     }
+    requestAnimationFrame(() => {
+      this.setState({ isLoading: false })
+    })
   }
 
   fetchNote = async (nid) => {
@@ -44,7 +45,8 @@ class NoteEdit extends React.Component {
       this.setState({ isLoading: false });
     } else {
       const data = await getNoteDet(nid);
-      this.setState({ data, isLoading: false, isNoPermission: data.author !== this.props.accountName });
+      // console.log(data);
+      this.setState({ data:data.obj, isLoading: false, isNoPermission: data.obj.userId !== this.props.userId });
     }
   }
 
@@ -56,7 +58,7 @@ class NoteEdit extends React.Component {
       return <NoPermisson history={this.props.history} />
     }
     return (
-      <EditForm data={this.state.data} userId={this.props.userId} />
+      <EditForm data={this.state.data} userId={this.props.userId} nid={this.info.nid} history={this.props.history} />
     );
   }
 

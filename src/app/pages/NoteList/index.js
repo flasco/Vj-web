@@ -8,18 +8,18 @@ import './index.css';
 const columns = [{
   title: 'Id',
   key: 'id',
-  width:'7%',
+  width: '7%',
   dataIndex: 'id',
 }, {
   title: 'Title',
   key: 'title',
-  width:'80%',
+  width: '80%',
   render: (text, record) => <Link to={`./note/${record.id}`}>{record.title}</Link>
 }, {
   title: 'Author',
   key: 'author',
-  width:'13%',
-  render: (text, record) => <Link to={`/user/${record.author}`}>{record.author}</Link>
+  width: '13%',
+  render: (text, record) => <Link to={`/user/${record.userId}`}>{record.author}</Link>
 },]
 
 class NoteList extends React.Component {
@@ -32,14 +32,9 @@ class NoteList extends React.Component {
       loading: false,
     }
     console.log(props.match)
-    if (props.match.params.uid) {
-      this.p1 = props.match.params.uid;
-      this.type = 1; //这里是用户的列表
-    } else if (props.match.params.oj) {
-      this.p1 = props.match.params.oj
-      this.type = 2; //这里是题库题目的题解跳转。
-      this.p2 = props.match.params.id;
-    }
+    this.userId = props.match.params.uid;
+    this.remoteOj = props.match.params.oj
+    this.remoteId = props.match.params.qid;
     // console.log(this.type);
   }
   componentDidMount() {
@@ -54,7 +49,8 @@ class NoteList extends React.Component {
   }
   fetchL = async (page) => {
     this.setState({ loading: true });
-    const datax = await getNoteList(page, this.type, this.p1, this.p2);
+    const datax = await getNoteList(page, this.remoteOj, this.remoteId, this.userId);
+    console.log(datax)
     const pagination = { ...this.state.pagination };
     pagination.total = datax.totalCount;
     this.setState({
@@ -65,7 +61,7 @@ class NoteList extends React.Component {
   }
 
   noteWrite = () => {
-    this.props.history.push({ pathname: '/main/ques/noteEdit', state: { p1: this.p1, p2: this.p2 } });
+    this.props.history.push({ pathname: '/main/ques/noteEdit', state: { userId: this.userId, remoteOj: this.remoteOj, remoteId: this.remoteId } });
   }
 
   render() {

@@ -1,9 +1,12 @@
 @import './codemirror.css';
 @import './duotone-light.css';
-.noteEdit-markdown{
-  padding-left: 12px;
+.noteEdit-markdown-edit{
   height: 450px;
+}
+
+.noteEdit-markdown{
   font-size: 11pt;
+  padding-left: 12px;
 }
 
 .markdown-overflowY{

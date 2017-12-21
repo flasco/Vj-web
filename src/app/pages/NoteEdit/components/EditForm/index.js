@@ -1,39 +1,23 @@
 import React from 'react';
-import { Form, Button, Row, Col, Upload, Icon, Input, Tooltip, Select } from 'antd';
+import { Form, Button, Row, Col, Upload, Icon, Input, Tooltip, Select, message } from 'antd';
 import ReactMarkdown from 'react-markdown';
+
+import { createNote, updateNote } from '../../../../services/note';
 import { UnControlled } from '../Editor';
 import config from '../../../../../config';
 
 const fileList = [{
   uid: -1,
-  name: 'xxx.png',
-  status: 'done',
-  url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-  thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+  response: {
+    newName: 'uuu.png',
+    path: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+  }
 }, {
   uid: -2,
-  name: 'yyy.png',
-  status: 'done',
-  url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-  thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-}, {
-  uid: -3,
-  name: 'yyy.png',
-  status: 'done',
-  url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-  thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-}, {
-  uid: -4,
-  name: 'yyy.png',
-  status: 'done',
-  url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-  thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-}, {
-  uid: -5,
-  name: 'yyy.png',
-  status: 'done',
-  url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-  thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+  response: {
+    newName: 'uuu.png',
+    path: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+  }
 }];
 
 const { serverIp } = config;
@@ -52,10 +36,30 @@ class EditForm extends React.Component {
     e.preventDefault();
     this.props.form.validateFields(async (err, values) => {
       if (!err) {
-        let data = {
-          ...values,
-          content: this.state.value,
-          userId: this.props.userId,
+        let note = {};
+        let data = '';
+        if (this.props.data !== '') {
+          note = {
+            ...values,
+            content: this.state.value,
+            userId: this.props.userId,
+            id: this.props.nid,
+          }
+          data = await updateNote(note);
+        } else {
+          note = {
+            ...values,
+            content: this.state.value,
+            userId: this.props.userId,
+          }
+          data = await createNote(note);
+        }
+        if (data.success === 0) {
+          message.error('Operation is failed, server is boom.');
+        } else {
+          message.success('Operation success.');
+          let path = this.props.data !== '' ? `/main/ques/${note.remoteOj}/${note.remoteProblemId}/note/${this.props.nid}` : `/main/ques/${note.remoteOj}/${note.remoteProblemId}/note`;
+          this.props.history.push(path);
         }
         console.log(data);
       }
@@ -72,7 +76,7 @@ class EditForm extends React.Component {
       },
     };
     const { data } = this.props;
-
+    // console.log(data)
     return (
       <Form onSubmit={this.submit}>
         <FormItem
@@ -80,7 +84,7 @@ class EditForm extends React.Component {
           style={{ marginBottom: 12 }}
           label="Title">
           {getFieldDecorator('title', {
-            initialValue: data === undefined ? '' : data.title,
+            initialValue: data.length < 1 ? '' : data.title,
           })(
             <Input placeholder="This is Title" />
             )}
@@ -88,12 +92,12 @@ class EditForm extends React.Component {
         <FormItem
           {...formItemLayout}
           label="To">
-          {getFieldDecorator('remoteId', {
-            initialValue: data === undefined ? '' : data.remoteId,
+          {getFieldDecorator('remoteProblemId', {
+            initialValue: data.length < 1 ? '' : data.remoteProblemId,
           })(
             <Input addonBefore={
               getFieldDecorator('remoteOj', {
-                initialValue: data === undefined ? 'HDU' : data.remoteId,
+                initialValue: data.length < 1 ? 'HDU' : data.remoteOj,
               })(
                 <Select style={{ width: 60 }}>
                   <Option value="HDU">HDU</Option>
@@ -112,7 +116,7 @@ class EditForm extends React.Component {
             handleChange={({ fileList }) => this.setState({ fileList })}
             withCredentials={true}
             onPreview={(file) => {
-              let str = `<img src='${file.url}' alt='${file.name}' style='width:72px;'/>`;
+              let str = `<img src='${serverIp}${file.response.path}' alt='${file.response.newName}' style='width:72px;'/>`;
               let x = this.refs.editor;
               x.insertTextAtCursor(str);
               return false
@@ -144,7 +148,7 @@ class EditForm extends React.Component {
           </Col>
           <Col span={12}>
             <ReactMarkdown
-              className="noteEdit-markdown markdown-overflowY"
+              className="noteEdit-markdown noteEdit-markdown-edit markdown-overflowY"
               source={this.state.value}
               escapeHtml={false} />
           </Col>
