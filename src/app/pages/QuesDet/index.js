@@ -31,19 +31,20 @@ class QuesDet extends React.Component {
     });
     this.id = props.match.params.qid;
     typx = false;
-    
+
     if (props.location.state !== void 0) {
       typx = true;
       cid = props.match.params.cid;
       pwd = props.location.state.pwd;
       qid = props.location.state.qid;
       oj = props.location.state.oj;
-    }else{
+    } else {
       cid = '';
       qid = props.match.params.qid;
       oj = props.match.params.oj;
     }
-    
+    console.log(props.location.state)
+
 
     this.state = {
       data: {},
@@ -54,8 +55,8 @@ class QuesDet extends React.Component {
   componentDidMount() {
     this.fetchData();
   }
-  componentWillReceiveProps(nextProps){
-    if(this.id !== nextProps.match.params.qid){
+  componentWillReceiveProps(nextProps) {
+    if (this.id !== nextProps.match.params.qid) {
       this.fetchData(nextProps.match.params.qid);
     }
     return true
@@ -98,12 +99,23 @@ class QuesDet extends React.Component {
 
           <PanelBlock data={this.state.data} />
           <div className="quesDet-ul">
-            <Link key="submit" to={{ pathname: `./${this.id}/submit`, state: { oj, qid, cid } }}>Submit</Link>
-            {typx || <Link key="note" to={`./${this.id}/note`}>Note</Link>}
-            <Link key="return" to={typx ? `../${cid}` : '../'}>Back</Link>
-            {/* <Link key="statistic" to={`./ques/statistic/${this.proId}`}>Statistic</Link> */}
-            {/* <Link key="discuss" to={`./ques/discuss/${this.proId}`}>Discuss</Link> */}
-          </div>
+          {
+            typx ? (
+              <a onClick={()=>{
+                this.props.changePage('3');
+              }}>Submit</a>
+            ) : (
+                <div>
+                  <Link key="submit" to={{ pathname: `./${this.id}/submit`, state: { oj, qid, cid } }}>Submit</Link>
+                  <Link key="note" to={`./${this.id}/note`}>Note</Link>
+                  <Link key="return" to={typx ? `../${cid}` : '../'}>Back</Link>
+               </div>
+              )
+          }
+ </div>
+          {/* <Link key="statistic" to={`./ques/statistic/${this.proId}`}>Statistic</Link> */}
+          {/* <Link key="discuss" to={`./ques/discuss/${this.proId}`}>Discuss</Link> */}
+
         </div >
       );
     }

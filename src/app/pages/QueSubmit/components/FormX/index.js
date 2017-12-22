@@ -32,7 +32,7 @@ class FormX extends React.Component {
           if (data.success === 0) {
             message.error('no login. submit failed');
           } else {
-            this.props.history.push(`/main/contest/${this.props.cid}/rank`);
+            this.props.changePage('4');
           }
         }
       }

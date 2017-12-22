@@ -14,7 +14,6 @@ import './index.css';
 
 const MenuItem = Menu.Item;
 const { Header, Content, Footer } = Layout;
-const defaultIcon = 'http://upload.besoo.com/file/201611/24/1915559745908.jpg';
 
 class Nav extends React.Component {
   constructor(props) {
@@ -90,7 +89,7 @@ class Nav extends React.Component {
             </Menu>
             {this.state.isloaded && <div className={isLogin ? "Nav-head" : "Nav-head Nav-head-no-sign"} onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave}>
               <UserComp
-                icon={icon || defaultIcon}
+                icon={icon}
                 isLogin={isLogin}
                 setUserLoginBoard={setUserLoginBoard} />
             </div>}
@@ -101,7 +100,7 @@ class Nav extends React.Component {
               setUserLoginBoard={setUserLoginBoard}
               windowType={userLoginBoard.windowType} />}
             <UserBoard
-              icon={icon || defaultIcon}
+              icon={icon}
               userQuit={this.userQuit}
               setMouse={setMouse}
               onMouseLeave={this.onMouseLeave}

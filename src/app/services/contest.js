@@ -106,20 +106,23 @@ export async function fetchContestQues(oj, id, cid, pwd) {
   if (devMode) {
     await sleep(1000);
     data = {
-      author: "",
-      description: "<div class=\"panel_content\">Baby Ming likes to deal with pixel map in the following way:\n       <br /><br />First, converting the pixel map into binary image (recorded as 01), and then, in the binary figures, for each grid, add up the grid and its neighboring grids’ binary number, and store in matrix &lt;b&gt;$Mat$&lt;/b&gt;.\n       <br /><br />All the pictures Baby Ming chosen have a &lt;b&gt;blank upper margin and bottom margin&lt;/b&gt; (the value of which is 0 in the binary image), because he thinks such a picture is beautiful.\n       <br /><br />The matrix $Mat$ is so big that Baby Ming is worried about the mistakes in the matrix. So he wants to know whether the binary image can be regained according to the $Mat$.\n       <br /><br /><img style=\"max-width:100%;\" src=\"http://bestcoder.hdu.edu.cn/data/images/C664-1004-1.jpg\" /></div>",
-      hint: "<pre>in the second sample, the matrix[1 0 0] is not Baby Ming's Matrix, so there is no answer</div><i style=\"font-size:1px\"></i></div></pre></div>",
-      input: "<div class=\"panel_content\">In the first line contains a single positive integer $T$, indicating number of test case.\n       <br /><br />In the second line there are two numbers $n, m$, indicating the size of the binary image and the size of the matrix $Mat$\n       <br /><br />In the next $n$ lines, each line input m numbers, indicating the matrix $Mat$.\n       <br /><br />$1 \\leq T \\leq 30, 2 &lt; n \\leq 12, m \\leq 100$\n       <br /></div>",
-      memoryLimit: "65536/65536 K (Java/Others)",
-      output: "<div class=\"panel_content\">Print &lt;b&gt;Impossible&lt;/b&gt;, if it is impossible to regain the binary image.\n       <br /><br />Print &lt;b&gt;Multiple&lt;/b&gt;, if it has more than one result.\n       <br /><br />Otherwise, print the binary image (Baby Ming's 01 matrix)\n       <br /></div><div class=\"panel_bottom\">\n       &nbsp;\n      </div>",
-      remoteOj: "HDU",
-      remoteProblemId: "5613",
-      sampleInput: "<div class=\"panel_content\"><pre><div style=\"font-family:Courier New,Courier,monospace;\">2\r\n4 4\r\n1 2 3 2\r\n2 3 4 2\r\n2 3 4 2\r\n1 1 1 0\r\n3 1\r\n1\r\n1\r\n0</div></pre></div>",
-      sampleOutput: "<div class=\"panel_content\"><pre><div style=\"font-family:Courier New,Courier,monospace;\">0 0 0 0\r\n0 1 1 1\r\n0 1 0 0\r\n0 0 0 0\r\nImpossible</div></div>",
-      source: "BestCoder Round #69 (div.2) ",
-      timeLimit: "2000/1000 MS (Java/Others)",
-      title: "Baby Ming and Binary image",
-      url: "http://acm.hdu.edu.cn/showproblem.php?pid=5613"
+      success: 1,
+      obj: {
+        author: "",
+        description: "<div class=\"panel_content\">Baby Ming likes to deal with pixel map in the following way:\n       <br /><br />First, converting the pixel map into binary image (recorded as 01), and then, in the binary figures, for each grid, add up the grid and its neighboring grids’ binary number, and store in matrix &lt;b&gt;$Mat$&lt;/b&gt;.\n       <br /><br />All the pictures Baby Ming chosen have a &lt;b&gt;blank upper margin and bottom margin&lt;/b&gt; (the value of which is 0 in the binary image), because he thinks such a picture is beautiful.\n       <br /><br />The matrix $Mat$ is so big that Baby Ming is worried about the mistakes in the matrix. So he wants to know whether the binary image can be regained according to the $Mat$.\n       <br /><br /><img style=\"max-width:100%;\" src=\"http://bestcoder.hdu.edu.cn/data/images/C664-1004-1.jpg\" /></div>",
+        hint: "<pre>in the second sample, the matrix[1 0 0] is not Baby Ming's Matrix, so there is no answer</div><i style=\"font-size:1px\"></i></div></pre></div>",
+        input: "<div class=\"panel_content\">In the first line contains a single positive integer $T$, indicating number of test case.\n       <br /><br />In the second line there are two numbers $n, m$, indicating the size of the binary image and the size of the matrix $Mat$\n       <br /><br />In the next $n$ lines, each line input m numbers, indicating the matrix $Mat$.\n       <br /><br />$1 \\leq T \\leq 30, 2 &lt; n \\leq 12, m \\leq 100$\n       <br /></div>",
+        memoryLimit: "65536/65536 K (Java/Others)",
+        output: "<div class=\"panel_content\">Print &lt;b&gt;Impossible&lt;/b&gt;, if it is impossible to regain the binary image.\n       <br /><br />Print &lt;b&gt;Multiple&lt;/b&gt;, if it has more than one result.\n       <br /><br />Otherwise, print the binary image (Baby Ming's 01 matrix)\n       <br /></div><div class=\"panel_bottom\">\n       &nbsp;\n      </div>",
+        remoteOj: "HDU",
+        remoteProblemId: "5613",
+        sampleInput: "<div class=\"panel_content\"><pre><div style=\"font-family:Courier New,Courier,monospace;\">2\r\n4 4\r\n1 2 3 2\r\n2 3 4 2\r\n2 3 4 2\r\n1 1 1 0\r\n3 1\r\n1\r\n1\r\n0</div></pre></div>",
+        sampleOutput: "<div class=\"panel_content\"><pre><div style=\"font-family:Courier New,Courier,monospace;\">0 0 0 0\r\n0 1 1 1\r\n0 1 0 0\r\n0 0 0 0\r\nImpossible</div></div>",
+        source: "BestCoder Round #69 (div.2) ",
+        timeLimit: "2000/1000 MS (Java/Others)",
+        title: "Baby Ming and Binary image",
+        url: "http://acm.hdu.edu.cn/showproblem.php?pid=5613"
+      }
     };
   } else {
     const res = await axios.get(`${serverIp}/contests/${cid}/${oj}/${id}?password=${pwd}`);
@@ -149,33 +152,19 @@ export async function updateContest(values, cid) {
 
 export async function getContestRank(cid) {
   if (devMode) {
-    let data = {
-      problem: [{
-        id: 1,
-        acCount: 234,
-        failCount: 147,
-      }, {
-        id: 2,
-        acCount: 21,
-        failCount: 47,
-      }],
-      rank: [{
-        team: 'coo',
-        score: 4,
-        penalty: 97,
-        problem: [{
-          acTime: '01:06:47',
-          failCount: 0,
-        }, {
-          acTime: '01:03:42',
-          failCount: 2,
-        }, {
-          acTime: '-1',
-          failCount: 4,
-        }]
-      }]
-    }
-    return data;
+    /**
+     * success: data.success,
+        rank: x,
+        listLength: data.obj.number
+     */
+    await sleep(1000);
+    let resp = { "success": 1, "msg": "", "obj": { "number": 3, "submit": [[1, 0, 0, 161822162], [1, 1, 0, 161822162], [3, 2, 1, 161873162], [3, 1, 0, 161873162], [3, 0, 1, 161882162], [1, 1, 1, 161962162], [1, 0, 1, 161990162], [1, 2, 1, 162038162]], "parts": { "1": "Fireman", "3": "coo" }, "length": 8640000000 } }
+    let x = calculate(resp.obj);
+    return {
+      success: resp.success,
+      rank: x,
+      listLength: resp.obj.number
+    };
   } else {
     let { data } = await axios.get(`${serverIp}/contests/${cid}/rank`);
     if (data.success === 1) {

@@ -11,7 +11,7 @@ const userState = {
   isLogin: false,
   id: '',
   accountName: '',
-  icon: '',
+  icon: 'http://upload.besoo.com/file/201611/24/1915559745908.jpg',
   acCount: 0,
   failCount: 0,
   description: '',

@@ -39,7 +39,8 @@ class QueSubmit extends React.Component {
           <p>Current Authenticated Author : {this.props.userName || 'Stranger'}</p>
         </div>
         <FormX selectChild={this.state.selectChild}
-          cid={this.cid} qid={this.qid} oj={this.oj} id={this.id} type={this.type} history={this.props.history} />
+          cid={this.cid} qid={this.qid} oj={this.oj} id={this.id} type={this.type} 
+          history={this.props.history} changePage={this.props.changePage}/>
       </div>
     );
   }

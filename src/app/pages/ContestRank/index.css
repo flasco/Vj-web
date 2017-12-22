@@ -1,0 +1,31 @@
+.contestRank-ac-color {
+  background-color:#a9f5af
+}
+.contestRank-ranklist td {
+  padding: 0!important;/*  16 8 */
+}
+
+.contestRank-ranklist th,
+.contestRank-ranklist td {
+  text-align: center!important;
+}
+
+.contestRank-ranklist td div {
+  height: 50px;
+  padding: 8px 0;
+}
+
+.contestRank-ranklist td:nth-child(1),
+.contestRank-ranklist td:nth-child(2),
+.contestRank-ranklist td:nth-child(3),
+.contestRank-ranklist td:nth-child(4) {
+  background-color:#ced7ff!important
+}
+
+.contestRank-wa-color {
+  background-color:#ffdadc!important
+}
+
+.contestRank-firstAc-color {
+  background-color:#009900
+}

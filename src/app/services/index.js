@@ -12,7 +12,7 @@ const { devMode, serverIp } = config;
 
 
 export async function fetchRealStatus(page, { runId = '-1', oj = '', proId = '', author = '', language = '', status = '', size = 15, contestId = '-1' }) {
-  if(runId === '') runId = '-1';
+  if (runId === '') runId = '-1';
   if (devMode) {
     let data = [{
       runId: '23006988',
@@ -114,10 +114,10 @@ export async function fetchRealStatus(page, { runId = '-1', oj = '', proId = '',
   } else {
     const x1 = await axios.get(`${serverIp}/submissions?fromId=${runId}&page=${page}&size=${size}&remoteOj=${oj}&remoteProblemId=${proId}&accountName=${author}&language=${language}&status=${status}&contestId=${contestId}`)
     const x2 = await axios.get(`${serverIp}/submissions/count?fromId=${runId}&remoteOj=${oj}&remoteProblemId=${proId}&accountName=${author}&language=${language}&status=${status}&contestId=${contestId}`)
-    
+
     return {
-      totalCount:x2.data.totalCount,
-      results:x1.data
+      totalCount: x2.data.totalCount,
+      results: x1.data
     };
   }
 }
@@ -149,10 +149,17 @@ export async function getSelectChild(plantformId) {
 }
 
 export async function postCode(values) {
-  devMode && await sleep(850);
-  !devMode && await axios.post(`${serverIp}/submissions`, {
-    ...values,
-  });
+  if (devMode) {
+    console.log(values);
+    return {
+      success: 1
+    }
+  } else {
+    let { data } = await axios.post(`${serverIp}/submissions`, {
+      ...values,
+    });
+    return data;
+  }
 }
 
 export async function getUserRank(page) {
