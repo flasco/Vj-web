@@ -39,7 +39,7 @@ class RealSuatus extends React.Component {
     super(props);
     let pushedState = this.props.location.state;
     this.selector = {
-      runId: '', proId: '', author: '', language: '', status: '',
+      runId: '', proId: '', oj: '', author: '', language: '', status: '', cid: '-1', id: '',
     };
     this.selector = Object.assign({}, this.selector, pushedState);
     this.state = {
@@ -121,7 +121,7 @@ class RealSuatus extends React.Component {
         key: 'pid',
         width: '7%',
         render: (text, record) => <span>{`${record.remoteOj}-${record.remoteProblemId}`}</span>
-      }, , {
+      }, {
         title: 'Exe.Time',
         key: 'executionTime',
         width: '6%',
@@ -168,10 +168,9 @@ class RealSuatus extends React.Component {
       return;
     };
   }
-  async fetchData(page, { author = '', status = '', runId = '-1', proId = '', language = '' }, cid = '') {
+  async fetchData(page, { author = '', status = '', runId = '-1', proId = '', oj = '', language = '', cid = '-1' }) {
     this.setState({ loading: true });
-    let data = await fetchRealStatus(page, { runId, proId, author, language, status, })
-    // console.log(data);
+    let data = await fetchRealStatus(page, { runId, proId, author, language, oj, status, cid })
     const pagination = { ...this.state.pagination };
     pagination.total = data.totalCount;
     this.setState({
@@ -200,7 +199,7 @@ class RealSuatus extends React.Component {
           <p style={{ textAlign: 'center', marginBottom: 2 }}>You can refresh table by click search button</p>
         </div>}
         <p style={{ textAlign: 'center', marginBottom: 14 }}>Every 8 seconds it will refresh automatically</p>
-        <SelectForm search={this.search} selector={this.selector} />
+        <SelectForm search={this.search} selector={this.selector} type={this.props.type} />
         <Table
           size="middle"
           className="realStatus-table"

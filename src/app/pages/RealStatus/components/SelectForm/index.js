@@ -6,6 +6,10 @@ const FormItem = Form.Item;
 const Option = Select.Option;
 
 class SelectForm extends React.Component {
+  constructor(props){
+    super(props);
+    this.type = this.props.type ? this.props.type : 1;
+  }
   componentDidMount() {
     if (this.props.author !== void 0) {
       this.props.form.validateFields((err, values) => {
@@ -34,7 +38,7 @@ class SelectForm extends React.Component {
       <Form
         className="realStatus-form"
         onSubmit={this.handleSearch}>
-        <Row gutter={20} type="flex" justify="center">
+        <Row gutter={5} type="flex" justify="center">
           <Col span={3}>
             <Tooltip placement="top" title="RunId">
               <div>
@@ -48,7 +52,34 @@ class SelectForm extends React.Component {
               </div>
             </Tooltip>
           </Col>
-          <Col span={3}  >
+          {this.type === 2 && <Col span={3}  >
+            <Tooltip placement="top" title="problemId">
+              <div>
+                <FormItem {...formItemLayout} >
+                  {getFieldDecorator(`id`, {
+                    initialValue: this.props.selector.id,
+                  })(
+                    <Input placeholder="proId" style={{ height: 30 }} />
+                    )}
+                </FormItem>
+              </div>
+            </Tooltip>
+          </Col>}
+          {this.type === 1 && <Col span={3}  >
+            <Tooltip placement="top" title="OJ">
+              <Col>
+                <FormItem {...formItemLayout} >
+                  {getFieldDecorator(`remoteOj`, {
+                    initialValue: this.props.selector.oj,
+                  })(
+                    <Input placeholder="Oj" style={{ height: 30 }} />
+                    )}
+                </FormItem>
+              </Col>
+            </Tooltip>
+          </Col>}
+
+          {this.type === 1 && <Col span={3}  >
             <Tooltip placement="top" title="Problem Id">
               <div>
                 <FormItem {...formItemLayout} >
@@ -60,7 +91,7 @@ class SelectForm extends React.Component {
                 </FormItem>
               </div>
             </Tooltip>
-          </Col>
+          </Col>}
           <Col span={3}>
             <Tooltip placement="top" title="Author">
               <div>
@@ -95,7 +126,7 @@ class SelectForm extends React.Component {
               </div>
             </Tooltip>
           </Col>
-          <Col span={5}>
+          <Col span={4}>
             <Tooltip placement="top" title="Status">
               <div>
                 <FormItem {...formItemLayout} >
@@ -117,7 +148,7 @@ class SelectForm extends React.Component {
               </div>
             </Tooltip>
           </Col>
-          <Button type="primary" htmlType="submit" style={{ height: 30 }}>Search</Button>
+          <Button type="primary" htmlType="submit" style={{marginLeft:12, height: 30 }}>Search</Button>
         </Row>
       </Form>
     );

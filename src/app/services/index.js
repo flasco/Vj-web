@@ -12,7 +12,7 @@ const { devMode, serverIp } = config;
 
 
 export async function fetchRealStatus(page, { runId = '-1', oj = '', proId = '', author = '', language = '', status = '', size = 15, contestId = '-1' }) {
-  if (runId === '') runId = '-1';
+  if (runId === '') runId = '-1'; 
   if (devMode) {
     let data = [{
       runId: '23006988',
