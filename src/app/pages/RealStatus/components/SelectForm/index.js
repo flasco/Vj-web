@@ -56,8 +56,8 @@ class SelectForm extends React.Component {
             <Tooltip placement="top" title="problemId">
               <div>
                 <FormItem {...formItemLayout} >
-                  {getFieldDecorator(`id`, {
-                    initialValue: this.props.selector.id,
+                  {getFieldDecorator(`index`, {
+                    initialValue: this.props.selector.index,
                   })(
                     <Input placeholder="proId" style={{ height: 30 }} />
                     )}

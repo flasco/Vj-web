@@ -24,6 +24,16 @@ class QueSubmit extends React.Component {
     this.getSelectChild();
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.id !== nextProps.match.params.qid) {
+      this.id = nextProps.match.params.qid;
+      this.stat = nextProps.location.state;
+      this.qid = this.stat.qid;
+      this.oj = this.stat.oj;
+    }
+    return true
+  }
+
   async getSelectChild() {
     const data = await getSelectChild();
     this.setState({
@@ -39,8 +49,8 @@ class QueSubmit extends React.Component {
           <p>Current Authenticated Author : {this.props.userName || 'Stranger'}</p>
         </div>
         <FormX selectChild={this.state.selectChild}
-          cid={this.cid} qid={this.qid} oj={this.oj} id={this.id} type={this.type} 
-          history={this.props.history} changePage={this.props.changePage}/>
+          cid={this.cid} qid={this.qid} oj={this.oj} id={this.id} type={this.type}
+          history={this.props.history} changePage={this.props.changePage} />
       </div>
     );
   }

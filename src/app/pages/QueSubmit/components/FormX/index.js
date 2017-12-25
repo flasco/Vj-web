@@ -10,22 +10,25 @@ const FormItem = Form.Item;
 class FormX extends React.Component {
   handleSearch = (e) => {
     e.preventDefault();
-    this.props.form.validateFields((err, values) => {
+    this.props.form.validateFields(async (err, values) => {
       if (!err) {
         if (this.props.cid.length === 0) {
-          let data = postCode({
+          let data = await postCode({
             ...values,
             remoteOj: this.props.oj,
           })
+          console.log(data)
           if (data.success === 0) {
             message.error('no login. submit failed');
           } else {
             this.props.history.push('/main/status');
           }
         } else {
-          let data = postCode({
+          console.log('2222')
+          let data = await postCode({
             ...values,
             contestId: this.props.cid,
+            remoteProblemId:this.props.qid,
             remoteOj: this.props.oj,
             index: this.props.id - 1,
           });
@@ -52,11 +55,12 @@ class FormX extends React.Component {
     for (let i = 0, j = this.props.selectChild.length; i < j; i++) {
       children.push(<Select.Option key={this.props.selectChild[i].value} >{this.props.selectChild[i].content}</Select.Option>)
     }
+    console.log(this.props.qid)
     const { getFieldDecorator } = this.props.form;
     return (
       <Form onSubmit={this.handleSearch}>
         <Row gutter={10} style={{ width: '75%', margin: '0 auto' }}>
-          <Col span={12} >
+          {this.props.cid ==='' ? <Col span={12} >
             <FormItem {...formItemLayout} label={`Pro.Id`}>
               {getFieldDecorator(`remoteProblemId`, {
                 validateTrigger: "onBlur",
@@ -64,7 +68,7 @@ class FormX extends React.Component {
                 initialValue: this.props.qid,
               })(<Input placeholder="Pro.Id" />)}
             </FormItem>
-          </Col>
+          </Col>:<Col span={12} ></Col>}
           <Col span={12} >
             <FormItem {...formItemLayout} label={`Lan.Id`}>
               {getFieldDecorator(`language`, { initialValue: 'G++' })(

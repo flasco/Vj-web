@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Table, Button, Modal, Input } from 'antd';
+import { Row, Col, Table, Button, Modal, Input, Tooltip,Select } from 'antd';
 import { connect } from 'react-redux';
 
 import { fetchContestList } from '../../services/contest';
@@ -32,7 +32,11 @@ class ContestList extends React.Component {
       loading: false,
       password: '',
       isVisible: false,
+      contestNameText: '',
     }
+    this.type = '-1';
+    this.status = '';
+    
 
     this.columns = [{
       title: 'Id',
@@ -40,30 +44,49 @@ class ContestList extends React.Component {
       width: '5%',
       dataIndex: 'id',
     }, {
-      title: 'Contest Name',
+      title: (<Tooltip placement="top" title="press Enter to search"><Input placeholder='Contest Name' style={{ width: '55%' }} size="small" onChange={(e) => this.setState({ contestNameText: e.target.value })} onPressEnter={(e) => this.searchQues()} /></Tooltip>),
       key: 'title',
-      width: '38%',
+      width: '25%',
       render: (text, record) => <a onClick={() => this.isPrivateCheck(record.contestType, record.id)}>{record.title}</a>//<Link to={{ pathname: `./contest/${record.id}`, state: { isPrivate: record.contestType } }}>
+    }, {
+      title:(<Select defaultValue="-1" size="small" style={{width:70}}
+          onChange={(val) => { this.type = val; this.searchQues() }}>
+          <Select.Option value="-1">all</Select.Option>
+          <Select.Option value="0">public</Select.Option>
+          <Select.Option value="1">private</Select.Option>
+        </Select>),
+      key: 'contestType',
+      width: '5%',
+      render: (text, record) => <span style={{ color: record.contestType === 0 ? 'red' : 'green' }}>{record.contestType === 0 ? 'public' : 'private'}</span>
+    }, {
+      title:(<Select defaultValue="" size="small" style={{width:70}}
+          onChange={(val) => { this.status = val; this.searchQues() }}>
+          <Select.Option value="">all</Select.Option>
+          <Select.Option value="Pending">Pending</Select.Option>
+          <Select.Option value="Runing">Running</Select.Option>
+          <Select.Option value="Ending">Ending</Select.Option>
+        </Select>),
+      key: 'status',
+      width: '7%',
+      render: (text, record) => <span style={{ color: getStatusColor(record.status) }}>{record.status}</span>
     }, {
       title: 'Start Time (GMT+8)',
       key: 'startTime',
       width: '12%',
       render: (text, record) => <span>{getFormatTime(record.startTime)}</span>
-    }, {
-      title: 'Type',
-      key: 'contestType',
-      width: '5%',
-      render: (text, record) => <span style={{ color: record.contestType === 0 ? 'red' : 'green' }}>{record.contestType === 0 ? 'public' : 'private'}</span>
-    }, {
-      title: 'Status',
-      key: 'status',
-      width: '7%',
-      render: (text, record) => <span style={{ color: getStatusColor(record.status) }}>{record.status}</span>
-    }];
+    },];
   }
 
   componentDidMount() {
-    this.fetchL(1);
+    this.fetchL(1,{});
+  }
+
+  searchQues = async () => {
+    this.fetchL(1, {
+      title: this.state.contestNameText,
+      contestType: this.type,
+      status: this.status,
+    });
   }
 
   componentWillUnmount() {
@@ -73,9 +96,9 @@ class ContestList extends React.Component {
     };
   }
 
-  fetchL = async (page) => {
+  fetchL = async (page, { title = '', accountName = '', status = '', contestType = '-1' }) => {
     this.setState({ loading: true });
-    const datax = await fetchContestList(page);
+    const datax = await fetchContestList(page, { title, accountName, status, contestType });
     const pagination = { ...this.state.pagination };
     pagination.total = datax.totalCount;
     this.cid = 0;

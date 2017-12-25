@@ -8,7 +8,7 @@ import axios from 'axios';
 
 const { devMode, serverIp } = config;
 
-export async function fetchContestList(page, title = '', accountName = '', status = '', contestType = '-1', size = 10) {//page,size,title,accountName,status
+export async function fetchContestList(page, { title = '', accountName = '', status = '', contestType = '-1', size = 10 }) {//page,size,title,accountName,status
   let data;
   if (devMode) {
     await sleep(700);
@@ -184,6 +184,10 @@ export async function getContestRank(cid) {
 
 function calculate({ parts, submit, length, number }) {
   var map = {};
+  var pmap = [];
+  for (let i = 0; i < number; i++) {
+    pmap.push(-1);
+  }
   for (let id in parts) {
     map[id] = {
       acCount: 0,
@@ -194,6 +198,7 @@ function calculate({ parts, submit, length, number }) {
       map[id].problems.push({
         time: -1,
         failCount: 0,
+        isFirstAc: 0
       })
     }
   }
@@ -205,10 +210,17 @@ function calculate({ parts, submit, length, number }) {
     if (acTime > length) {
       continue;
     }
+    if (map[uid].problems[index] === undefined) {
+      console.log(uid = " undefined");
+    }
     if (map[uid].problems[index] !== undefined && map[uid].problems[index].time !== -1) {
       continue;//如果已经AC，time已经有值，提交无效
     }
     if (isAC === 1) {
+      if (pmap[index] === -1) {
+        map[uid].problems[index].isFirstAc = 1;
+        pmap[index] = acTime;
+      }
       map[uid].problems[index].time = acTime;
       map[uid].acCount++;
       map[uid].penalty += (acTime + map[uid].problems[index].failCount * 20 * 60 * 1000);
@@ -224,10 +236,17 @@ function calculate({ parts, submit, length, number }) {
     rankArr.push(map[id]);
   }
   rankArr.sort(function (a, b) {
-    if (a.acCount > b.acCount || (a.acCount === b.acCount && a.penalty < b.penalty)) {
+    if (a.acCount > b.acCount) {
       return -1;
+    } else if (a.acCount === b.acCount) {
+      if (a.penalty < b.penalty) {
+        return -1
+      } else {
+        return 1;
+      }
+    } else {
+      return 1;
     }
-    return 1;
   });
   rankArr.filter(item => {
     for (let i = 0; i < item.problems.length; i++) {

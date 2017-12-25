@@ -26,11 +26,11 @@ class ContestForm extends React.Component {
   componentDidMount() {
     if (this.props.cid !== void 0) {
       fetchContestDetList(this.props.cid).then(val => {
-        val = val.obj;
+        val = val.obj.contest;
         val.containProblems.filter((x, index) => x.key = index);
         this.refreshList(val.containProblems);
         this.setState({ isLoading: false })
-        this.props.form.setFieldsValue({
+        this.props.form.setFieldsValue({  
           title: val.title,
           timePicker: [
             moment(new Date(val.startTime)),

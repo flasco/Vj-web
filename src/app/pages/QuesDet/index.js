@@ -57,16 +57,16 @@ class QuesDet extends React.Component {
   }
   componentWillReceiveProps(nextProps) {
     if (this.id !== nextProps.match.params.qid) {
-      this.fetchData(nextProps.match.params.qid);
+      this.setState({ loading: true });
+      // console.log(nextProps)
+      this.fetchData(nextProps.location.state.qid);
     }
     return true
   }
 
   async fetchData(quesId = qid) {
-
     if (typx) {
       let d = await fetchContestQues(oj, quesId, cid, pwd);
-      console.log(d)
       if (d.success === 0) {
         message.error('password error');
         this.setState({ isFailed: true })
@@ -99,20 +99,20 @@ class QuesDet extends React.Component {
 
           <PanelBlock data={this.state.data} />
           <div className="quesDet-ul">
-          {
-            typx ? (
-              <a onClick={()=>{
-                this.props.changePage('3');
-              }}>Submit</a>
-            ) : (
-                <div>
-                  <Link key="submit" to={{ pathname: `./${this.id}/submit`, state: { oj, qid, cid } }}>Submit</Link>
-                  <Link key="note" to={`./${this.id}/note`}>Note</Link>
-                  <Link key="return" to={typx ? `../${cid}` : '../'}>Back</Link>
-               </div>
-              )
-          }
- </div>
+            {
+              typx ? (
+                <a onClick={() => {
+                  this.props.changePage('3');
+                }}>Submit</a>
+              ) : (
+                  <div>
+                    <Link key="submit" to={{ pathname: `./${this.id}/submit`, state: { oj, qid, cid } }}>Submit</Link>
+                    <Link key="note" to={`./${this.id}/note`}>Note</Link>
+                    <Link key="return" to={typx ? `../${cid}` : '../'}>Back</Link>
+                  </div>
+                )
+            }
+          </div>
           {/* <Link key="statistic" to={`./ques/statistic/${this.proId}`}>Statistic</Link> */}
           {/* <Link key="discuss" to={`./ques/discuss/${this.proId}`}>Discuss</Link> */}
 

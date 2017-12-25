@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Form, Icon, Input, Button } from 'antd';
+import { Form, Icon, Input, Button,message } from 'antd';
 
 import './index.css';
 
@@ -54,7 +54,7 @@ class LoginForm extends React.Component {
             Log in
           </Button>
         </Form.Item>
-        <a className="login-form-forgot" href="">Forgot password</a>
+        <a className="login-form-forgot" onClick={()=>message.warning('Please contact the administrator. QQ: 82415327.')}>Forgot password</a>
       </Form>
     );
   }

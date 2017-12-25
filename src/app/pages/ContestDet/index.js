@@ -43,13 +43,14 @@ class ContestDet extends React.Component {
       title: 'Title',
       key: 'title',
       width: '42%',
-      render: (text, record, index) => <span><a onClick={() => { oj = record.remoteOj; qid = record.remoteProblemId; id = index + 1; this.setState({ currentKey: '2' }) }}>{record.title}</a></span>
+      render: (text, record, index) => <span><a onClick={() => { oj = record.remoteOj; qid = record.remoteProblemId; id = index + 1; this.setState({ currentKey: '2' }); }}>{record.title}</a></span>
     }, {
       title: 'Ratio',
       key: 'ratio',
       width: '20%',
       dataIndex: 'ratio',
     }];
+    this.currentServerTime = '';
   }
 
   componentDidMount() {
@@ -69,11 +70,11 @@ class ContestDet extends React.Component {
     if (data.success === 0) {
       this.setState({ isFailed: true })
     } else {
-      // console.log(data.obj)
-      oj = data.obj.containProblems[0].remoteOj;
-      qid = data.obj.containProblems[0].remoteProblemId;
+      this.currentServerTime = new Date(data.obj.currentServerTime);
+      oj = data.obj.contest.containProblems[0].remoteOj;
+      qid = data.obj.contest.containProblems[0].remoteProblemId;
       id = '1';
-      this.setState({ data: data.obj, loading: false })
+      this.setState({ data: data.obj.contest, loading: false })
     }
   }
 
@@ -95,7 +96,7 @@ class ContestDet extends React.Component {
           <div style={{ textAlign: 'center', marginBottom: 4 }}>
             <h1 style={{ display: 'inline', marginRight: 12 }}>{data.title}</h1>{userId === data.userId && <Link to={{ pathname: './add', state: { cid } }} style={{ fontSize: '12pt' }} >Edit</Link>}<br />
             <span style={{ marginRight: 12 }}>Start Time : {getTime(new Date(data.startTime))} </span>   <span>End Time : {getTime(new Date(data.startTime + data.duration))}</span><br />
-            <span>Current Server Time : {data.currentTime}</span><br />
+            <span>Current Server Time : {getTime(this.currentServerTime)}</span><br />
             <span style={{ marginRight: 12 }}>Type : {data.contestType === 0 ? 'Public' : 'Private'}</span> <span>Status : {data.status}</span>
           </div>
           <Tabs
@@ -117,7 +118,7 @@ class ContestDet extends React.Component {
               <QuesSubmit match={{ params: { qid: id } }} location={{ state: { oj, qid, pwd, cid } }} changePage={this.changePage} />
             </Tabs.TabPane>
             <Tabs.TabPane tab="Status" key="4">
-              <RealStatus location={{ state: { cid, id } }} type={2} currentKey={this.state.currentKey} />
+              <RealStatus location={{ state: { cid } }} type={2} currentKey={this.state.currentKey} />
             </Tabs.TabPane>
             <Tabs.TabPane tab="Rank" key="5">
               <ContestRank match={{ params: { cid } }} />

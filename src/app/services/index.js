@@ -11,7 +11,7 @@ import sleep from '../utils/sleep';
 const { devMode, serverIp } = config;
 
 
-export async function fetchRealStatus(page, { runId = '-1', oj = '', proId = '', author = '', language = '', status = '', size = 15, contestId = '-1' }) {
+export async function fetchRealStatus(page, { runId = '-1', oj = '', proId = '', author = '', language = '', status = '', size = 15, cid = '-1',index='-1' }) {
   if (runId === '') runId = '-1'; 
   if (devMode) {
     let data = [{
@@ -112,8 +112,8 @@ export async function fetchRealStatus(page, { runId = '-1', oj = '', proId = '',
     }];
     return data;
   } else {
-    const x1 = await axios.get(`${serverIp}/submissions?fromId=${runId}&page=${page}&size=${size}&remoteOj=${oj}&remoteProblemId=${proId}&accountName=${author}&language=${language}&status=${status}&contestId=${contestId}`)
-    const x2 = await axios.get(`${serverIp}/submissions/count?fromId=${runId}&remoteOj=${oj}&remoteProblemId=${proId}&accountName=${author}&language=${language}&status=${status}&contestId=${contestId}`)
+    const x1 = await axios.get(`${serverIp}/submissions?fromId=${runId}&page=${page}&size=${size}&remoteOj=${oj}&remoteProblemId=${proId}&accountName=${author}&language=${language}&status=${status}&contestId=${cid}&index=${index}`)
+    const x2 = await axios.get(`${serverIp}/submissions/count?fromId=${runId}&remoteOj=${oj}&remoteProblemId=${proId}&accountName=${author}&language=${language}&status=${status}&contestId=${cid}&index=${index}`)
 
     return {
       totalCount: x2.data.totalCount,

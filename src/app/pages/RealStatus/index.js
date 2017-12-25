@@ -39,9 +39,11 @@ class RealSuatus extends React.Component {
     super(props);
     let pushedState = this.props.location.state;
     this.selector = {
-      runId: '', proId: '', oj: '', author: '', language: '', status: '', cid: '-1', id: '',
+      runId: '', proId: '', oj: '', author: '', language: '', status: '', cid: '-1', index: '-1',
     };
+    
     this.selector = Object.assign({}, this.selector, pushedState);
+    console.log(this.selector)
     this.state = {
       data: [],
       pagination: '',
@@ -66,7 +68,7 @@ class RealSuatus extends React.Component {
         render: (text, record) => <span className={getColor(record.status)}>{getStatus(record.status)}</span>
       }, {
         title: 'OJ-Id',
-        key: 'OJ-Id',
+        key: 'Oj-Id',
         width: '8%',
         render: (text, record) => <span>{`${record.remoteOj}-${record.remoteProblemId}`}</span>
       }, {
@@ -95,11 +97,11 @@ class RealSuatus extends React.Component {
         width: '7%',
         dataIndex: 'accountName',
       }];
-    } else {
+    } else {//这里是比赛
       this.columns = [{
         title: 'Run Id',
         key: 'id',
-        width: '7%',
+        width: '5%',
         dataIndex: 'id',
       }, {
         title: 'Author',
@@ -109,7 +111,7 @@ class RealSuatus extends React.Component {
       }, {
         title: 'Sub.Time',
         key: 'submitTime',
-        width: '7%',
+        width: '10%',
         render: (text, record) => <span>{getTime(new Date(record.submitTime))}</span>
       }, {
         title: 'Status',
@@ -119,8 +121,8 @@ class RealSuatus extends React.Component {
       }, {
         title: 'Id',
         key: 'pid',
-        width: '7%',
-        render: (text, record) => <span>{`${record.remoteOj}-${record.remoteProblemId}`}</span>
+        width: '4%',
+        render: (text, record) => <span>{`${String.fromCharCode(record.index+65)}`}</span>
       }, {
         title: 'Exe.Time',
         key: 'executionTime',
@@ -131,12 +133,14 @@ class RealSuatus extends React.Component {
         key: 'executionMemory',
         width: '6%',
         dataIndex: 'executionMemory',
-      }, {
+      }/*
+      , {
         title: 'Code Len.',
         key: 'codeLen',
         width: '6%',
         dataIndex: 'codeLen',
-      }, {
+      }*/
+      , {
         title: 'Language',
         key: 'language',
         width: '6%',
@@ -168,9 +172,9 @@ class RealSuatus extends React.Component {
       return;
     };
   }
-  async fetchData(page, { author = '', status = '', runId = '-1', proId = '', oj = '', language = '', cid = '-1' }) {
+  async fetchData(page, { author = '', status = '', runId = '-1', proId = '', oj = '', language = '', cid = '-1', index = '-1' }) {
     this.setState({ loading: true });
-    let data = await fetchRealStatus(page, { runId, proId, author, language, oj, status, cid })
+    let data = await fetchRealStatus(page, { runId, proId, author, language, oj, status, cid, index })
     const pagination = { ...this.state.pagination };
     pagination.total = data.totalCount;
     this.setState({
@@ -189,6 +193,7 @@ class RealSuatus extends React.Component {
   }
   search = (values) => {
     this.selector = Object.assign({}, this.selector, values)
+    console.log(this.selector)
     this.fetchData(1, this.selector);
   }
   render() {

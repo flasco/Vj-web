@@ -2,6 +2,7 @@ import React from 'react';
 import { Icon, Row, Col, message } from 'antd';
 import { Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
+import fileJS from 'file-saver'
 
 import LoadingPage from '../../components/LoadingPage';
 
@@ -56,6 +57,9 @@ class QuesNote extends React.Component {
           source={data.content}
           escapeHtml={false} />
         <div style={{ marginTop: 20, fontSize: '12pt', textAlign: 'center' }}>
+          <a style={{marginRight:18}} onClick={()=>{
+            fileJS.saveAs(new Blob([`# ${data.title}\n\n> ${data.remoteOj} - ${data.remoteProblemId}\n\n---\n\n${data.content}`],{type: "text/plain;charset=utf-8"}),"hello world.md")
+          }}>Download</a>
           <Link to="../note" >Back</Link>
         </div>
       </div>
