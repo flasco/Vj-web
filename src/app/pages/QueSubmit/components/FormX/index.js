@@ -17,18 +17,16 @@ class FormX extends React.Component {
             ...values,
             remoteOj: this.props.oj,
           })
-          console.log(data)
           if (data.success === 0) {
             message.error('no login. submit failed');
           } else {
             this.props.history.push('/main/status');
           }
         } else {
-          console.log('2222')
           let data = await postCode({
             ...values,
             contestId: this.props.cid,
-            remoteProblemId:this.props.qid,
+            remoteProblemId: this.props.qid,
             remoteOj: this.props.oj,
             index: this.props.id - 1,
           });
@@ -55,12 +53,11 @@ class FormX extends React.Component {
     for (let i = 0, j = this.props.selectChild.length; i < j; i++) {
       children.push(<Select.Option key={this.props.selectChild[i].value} >{this.props.selectChild[i].content}</Select.Option>)
     }
-    console.log(this.props.qid)
     const { getFieldDecorator } = this.props.form;
     return (
       <Form onSubmit={this.handleSearch}>
         <Row gutter={10} style={{ width: '75%', margin: '0 auto' }}>
-          {this.props.cid ==='' ? <Col span={12} >
+          {this.props.cid === '' ? <Col span={12} >
             <FormItem {...formItemLayout} label={`Pro.Id`}>
               {getFieldDecorator(`remoteProblemId`, {
                 validateTrigger: "onBlur",
@@ -68,7 +65,11 @@ class FormX extends React.Component {
                 initialValue: this.props.qid,
               })(<Input placeholder="Pro.Id" />)}
             </FormItem>
-          </Col>:<Col span={12} ></Col>}
+          </Col> : <Col span={12} >
+              <FormItem {...formItemLayout} label={`Pro.Id`}>
+                <span>{String.fromCharCode( +this.props.id + 64)}</span>
+              </FormItem>
+            </Col>}
           <Col span={12} >
             <FormItem {...formItemLayout} label={`Lan.Id`}>
               {getFieldDecorator(`language`, { initialValue: 'G++' })(

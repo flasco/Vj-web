@@ -26,7 +26,6 @@ export async function userLoginCheck(info) {
           isLogin: true,
         }
       }
-      console.log(inf)
       return inf;
     } else {
       return { flag: false };
@@ -70,7 +69,6 @@ export async function uploadAvatar(file) {
     return '/12312';
   } else {
     const { data } = await axios.post(`${serverIp}/files/icon`, file);
-    // console.log(data);
     return data;
   }
 }
@@ -112,7 +110,6 @@ export async function getUserInfo(uid) {
 
 export async function submitUserInfo(values, uid) {
   if (devMode) {
-    console.log(values)
   } else {
     let { data } = await axios.post(`${serverIp}/users/${uid}`, values);
     return data;

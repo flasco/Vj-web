@@ -11,8 +11,9 @@ import sleep from '../utils/sleep';
 const { devMode, serverIp } = config;
 
 
-export async function fetchRealStatus(page, { runId = '-1', oj = '', proId = '', author = '', language = '', status = '', size = 15, cid = '-1',index='-1' }) {
-  if (runId === '') runId = '-1'; 
+export async function fetchRealStatus(page, { runId = '-1', oj = '', proId = '', author = '', language = '', status = '', size = 15, cid = '-1', index = '-1' }) {
+  runId === '' && (runId = '-1');
+  index === '' && (index = '-1');
   if (devMode) {
     let data = [{
       runId: '23006988',
@@ -150,7 +151,6 @@ export async function getSelectChild(plantformId) {
 
 export async function postCode(values) {
   if (devMode) {
-    console.log(values);
     return {
       success: 1
     }

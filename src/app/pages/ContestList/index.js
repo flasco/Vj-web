@@ -64,7 +64,7 @@ class ContestList extends React.Component {
           <Select.Option value="">all</Select.Option>
           <Select.Option value="Pending">Pending</Select.Option>
           <Select.Option value="Runing">Running</Select.Option>
-          <Select.Option value="Ending">Ending</Select.Option>
+          <Select.Option value="Ended">Ended</Select.Option>
         </Select>),
       key: 'status',
       width: '7%',

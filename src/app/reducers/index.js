@@ -36,7 +36,6 @@ function user(state = userState, action) {
     case USER_LOGIN:
       config.devMode || (action.info.icon = `${config.serverIp}${action.info.icon}`);
       setItem('@virtualJudge_user', action.info);//本地存储
-      console.log(action.info)
       sessionStorage.setItem('isLoginCache', true);
       return Object.assign({}, state, { ...action.info });
     case USER_UPDATE:

@@ -61,7 +61,6 @@ class EditForm extends React.Component {
           let path = this.props.data !== '' ? `/main/ques/${note.remoteOj}/${note.remoteProblemId}/note/${this.props.nid}` : `/main/ques/${note.remoteOj}/${note.remoteProblemId}/note`;
           this.props.history.push(path);
         }
-        console.log(data);
       }
     });
   }
@@ -76,7 +75,6 @@ class EditForm extends React.Component {
       },
     };
     const { data } = this.props;
-    // console.log(data)
     return (
       <Form onSubmit={this.submit}>
         <FormItem

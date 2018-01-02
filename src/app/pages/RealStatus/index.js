@@ -39,11 +39,9 @@ class RealSuatus extends React.Component {
     super(props);
     let pushedState = this.props.location.state;
     this.selector = {
-      runId: '', proId: '', oj: '', author: '', language: '', status: '', cid: '-1', index: '-1',
+      runId: '', proId: '', oj: '', author: '', language: '', status: '', cid: '-1', index: '', length: 0
     };
-    
     this.selector = Object.assign({}, this.selector, pushedState);
-    console.log(this.selector)
     this.state = {
       data: [],
       pagination: '',
@@ -81,12 +79,12 @@ class RealSuatus extends React.Component {
         key: 'executionMemory',
         width: '6%',
         dataIndex: 'executionMemory',
-      }, {
+      }, /*{
         title: 'Code Len.',
         key: 'codeLen',
         width: '6%',
         dataIndex: 'codeLen',
-      }, {
+      },*/ {
         title: 'Language',
         key: 'language',
         width: '6%',
@@ -122,7 +120,7 @@ class RealSuatus extends React.Component {
         title: 'Id',
         key: 'pid',
         width: '4%',
-        render: (text, record) => <span>{`${String.fromCharCode(record.index+65)}`}</span>
+        render: (text, record) => <span>{`${String.fromCharCode(record.index + 65)}`}</span>
       }, {
         title: 'Exe.Time',
         key: 'executionTime',
@@ -140,7 +138,7 @@ class RealSuatus extends React.Component {
         width: '6%',
         dataIndex: 'codeLen',
       }*/
-      , {
+        , {
         title: 'Language',
         key: 'language',
         width: '6%',
@@ -149,7 +147,6 @@ class RealSuatus extends React.Component {
     }
     this.timer = setInterval(() => {
       this.fetchData(1, this.selector);
-      // console.log('action...')
     }, 8000);
   }
   componentDidMount() {
@@ -193,7 +190,6 @@ class RealSuatus extends React.Component {
   }
   search = (values) => {
     this.selector = Object.assign({}, this.selector, values)
-    console.log(this.selector)
     this.fetchData(1, this.selector);
   }
   render() {
@@ -204,7 +200,7 @@ class RealSuatus extends React.Component {
           <p style={{ textAlign: 'center', marginBottom: 2 }}>You can refresh table by click search button</p>
         </div>}
         <p style={{ textAlign: 'center', marginBottom: 14 }}>Every 8 seconds it will refresh automatically</p>
-        <SelectForm search={this.search} selector={this.selector} type={this.props.type} />
+        <SelectForm search={this.search} selector={this.selector} type={this.props.type} selectChild={this.selector.length} />
         <Table
           size="middle"
           className="realStatus-table"

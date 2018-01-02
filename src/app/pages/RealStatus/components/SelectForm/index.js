@@ -6,7 +6,7 @@ const FormItem = Form.Item;
 const Option = Select.Option;
 
 class SelectForm extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.type = this.props.type ? this.props.type : 1;
   }
@@ -34,6 +34,12 @@ class SelectForm extends React.Component {
       labelCol: { span: 0 },
       wrapperCol: { span: 24 },
     };
+    if (this.type === 2) {
+      this.children = [];
+      for (let i = 0, j = this.props.selectChild; i < j; i++) {
+        this.children.push(<Select.Option key={`${i}`} >{String.fromCharCode(i + 65)}</Select.Option>)
+      }
+    }
     return (
       <Form
         className="realStatus-form"
@@ -57,10 +63,12 @@ class SelectForm extends React.Component {
               <div>
                 <FormItem {...formItemLayout} >
                   {getFieldDecorator(`index`, {
-                    initialValue: this.props.selector.index,
+                    initialValue: this.props.selector.index
                   })(
-                    <Input placeholder="proId" style={{ height: 30 }} />
-                    )}
+                    <Select>
+                      <Option value="">All</Option>
+                      {this.children}
+                    </Select>)}
                 </FormItem>
               </div>
             </Tooltip>
@@ -148,7 +156,7 @@ class SelectForm extends React.Component {
               </div>
             </Tooltip>
           </Col>
-          <Button type="primary" htmlType="submit" style={{marginLeft:12, height: 30 }}>Search</Button>
+          <Button type="primary" htmlType="submit" style={{ marginLeft: 12, height: 30 }}>Search</Button>
         </Row>
       </Form>
     );

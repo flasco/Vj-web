@@ -118,7 +118,7 @@ class ContestDet extends React.Component {
               <QuesSubmit match={{ params: { qid: id } }} location={{ state: { oj, qid, pwd, cid } }} changePage={this.changePage} />
             </Tabs.TabPane>
             <Tabs.TabPane tab="Status" key="4">
-              <RealStatus location={{ state: { cid } }} type={2} currentKey={this.state.currentKey} />
+              <RealStatus location={{ state: { cid, length: this.state.data.containProblems.length } }} type={2} currentKey={this.state.currentKey} />
             </Tabs.TabPane>
             <Tabs.TabPane tab="Rank" key="5">
               <ContestRank match={{ params: { cid } }} />

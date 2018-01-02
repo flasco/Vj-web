@@ -1,4 +1,5 @@
 export default {
-  devMode: true,//调试模式时不会调用网络请求。
-  serverIp: 'http://172.22.1.102/api',
+  devMode: false,//调试模式时不会调用网络请求。
+  // serverIp: 'http://172.16.54.198:18080',
+  serverIp: 'http://localhost/api',
 }

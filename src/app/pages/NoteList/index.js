@@ -31,11 +31,9 @@ class NoteList extends React.Component {
       pagination: {},
       loading: false,
     }
-    console.log(props.match)
     this.userId = props.match.params.uid;
     this.remoteOj = props.match.params.oj
     this.remoteId = props.match.params.qid;
-    // console.log(this.type);
   }
   componentDidMount() {
     this.fetchL(1);
@@ -50,7 +48,6 @@ class NoteList extends React.Component {
   fetchL = async (page) => {
     this.setState({ loading: true });
     const datax = await getNoteList(page, this.remoteOj, this.remoteId, this.userId);
-    console.log(datax)
     const pagination = { ...this.state.pagination };
     pagination.total = datax.totalCount;
     this.setState({

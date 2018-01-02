@@ -95,7 +95,6 @@ export async function fetchContestDetList(cid, pwd = '') {
     }
   } else {
     const res = await axios.get(`${serverIp}/contests/${cid}?password=${pwd}`);
-    console.log(res.data)
     data = res.data;
   }
   return data;
@@ -126,7 +125,6 @@ export async function fetchContestQues(oj, id, cid, pwd) {
     };
   } else {
     const res = await axios.get(`${serverIp}/contests/${cid}/${oj}/${id}?password=${pwd}`);
-    console.log(res.data);
     data = res.data;
   }
   return data;
@@ -169,8 +167,6 @@ export async function getContestRank(cid) {
     let { data } = await axios.get(`${serverIp}/contests/${cid}/rank`);
     if (data.success === 1) {
       let x = calculate(data.obj)
-      console.log(x);
-      // console.log(data)
       return {
         success: data.success,
         rank: x,
@@ -211,7 +207,6 @@ function calculate({ parts, submit, length, number }) {
       continue;
     }
     if (map[uid].problems[index] === undefined) {
-      console.log(uid = " undefined");
     }
     if (map[uid].problems[index] !== undefined && map[uid].problems[index].time !== -1) {
       continue;//如果已经AC，time已经有值，提交无效

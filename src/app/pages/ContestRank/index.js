@@ -35,7 +35,6 @@ class ContestRank extends React.PureComponent {
   constructor(props) {
     super(props);
     this.cid = props.match.params.cid;
-    console.log(this.cid)
     this.state = {
       data: '',
       isLoading: true,
@@ -45,7 +44,6 @@ class ContestRank extends React.PureComponent {
   }
   componentDidMount() {
     getContestRank(this.cid).then(val => {
-      console.log(val);
       this.columns = [{
         title: 'Rank',
         dataIndex: 'rank',
@@ -80,7 +78,6 @@ class ContestRank extends React.PureComponent {
   }
 
   render() {
-    // console.log(document.body.offsetHeight)
     if (this.state.isLoading) {
       return <LoadingPage />
     }

@@ -43,7 +43,6 @@ class QuesDet extends React.Component {
       qid = props.match.params.qid;
       oj = props.match.params.oj;
     }
-    console.log(props.location.state)
 
 
     this.state = {
@@ -58,7 +57,6 @@ class QuesDet extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (this.id !== nextProps.match.params.qid) {
       this.setState({ loading: true });
-      // console.log(nextProps)
       this.fetchData(nextProps.location.state.qid);
     }
     return true

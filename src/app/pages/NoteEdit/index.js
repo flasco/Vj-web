@@ -21,17 +21,13 @@ class NoteEdit extends React.Component {
     }
 
     this.info = props.location.state;
-    console.log(this.info)
     if (this.info) {
       if (this.info.remoteId) { //p2 != undefined
         //个人写
-        console.log(`你要写：oj:${this.info.remoteOj},id:${this.info.remoteId}`);
       } else {
         if (this.info.nid) {
-          console.log('你要修改了！')
           this.fetchNote(this.info.nid);
         } else {
-          console.log(`你好，${this.info.userId}`);
         }
       }
     }
@@ -45,7 +41,6 @@ class NoteEdit extends React.Component {
       this.setState({ isLoading: false });
     } else {
       const data = await getNoteDet(nid);
-      // console.log(data);
       this.setState({ data:data.obj, isLoading: false, isNoPermission: data.obj.userId !== this.props.userId });
     }
   }

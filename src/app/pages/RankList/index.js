@@ -23,12 +23,12 @@ const columns = [{
   title: 'Solved',
   key: 'solved',
   width: '8%',
-  render: (text, record) => <Link to={{ pathname: `/main/status`, state: { author: record.accountName, status: '1' } }}>{record.acCount}</Link>
+  render: (text, record) => <Link to={{ pathname: `/main/status`, state: { author: record.accountName, status: 'AC' } }}>{record.acCount}</Link>
 }, {
   title: 'Submitted',
   key: 'submitted',
   width: '12%',
-  render: (text, record) => <Link to={{ pathname: `/main/status`, state: { author: record.accountName } }}>{record.acCount + record.failCount}</Link>
+  render: (text, record) => <Link to={{ pathname: `/main/status`, state: { author: record.accountName, status: '' } }}>{record.acCount + record.failCount}</Link>
 }, {
   title: 'AC Ratio',
   key: 'acRatio',
@@ -59,7 +59,6 @@ class RankList extends React.Component {
   fetchL = async (page) => {
     this.setState({ loading: true });
     const datax = await getUserRank(page);
-    // console.log(datax);
     const pagination = { ...this.state.pagination };
     pagination.total = datax.totalCount;
     this.setState({

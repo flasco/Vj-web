@@ -31,7 +31,6 @@ class UserConf extends React.Component {
 
   submitInfo = async (values) => {
     let data = await submitUserInfo(values,this.props.uid);
-    // console.log(data);
     if(data.success === 1) message.success('change success!');
     else message.success('change failed!');
   }

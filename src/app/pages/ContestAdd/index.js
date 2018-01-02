@@ -22,7 +22,6 @@ class ContestAdd extends React.Component {
         userId: this.props.uid
       });
     }else{
-      // console.log(values);
       data = await updateContest({
         ...values,
         userId: this.props.uid,

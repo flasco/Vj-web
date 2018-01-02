@@ -15,7 +15,6 @@ class QueSubmit extends React.Component {
     };
     this.id = props.match.params.qid;
     this.stat = props.location.state;
-    console.log(this.stat)
     this.type = this.stat.cid !== '' ? 2 : 1;
     this.cid = this.stat.cid;
     this.qid = this.stat.qid;

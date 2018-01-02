@@ -34,7 +34,6 @@ class QuesNote extends React.Component {
     if (data.success === 0) {
       message.error('fail to access!');
     }
-    console.log(data.obj)
     this.setState({ data: data.obj, isLoading: false })
   }
   render() {
