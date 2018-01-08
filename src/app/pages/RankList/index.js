@@ -8,7 +8,7 @@ const columns = [{
   title: 'Rank',
   key: 'rank',
   width: '5%',
-  dataIndex: 'rank',
+  render: (text, record, index) => <span>{index + 1}</span>
 }, {
   title: 'Author',
   key: 'accountName',

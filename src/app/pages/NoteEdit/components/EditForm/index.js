@@ -6,19 +6,7 @@ import { createNote, updateNote } from '../../../../services/note';
 import { UnControlled } from '../Editor';
 import config from '../../../../../config';
 
-const fileList = [{
-  uid: -1,
-  response: {
-    newName: 'uuu.png',
-    path: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-  }
-}, {
-  uid: -2,
-  response: {
-    newName: 'uuu.png',
-    path: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-  }
-}];
+const fileList = [];
 
 const { serverIp } = config;
 const FormItem = Form.Item;
