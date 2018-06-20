@@ -58,15 +58,16 @@ class QuesList extends React.Component {
   }
 
   render() {
+    console.log(this.state.data)
     const columns = [{
       title: (
-        <Select defaultValue="HDU" style={{ width: 60 }} size="small"
+        <Select defaultValue="HDU" style={{ width: '100%' }} size="small"
           onChange={(val) => { selectOj = val; this.searchQues() }}>
           <Option value="HDU">HDU</Option>
           <Option value="PKU">PKU</Option>
         </Select>
       ),
-      width: '7%',
+      width: '10%',
       key: 'remoteOj',
       dataIndex: 'remoteOj',
     }, {
@@ -77,13 +78,17 @@ class QuesList extends React.Component {
     }, {
       title: (<Tooltip placement="top" title="press Enter to search"><Input placeholder='Title' style={{ width: 260 }} size="small" onChange={(e) => this.setState({ titleText: e.target.value })} onPressEnter={(e) => this.searchQues()} /></Tooltip>),
       key: 'title',
-      width: '68%',
-      render: (text, record) => <span><Link to={`/main/ques/${record.remoteOj}/${record.remoteProblemId}`}>{record.title}</Link></span>,
+      width: '64%',
+      render: (text, record) => <span><Link style={{
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
+      }} to={`/main/ques/${record.remoteOj}/${record.remoteProblemId}`}>{record.title}</Link></span>,
     }, {
       title: 'remoteAddr',
       key: 'url',
-      width: '32%',
-      render: (text, record) => <Link target='_blank' to={record.url}>Click me</Link>
+      width: '34%',
+      render: (text, record) => <Link target='_blank' to={'http://www.2345.com'}>Click me</Link>
     }];
     return (
       <div>

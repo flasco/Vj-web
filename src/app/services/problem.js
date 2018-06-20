@@ -15,62 +15,62 @@ export async function fetchQuesList(remoteOj, page, remoteProblemId = '', title 
       remoteOj: 'HDU',
       remoteProblemId: '1000',
       title: 'A + B Problem',
-      url: '30.87%(220395/713855)',
+      url: 'http://acm.hdu.edu.cn/showproblem.php?pid=1000',
     }, {
       remoteOj: 'HDU',
       remoteProblemId: '1001',
       title: 'Sum Problem',
-      url: '25.36%(129232/509626)',
+      url: 'http://acm.hdu.edu.cn/showproblem.php?pid=1001',
     }, {
       remoteOj: 'HDU',
       remoteProblemId: '1002',
       title: 'A + B Problem II',
-      url: '19.36%(74637/385502)',
+      url: 'http://acm.hdu.edu.cn/showproblem.php?pid=1002',
     }, {
       remoteOj: 'HDU',
       remoteProblemId: '1003',
       title: 'Max Sum',
-      url: '23.77%(62287/262089)',
+      url: 'http://acm.hdu.edu.cn/showproblem.php?pid=1003',
     }, {
       remoteOj: 'HDU',
       remoteProblemId: '1004',
       title: 'Let the Balloon Rise',
-      url: '39.50%(51308/129882)',
+      url: 'http://acm.hdu.edu.cn/showproblem.php?pid=1000',
     }, {
       remoteOj: 'HDU',
       remoteProblemId: '1005',
       title: 'Number Sequence',
-      url: '24.88%(45648/183443)',
+      url: 'http://acm.hdu.edu.cn/showproblem.php?pid=1000',
     }, {
       remoteOj: 'HDU',
       remoteProblemId: '1006',
       title: 'A + B Problem',
-      url: '30.87%(220395/713855)',
+      url: 'http://acm.hdu.edu.cn/showproblem.php?pid=1000',
     }, {
       remoteOj: 'HDU',
       remoteProblemId: '1007',
       title: 'Sum Problem',
-      url: '25.36%(129232/509626)',
+      url: 'http://acm.hdu.edu.cn/showproblem.php?pid=1000',
     }, {
       remoteOj: 'HDU',
       remoteProblemId: '1008',
       title: 'A + B Problem II',
-      url: '19.36%(74637/385502)',
+      url: 'http://acm.hdu.edu.cn/showproblem.php?pid=1000',
     }, {
       remoteOj: 'HDU',
       remoteProblemId: '1009',
       title: 'Max Sum',
-      url: '23.77%(62287/262089)',
+      url: 'http://acm.hdu.edu.cn/showproblem.php?pid=1000',
     }, {
       remoteOj: 'HDU',
       remoteProblemId: '1010',
       title: 'Let the Balloon Rise',
-      url: '39.50%(51308/129882)',
+      url: 'http://acm.hdu.edu.cn/showproblem.php?pid=1000',
     }, {
       remoteOj: 'HDU',
       remoteProblemId: '1011',
       title: 'Number Sequence',
-      url: '24.88%(45648/183443)',
+      url: 'http://acm.hdu.edu.cn/showproblem.php?pid=1000',
     }];
 
     data = data.slice(10 * (page - 1), 10 * page);

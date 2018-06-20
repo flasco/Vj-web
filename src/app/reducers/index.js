@@ -2,6 +2,7 @@ import { combineReducers } from 'redux'
 import { MOUSE, USER_LOGIN, USER_LOGOUT, USER_BOARD, USER_UPDATE } from '../actions'
 
 import { setItem, removeItem } from '../utils/localStorage';
+import AppImg from '../assets'
 import config from '../../config';
 
 const mouseState = {
@@ -11,7 +12,7 @@ const userState = {
   isLogin: false,
   id: '',
   accountName: '',
-  icon: 'http://upload.besoo.com/file/201611/24/1915559745908.jpg',
+  icon: AppImg.initHeader,
   acCount: 0,
   failCount: 0,
   description: '',
