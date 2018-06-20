@@ -88,7 +88,7 @@ class QuesList extends React.Component {
       title: 'remoteAddr',
       key: 'url',
       width: '34%',
-      render: (text, record) => <Link target='_blank' to={'http://www.2345.com'}>Click me</Link>
+      render: (text, record) => <a target='_blank' href={record.url}>Click me</a>
     }];
     return (
       <div>
